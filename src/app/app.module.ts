@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatSnackBarModule  } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule  } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from'@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { RegisterModule } from './register/register.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,9 +19,14 @@ import { MatSelectModule } from '@angular/material/select'; // mat-select (for m
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpinterceptorInterceptor } from './interceptors/httpinterceptor.interceptor';
 import { AddinfoModule } from './addinfo/addinfo.module';
+
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PageComponent } from './components/page/page.component';
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,

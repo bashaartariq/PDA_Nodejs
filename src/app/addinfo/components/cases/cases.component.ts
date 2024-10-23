@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,Validators,FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-cases',
   templateUrl: './cases.component.html',
@@ -9,16 +9,71 @@ export class CasesComponent implements OnInit {
 
   caseForm: any = FormGroup;
 
-  practiceLocations = ['Location 1', 'Location 2', 'Location 3'];
-  categories = ['Category 1', 'Category 2', 'Category 3'];
-  purposes = ['Purpose 1', 'Purpose 2', 'Purpose 3'];
-  caseTypes = ['Type 1', 'Type 2', 'Type 3'];
-  insuranceNames = ['Insurance 1', 'Insurance 2', 'Insurance 3'];
-  cities = ['City 1', 'City 2', 'City 3'];
-  states = ['State 1', 'State 2', 'State 3'];
-  firmNames = ['Firm 1', 'Firm 2', 'Firm 3'];
+  practiceLocations = [
+    'Downtown Medical Center',
+    'Northside Family Clinic',
+    'Westview Health Services',
+    'Sunrise Community Health',
+    'Riverbend Urgent Care'
+  ];
 
-  constructor(private fb: FormBuilder) {}
+  categories = [
+    'General Medicine',
+    'Pediatrics',
+    'Dermatology',
+    'Orthopedics',
+    'Cardiology'
+  ];
+
+  purposes = [
+    'Routine Checkup',
+    'Follow-up Appointment',
+    'Emergency Care',
+    'Specialist Referral',
+    'Lab Tests'
+  ];
+
+  caseTypes = [
+    'New Patient',
+    'Follow-up Visit',
+    'Urgent Care',
+    'Telehealth Consultation',
+    'Preventive Care'
+  ];
+
+  insuranceNames = [
+    'Aetna',
+    'Blue Cross Blue Shield',
+    'Cigna',
+    'UnitedHealthcare',
+    'Humana'
+  ];
+
+  cities = [
+    'New York',
+    'Los Angeles',
+    'Chicago',
+    'Houston',
+    'Phoenix'
+  ];
+
+  states = [
+    'NY - New York',
+    'CA - California',
+    'IL - Illinois',
+    'TX - Texas',
+    'AZ - Arizona'
+  ];
+
+  firmNames = [
+    'Smith & Associates',
+    'Johnson Healthcare Group',
+    'Pinnacle Health Partners',
+    'Carewell Medical Group',
+    'Wellness Solutions Inc.'
+  ];
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();

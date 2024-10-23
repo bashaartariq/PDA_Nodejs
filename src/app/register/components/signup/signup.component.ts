@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,Validators,FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { DialogService } from 'src/app/Services/dialog.service';
@@ -11,9 +11,9 @@ import { DialogService } from 'src/app/Services/dialog.service';
 })
 export class SignupComponent implements OnInit {
 
-  signupForm:any = FormGroup;
+  signupForm: any = FormGroup;
   roles: string[] = ['patient', 'doctor'];
-  genders:string[] =['male','female','other'];
+  genders: string[] = ['male', 'female', 'other'];
 
   data: any = {
     firstName: 'Bashaar',
@@ -25,8 +25,8 @@ export class SignupComponent implements OnInit {
     role: 'patient'
   };
 
-  constructor(private fb: FormBuilder,private dialog:DialogService,
-    private authService:AuthService,private router:Router) { }
+  constructor(private fb: FormBuilder, private dialog: DialogService,
+    private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     this.initializeForm();
   }
@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
       confirmPassword: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       role: ['', [Validators.required]],
-      dob:['',[Validators.required]]
+      dob: ['', [Validators.required]]
     },
       { validators: this.passwordMatchValidator });
     this.signupForm.patchValue(this.data);
@@ -51,8 +51,8 @@ export class SignupComponent implements OnInit {
 
     return group.get('password')?.value === group.get('confirmPassword')?.value
       ? null : { mismatch: true };
-  
-    }
+
+  }
   onSubmit() {
     if (this.signupForm.valid) {
       console.log(this.signupForm.value);
@@ -62,20 +62,21 @@ export class SignupComponent implements OnInit {
         this.signupForm.patchValue({ dob: formattedDob });
       }
 
-      this.authService.signup(this.signupForm.value).subscribe(result=>{
+      this.authService.signup(this.signupForm.value).subscribe(result => {
         //console.log(result);
         alert(result.message);
-        localStorage.setItem('token',result.token);
+        localStorage.setItem('token', result.token);
+        this.authService.user = result.user;
+        console.log(this.authService);
         this.router.navigate(['patient/add']);
-      },err=>{
+      }, err => {
         //console.log(err);
         alert(err.error.message);
       });
     }
   }
 
-  onClose()
-  {
+  onClose() {
     this.dialog.closeDialog();
   }
 }

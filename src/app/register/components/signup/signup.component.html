@@ -1,22 +1,22 @@
-<div class="container mt-5">
-    <div >
-        <h2 class="text-center mb-4">Register</h2>
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-          <div class="row"> 
-            <div class="col-md-6">
-            <mat-form-field appearance="fill" class="full-width mb-3">
-                <mat-label>First Name</mat-label>
-                <mat-icon matPrefix>person</mat-icon>
-                <input matInput id="firstName" type="text" formControlName="firstName" required>
-                <mat-error *ngIf="signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid">
-                    First Name is required.
-                </mat-error>
-            </mat-form-field>
+<div class="container mt-5 mb-5">
+  <div>
+    <h2 class="text-center mb-4">Register</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill" class="full-width mb-3">
+            <mat-label>First Name</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput id="firstName" type="text" formControlName="firstName" required>
+            <mat-error *ngIf="signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid">
+              First Name is required.
+            </mat-error>
+          </mat-form-field>
 
-            <mat-form-field appearance="fill" class="full-width mb-3">
-              <mat-label>Middle Name</mat-label>
-              <mat-icon matPrefix>person</mat-icon>
-              <input matInput id="middleName" type="text" formControlName="middleName">
+          <mat-form-field appearance="fill" class="full-width mb-3">
+            <mat-label>Middle Name</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput id="middleName" type="text" formControlName="middleName">
           </mat-form-field>
 
         </div>
@@ -27,87 +27,87 @@
             <mat-icon matPrefix>person</mat-icon>
             <input matInput id="lastName" type="text" formControlName="lastName" required>
             <mat-error *ngIf="signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid">
-                Last Name is required.
+              Last Name is required.
             </mat-error>
-        </mat-form-field>
+          </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width mb-3">
-          <mat-label>Email</mat-label>
-          <mat-icon matPrefix>email</mat-icon>
-          <input matInput id="email" type="email" formControlName="email" required>
-          <mat-error *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+          <mat-form-field appearance="fill" class="full-width mb-3">
+            <mat-label>Email</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
+            <input matInput id="email" type="email" formControlName="email" required>
+            <mat-error *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
               A valid email is required.
-          </mat-error>
-      </mat-form-field>
-    </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill" class="full-width mb-3">
+            <mat-label>Password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput id="password" type="password" formControlName="password" required>
+            <mat-error *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+              Password is required (minimum 6 characters).
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width mb-3">
+            <mat-label>Gender</mat-label>
+            <mat-icon matPrefix>wc</mat-icon>
+            <mat-select id="gender" formControlName="gender">
+              <mat-option value="">Select Gender</mat-option>
+              <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="signupForm.get('gender')?.touched && signupForm.get('gender')?.invalid">
+              Please select a Gender.
+            </mat-error>
+          </mat-form-field>
+
+
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill" class="full-width mb-3">
+            <mat-label>Confirm Password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput id="confirmPassword" type="password" formControlName="confirmPassword" required>
+            <mat-error *ngIf="signupForm.errors?.mismatch">
+              Passwords do not match.
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="fill" class="full-width mb-3">
+            <mat-label>Role</mat-label>
+            <mat-icon matPrefix>assignment_ind</mat-icon>
+            <mat-select id="role" formControlName="role">
+              <mat-option value="">Select Role</mat-option>
+              <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="signupForm.get('role')?.touched && signupForm.get('role')?.invalid">
+              Please select a role.
+            </mat-error>
+          </mat-form-field>
+
+
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput type="date" formControlName="dob">
+            <mat-error *ngIf="signupForm?.hasError('required') && signupForm?.touched">
+              Date of Birth is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+      </div>
+      <div class="text-center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">
+          Register
+        </button>
+      </div>
+    </form>
   </div>
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field appearance="fill" class="full-width mb-3">
-                    <mat-label>Password</mat-label>
-                    <mat-icon matPrefix>lock</mat-icon>
-                    <input matInput id="password" type="password" formControlName="password" required>
-                    <mat-error *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
-                        Password is required (minimum 6 characters).
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width mb-3">
-                  <mat-label>Gender</mat-label>
-                  <mat-icon matPrefix>wc</mat-icon>
-                  <mat-select id="gender" formControlName="gender">
-                      <mat-option value="">Select Gender</mat-option>
-                      <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="signupForm.get('gender')?.touched && signupForm.get('gender')?.invalid">
-                      Please select a Gender.
-                  </mat-error>
-              </mat-form-field>
-
-
-            </div>
-            <div class="col-md-6">
-              <mat-form-field appearance="fill" class="full-width mb-3">
-                <mat-label>Confirm Password</mat-label>
-                <mat-icon matPrefix>lock</mat-icon>
-                <input matInput id="confirmPassword" type="password" formControlName="confirmPassword" required>
-                <mat-error *ngIf="signupForm.errors?.mismatch">
-                    Passwords do not match.
-                </mat-error>
-            </mat-form-field>
-
-
-                <mat-form-field appearance="fill" class="full-width mb-3">
-                    <mat-label>Role</mat-label>
-                    <mat-icon matPrefix>assignment_ind</mat-icon>
-                    <mat-select id="role" formControlName="role">
-                        <mat-option value="">Select Role</mat-option>
-                        <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="signupForm.get('role')?.touched && signupForm.get('role')?.invalid">
-                        Please select a role.
-                    </mat-error>
-                </mat-form-field>
-
-
-              </div>
-
-              <div>
-                <mat-form-field appearance="fill">
-                  <mat-label>Choose a date</mat-label>
-                  <input matInput type="date" formControlName="dob">
-                  <mat-error *ngIf="signupForm?.hasError('required') && signupForm?.touched">
-                    Date of Birth is required
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-
-            </div>
-            <div class="text-center">
-                <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">
-                    Register
-                </button>
-            </div>
-        </form>
-    </div>
 </div>

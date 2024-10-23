@@ -18,14 +18,16 @@
                 <mat-form-field appearance="outline" class="half-width">
                     <mat-label>Home Phone</mat-label>
                     <input matInput formControlName="homePhone" required>
-                    <mat-error *ngIf="patientForm.get('homePhone').hasError('required')">Home Phone is required</mat-error>
+                    <mat-error *ngIf="patientForm.get('homePhone').hasError('required')">Home Phone is
+                        required</mat-error>
                 </mat-form-field>
 
                 <!-- Cell Phone -->
                 <mat-form-field appearance="outline" class="half-width">
                     <mat-label>Cell Phone</mat-label>
                     <input matInput formControlName="cellPhone" required>
-                    <mat-error *ngIf="patientForm.get('cellPhone').hasError('required')">Cell Phone is required</mat-error>
+                    <mat-error *ngIf="patientForm.get('cellPhone').hasError('required')">Cell Phone is
+                        required</mat-error>
                 </mat-form-field>
             </div>
 

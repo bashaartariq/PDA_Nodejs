@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { RegisterRoutingModule } from './register-routing.module';
-import { SignupComponent } from './components/signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,21 +9,26 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker'; // mat-datepicker
 import { MatFormFieldModule } from '@angular/material/form-field'; // mat-form-field
 import { MatSelectModule } from '@angular/material/select';
+import { SigninRoutingModule } from './signin-routing.module';
+import { SigninComponent } from './signin/signin.component';
+
 @NgModule({
   declarations: [
-    SignupComponent,
+    SigninComponent
   ],
   imports: [
     CommonModule,
-    RegisterRoutingModule,
+    SigninRoutingModule,
     ReactiveFormsModule,
-    MatInputModule, MatButtonModule,
+    MatInputModule,
+    MatButtonModule,
     MatIconModule,
     NativeDateModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule,
   ]
 })
-export class RegisterModule { }
+export class SigninModule { }

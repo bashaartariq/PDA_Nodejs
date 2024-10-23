@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormGroup,Validators,FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 @Component({
   selector: 'app-patientinfo',
@@ -7,38 +7,40 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./patientinfo.component.css']
 })
 export class PatientinfoComponent implements OnInit {
+  @Output() formSubmitted = new EventEmitter<any>();
+
   patientForm: any = FormGroup;
 
   states: any = [
     {
-        "id": 1,
-        "name": "California",
-        "deleted_at": null
+      "id": 1,
+      "name": "California",
+      "deleted_at": null
     },
     {
-        "id": 2,
-        "name": "Texas",
-        "deleted_at": null
+      "id": 2,
+      "name": "Texas",
+      "deleted_at": null
     },
     {
-        "id": 3,
-        "name": "New York",
-        "deleted_at": null
+      "id": 3,
+      "name": "New York",
+      "deleted_at": null
     },
     {
-        "id": 4,
-        "name": "Florida",
-        "deleted_at": null
+      "id": 4,
+      "name": "Florida",
+      "deleted_at": null
     },
     {
-        "id": 5,
-        "name": "Illinois",
-        "deleted_at": null
+      "id": 5,
+      "name": "Illinois",
+      "deleted_at": null
     }
-];
+  ];
   cities: string[] = [];
 
-  constructor(private fb: FormBuilder,private service:AuthService) {}
+  constructor(private fb: FormBuilder, private service: AuthService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -46,7 +48,7 @@ export class PatientinfoComponent implements OnInit {
   }
 
 
-  initializeForm():void{
+  initializeForm(): void {
     this.patientForm = this.fb.group({
       ssn: ['', [Validators.required, Validators.pattern(/^\d{3}-\d{2}-\d{4}$/)]],
       homePhone: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
@@ -68,14 +70,22 @@ export class PatientinfoComponent implements OnInit {
     }
     this.patientForm.get('city').setValue(''); // Reset city selection on state change
   }
-
   onSubmit() {
     if (this.patientForm.valid) {
       console.log('Form Submitted!', this.patientForm.value);
     }
-    this.service.addInfo(this.patientForm.value).subscribe(response=>{
+    console.log(this.service.decodeToken());
+    const formData = {
+      ...this.patientForm.value,
+      user_id: this.service.decodeToken()?.userId
+    };
+    //console.log(formData);
+    this.service.addInfo(formData).subscribe(response => {
+      alert(response.message);
       console.log(response);
-    },err=>{
+      this.formSubmitted.emit(response);
+    }, err => {
+      alert(err.error.message);
       console.log(err);
     });
   }
