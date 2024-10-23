@@ -1,0 +1,25 @@
+<mat-horizontal-stepper linear #stepper class="container" style="margin-left: auto;margin-right: auto;">
+    <mat-step label="Patient Information">
+      <app-patientinfo></app-patientinfo>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+  
+    <mat-step label="Case">
+      <app-cases></app-cases>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+  
+    <mat-step label="Appointment">
+      <app-appointment></app-appointment>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="onSubmit()">Finish</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  

@@ -1,0 +1,102 @@
+/* Global styles for the form */
+.case-form {
+    max-width: 1000px; /* Same width as Patient Information */
+    margin: 2rem auto; /* Center the form */
+    padding: 2rem; /* Padding for the form */
+    background-color: #f9f9f9; /* Light background for consistency */
+    border-radius: 8px; /* Rounded corners for a cohesive look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+/* Case form card */
+.case-card {
+    max-width: 1000px; /* Limit width */
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+mat-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 1rem; /* Spacing between fields */
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+mat-card {
+    border-radius: 12px; /* Same rounded corners as the Patient Information card */
+}
+
+mat-card-title {
+    font-size: 1.5rem; /* Consistent title size */
+    margin-bottom: 1rem; /* Space below the title */
+    font-weight: bold; /* Bold title */
+    text-align: center; /* Center the title */
+    color: #333; /* Darker color for readability */
+}
+
+.case-row {
+    display: flex; /* Enable flexbox for the cases form */
+    justify-content: space-between; /* Spacing between fields */
+    margin-bottom: 1rem; /* Space between rows */
+}
+
+.half-width {
+    flex: 1; /* Ensure equal space for half-width fields */
+    margin-right: 1rem; /* Right margin between fields */
+}
+
+.case-row mat-form-field:last-child {
+    margin-right: 0; /* No margin for the last field in the row */
+}
+
+mat-form-field {
+    width: 100%; /* Full width to match the other forms */
+}
+
+button.mat-raised-button {
+    width: 100%; /* Full width button */
+    padding: 0.75rem; /* Padding for comfort */
+    font-size: 1rem; /* Readable font size */
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth hover transitions */
+}
+
+button.mat-raised-button:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+}
+
+mat-error {
+    font-size: 0.9rem; /* Smaller error text */
+    color: #f44336; /* Red for errors */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .case-row {
+        flex-direction: column; /* Stack fields vertically on small screens */
+    }
+
+    .half-width {
+        margin-right: 0; /* No right margin */
+        margin-bottom: 1rem; /* Add space between stacked fields */
+    }
+}

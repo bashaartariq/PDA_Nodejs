@@ -1,0 +1,78 @@
+<form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="patient-form">
+    <mat-card>
+        <mat-card-title>Patient Information</mat-card-title>
+        <mat-card-content>
+
+            <div class="form-row">
+                <!-- SSN -->
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>SSN</mat-label>
+                    <input matInput formControlName="ssn" placeholder="123-45-6789" required>
+                    <mat-error *ngIf="patientForm.get('ssn').hasError('required')">SSN is required</mat-error>
+                    <mat-error *ngIf="patientForm.get('ssn').hasError('pattern')">Invalid SSN format</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <!-- Home Phone -->
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Home Phone</mat-label>
+                    <input matInput formControlName="homePhone" required>
+                    <mat-error *ngIf="patientForm.get('homePhone').hasError('required')">Home Phone is required</mat-error>
+                </mat-form-field>
+
+                <!-- Cell Phone -->
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Cell Phone</mat-label>
+                    <input matInput formControlName="cellPhone" required>
+                    <mat-error *ngIf="patientForm.get('cellPhone').hasError('required')">Cell Phone is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+
+                <!-- Address -->
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address" required>
+                    <mat-error *ngIf="patientForm.get('address').hasError('required')">Address is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <!-- State -->
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>State</mat-label>
+                    <mat-select formControlName="state" (selectionChange)="onStateChange($event.value)" required>
+                        <mat-option *ngFor="let state of states" [value]="state.name">{{ state.name }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="patientForm.get('state').hasError('required')">State is required</mat-error>
+                </mat-form-field>
+
+                <!-- City -->
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>City</mat-label>
+                    <mat-select formControlName="city" required>
+                        <mat-option *ngFor="let city of cities" [value]="city">{{ city }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="patientForm.get('city').hasError('required')">City is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <!-- ZIP -->
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>ZIP Code</mat-label>
+                    <input matInput formControlName="zip" type="number" required>
+                    <mat-error *ngIf="patientForm.get('zip').hasError('required')">ZIP Code is required</mat-error>
+                    <mat-error *ngIf="patientForm.get('zip').hasError('pattern')">ZIP Code must be 5 digits</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+
+        <!-- Submit Button -->
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!patientForm.valid">Submit</button>
+        </mat-card-actions>
+    </mat-card>
+</form>

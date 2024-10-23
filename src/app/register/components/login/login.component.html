@@ -1,0 +1,42 @@
+<div class="background">
+  <div class="container mt-5">
+    <div class="login-wrapper">
+      <div class="icon-wrapper">
+        <mat-icon>lock</mat-icon>
+      </div>
+      <h2 class="text-center mb-4">Login to Your Account</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group mb-4">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-icon matPrefix>email</mat-icon>
+            <mat-label>Email</mat-label>
+            <input matInput id="email" type="text" formControlName="email" placeholder="Enter your email">
+            <mat-error *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+              Please enter a valid email.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group mb-4">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-icon matPrefix>lock</mat-icon>
+            <mat-label>Password</mat-label>
+            <input matInput id="password" type="password" formControlName="password" placeholder="Enter your password">
+            <mat-error *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+              Password is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="actions" style="text-align: center;">
+          <span style="white-space: pre;">Not a member
+          </span>
+          <a [routerLink]="['/home/signup']"> Sign up</a>
+        </div>
+        <div class="text-center">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" class="submit-btn">
+            <mat-icon id="mat-iconlogin">login</mat-icon> Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

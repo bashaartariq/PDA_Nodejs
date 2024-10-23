@@ -1,0 +1,81 @@
+.navbar {
+ background-color: #e7e7e7 !important;
+ padding: 15px 20px;
+}
+
+.navbar-brand {
+ font-size: 1.8rem;
+ font-weight: 600;
+ letter-spacing: 2px;
+ color: black;
+}
+
+.navbar-brand:hover {
+ transform: scale(1.1);
+}
+
+.navbar-nav .nav-item {
+ margin-left: 20px;
+}
+
+.nav-link {
+ font-size: 1.1rem;
+ text-transform: uppercase;
+ color: #000000 !important;
+ transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+ color: #000000 !important;
+ transform: scale(1.1);
+}
+
+.navbar-toggler {
+ border-color: #000000;
+ background-color: #000000;
+}
+
+.navbar-toggler-icon {
+ background-color: #000000;
+}
+
+.btn-outline-light {
+ color: #000000;
+ border-color: #000000;
+ transition: background-color 0.3s ease;
+}
+
+.btn-outline-light:hover {
+ background-color: #ffffff;
+ color: #343a40;
+ border-color: #343a40;
+}
+
+@keyframes slideIn {
+0% {
+    transform: translateX(-100%);
+}
+100% {
+    transform: translateX(0);
+}
+}
+.nav-link-hover {
+ position: relative;
+}
+#hms{
+    font-size: large;
+}
+.nav-link-hover::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #000000;
+    transition: width 0.4s ease;
+    bottom: -5px;
+    left: 0;
+}
+
+.nav-link-hover:hover::after {
+    width: 100%;
+}

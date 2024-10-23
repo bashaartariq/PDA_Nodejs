@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+.custom-dialog .mat-dialog-container {
+    z-index: 1;
+    max-height: 80vh;
+    overflow: auto;
+    padding: 20px;
+    margin-top: 20px;
+}
+.custom-dialog .mat-dialog-content {
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
