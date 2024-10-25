@@ -1,0 +1,88 @@
+<div class="container-fluid">
+    <!-- Hamburger Menu -->
+    <button class="btn btn-primary" id="sidebarToggle" (click)="toggleSidebar()" style="margin: 1rem;">☰</button>
+
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="sidebar" [ngClass]="{'active': isActive}">
+            <div class="sidebar-sticky">
+                <h5 class="sidebar-heading">Patient Dashboard</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" routerLink="/dashboard">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/patient-info">
+                            Patient Info
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/cases">
+                            Cases
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/insurance">
+                            Insurance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/appointments">
+                            Appointments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/reports">
+                            Reports
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h1 class="text-center">Patient Dashboard</h1>
+            <div class="row">
+                <!-- Profile Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">Profile</div>
+                        <div class="card-body">
+                            <h5 class="card-title">John Doe</h5>
+                            <p class="card-text">Gender: Male</p>
+                            <p class="card-text">Email: johndoe.com</p>
+                            <a href="#" class="btn btn-secondary" id="btn1">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointment Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">Appointments</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">Doctor: Smith, Date: Oct 30, Time: 10:00 AM</li>
+                            </ul>
+                            <a href="#" class="btn btn-secondary" id="btn2">Schedule Appointment</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical History Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">Cases</div>
+                        <div class="card-body">
+                            <p class="card-text">Last Visit: Sep 20, 2024</p>
+                            <a href="#" class="btn btn-secondary" id="btn3">View Your Cases</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

@@ -13,7 +13,7 @@ const routes: Routes = [
     data: { roles: ['admin', 'patient', 'guest'] },
   },
   { path: 'home/signin', loadChildren: () => import('./signin/signin.module').then(m => m.SigninModule) },
-
+  { path: 'app', loadChildren: () => import('./patient/patient.module').then(m => m.PatientModule) }
 ];
 
 @NgModule({

@@ -1,0 +1,147 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    margin: 0; /* Ensure no default margin */
+    padding: 0; /* Ensure no default padding */
+}
+
+h1 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #000000;
+    font-size: 30px;
+}
+
+/* Card Styles */
+.card {
+    box-shadow: 10px 8px 10px rgba(0, 0, 0, 0.288);
+    border-radius: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: rgb(248, 245, 245);
+    height: auto; /* Set height to auto for responsiveness */
+    margin: 1rem; /* Margin for spacing */
+}
+
+/* Uncomment this section for hover effect */
+/*
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+*/
+
+.card-header {
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+/* Button Styles */
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 0.5rem 1rem; /* Added padding for better touch target */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+#btn1 {
+    margin-top: 2rem;
+}
+
+#btn2 {
+    margin-top: 4.47rem;
+}
+
+#btn3 {
+    margin-top: 6rem;
+}
+
+/* Card Borders */
+.card.border-primary { border-left: 5px solid #007bff; }
+.card.border-success { border-left: 5px solid #28a745; }
+.card.border-info { border-left: 5px solid #17a2b8; }
+.card.border-warning { border-left: 5px solid #ffc107; }
+.card.border-danger { border-left: 5px solid #dc3545; }
+.card.border-dark { border-left: 5px solid #343a40; }
+.card.border-secondary { border-left: 5px solid #6c757d; }
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%; /* Full height */
+    padding: 48px 0 0; /* Space for fixed navbar */
+    background-color: #f8f9fa; /* Light background */
+}
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hide sidebar off-screen */
+    height: 100%; /* Full height */
+    background-color: #f8f9fa;
+    transition: left 0.3s; /* Transition for sliding */
+    z-index: 1000; /* Ensure it is on top */
+    width: 250px; /* Width of the sidebar */
+}
+
+/* Show sidebar when active */
+.sidebar.active {
+    left: 0; /* Slide sidebar into view */
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff; /* Active link color */
+}
+
+.sidebar .nav-link:hover {
+    color: #0056b3; /* Link color on hover */
+}
+
+.sidebar-heading {
+    font-size: 1.25rem; /* Font size for the heading */
+    padding: 0.5rem 1rem; /* Padding for the heading */
+    color: #333;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px; /* Smaller font size for headings on smaller screens */
+    }
+
+    .card {
+        margin: 1rem; /* Adjust margin for smaller screens */
+    }
+
+    .btn-secondary {
+        width: 100%; /* Full-width buttons on smaller screens */
+        padding: 0.75rem; /* Increase padding for better usability */
+    }
+
+    #btn1, #btn2, #btn3 {
+        margin-top: 1rem; /* Reduce margin for buttons on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px; /* Further reduce heading size */
+    }
+
+    .card {
+        margin: 0.5rem; /* Further adjust margin for very small screens */
+    }
+}

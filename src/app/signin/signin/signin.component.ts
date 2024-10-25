@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class SigninComponent implements OnInit {
   loginForm: any = FormGroup;
-  constructor(private fb: FormBuilder, private auth: AuthService) { }
+  constructor(private fb: FormBuilder, private auth: AuthService,private route:Router) { }
   ngOnInit(): void {
     this.initializeForm();
   }
@@ -21,7 +22,6 @@ export class SigninComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.loginForm.value);
-
     this.auth.signin(this.loginForm.value).subscribe((response) => {
       const token = response.token;
       const user = response.user;
@@ -29,7 +29,7 @@ export class SigninComponent implements OnInit {
       localStorage.setItem('token', token);
       console.log(this.auth.user);
       alert(response.message);
-    }, (err) => { })
-
+      this.route.navigate(['app/patient/list']);
+    }, (err) => { });
   }
 }
