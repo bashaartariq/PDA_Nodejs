@@ -8,45 +8,20 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class PatientinfoComponent implements OnInit {
   @Output() formSubmitted = new EventEmitter<any>();
-
   patientForm: any = FormGroup;
-
-  states: any = [
-    {
-      "id": 1,
-      "name": "California",
-      "deleted_at": null
-    },
-    {
-      "id": 2,
-      "name": "Texas",
-      "deleted_at": null
-    },
-    {
-      "id": 3,
-      "name": "New York",
-      "deleted_at": null
-    },
-    {
-      "id": 4,
-      "name": "Florida",
-      "deleted_at": null
-    },
-    {
-      "id": 5,
-      "name": "Illinois",
-      "deleted_at": null
-    }
-  ];
+  states: any;
   cities: string[] = [];
-
   constructor(private fb: FormBuilder, private service: AuthService) { }
-
   ngOnInit(): void {
     this.initializeForm();
-
+    this.initailizeStates();
   }
-
+  initailizeStates(): void {
+    this.service.getStates().subscribe((result) => {
+      console.log(result);
+      this.states = result;
+    }, (err) => { });
+  }
 
   initializeForm(): void {
     this.patientForm = this.fb.group({
@@ -59,16 +34,16 @@ export class PatientinfoComponent implements OnInit {
       zip: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]]
     });
   }
-
   onStateChange(state: string) {
     console.log(state);
-    //now on the bases of the state.id i will call the the get cities api and set them
-    if (state === 'California') {
-      this.cities = ['Los Angeles', 'San Francisco'];
-    } else if (state === 'Texas') {
-      this.cities = ['Houston', 'Dallas'];
-    }
-    this.patientForm.get('city').setValue(''); // Reset city selection on state change
+    this.service.getCity(state).subscribe((result) => {
+      const data = result;
+      console.log(data);
+      this.cities = data.map((e: any) => {
+        return e.name;
+      });
+    }, (err) => { })
+    this.patientForm.get('city').setValue('');
   }
   onSubmit() {
     if (this.patientForm.valid) {

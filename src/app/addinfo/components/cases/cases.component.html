@@ -1,164 +1,166 @@
 <mat-card class="case-card">
-<mat-card-title>Case Information</mat-card-title>
-<form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
-    <h2 class="form-section-title">Case Information</h2>
+    <mat-card-title>Case Information</mat-card-title>
+    <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
+        <h2 class="form-section-title">Case Information</h2>
 
-    <div class="form-grid">
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Practice Location</mat-label>
-        <mat-select formControlName="practiceLocation" required>
-        <mat-option *ngFor="let location of practiceLocations" [value]="location">
-            {{ location }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('practiceLocation')?.hasError('required')">
-        Practice Location is required
-        </mat-error>
-    </mat-form-field>
+        <div class="form-grid">
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Practice Location</mat-label>
+                <mat-select formControlName="practiceLocation" required>
+                    <mat-option *ngFor="let location of practiceLocations" [value]="location">
+                        {{ location }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('practiceLocation')?.hasError('required')">
+                    Practice Location is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category" required>
-        <mat-option *ngFor="let category of categories" [value]="category">
-            {{ category }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('category')?.hasError('required')">
-        Category is required
-        </mat-error>
-    </mat-form-field>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category" required>
+                    <mat-option *ngFor="let category of categories" [value]="category">
+                        {{ category }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('category')?.hasError('required')">
+                    Category is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Purpose of Visit</mat-label>
-        <mat-select formControlName="purposeOfVisit" required>
-        <mat-option *ngFor="let purpose of purposes" [value]="purpose">
-            {{ purpose }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('purposeOfVisit')?.hasError('required')">
-        Purpose of Visit is required
-        </mat-error>
-    </mat-form-field>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Purpose of Visit</mat-label>
+                <mat-select formControlName="purposeOfVisit" required>
+                    <mat-option *ngFor="let purpose of purposes" [value]="purpose">
+                        {{ purpose }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('purposeOfVisit')?.hasError('required')">
+                    Purpose of Visit is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Case Type</mat-label>
-        <mat-select formControlName="caseType" required>
-        <mat-option *ngFor="let caseType of caseTypes" [value]="caseType">
-            {{ caseType }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('caseType')?.hasError('required')">
-        Case Type is required
-        </mat-error>
-    </mat-form-field>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Case Type</mat-label>
+                <mat-select formControlName="caseType" required>
+                    <mat-option *ngFor="let caseType of caseTypes" [value]="caseType">
+                        {{ caseType }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('caseType')?.hasError('required')">
+                    Case Type is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Date of Accident (DOA)</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="doa" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    </div>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Date of Accident (DOA)</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="doa" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
 
-    <h2 class="form-section-title">Insurance Information</h2>
-    <div class="form-grid">
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Insurance Name</mat-label>
-        <mat-select formControlName="insuranceName" required>
-        <mat-option *ngFor="let insurance of insuranceNames" [value]="insurance">
-            {{ insurance }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('insuranceName')?.hasError('required')">
-        Insurance Name is required
-        </mat-error>
-    </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>City</mat-label>
-        <mat-select formControlName="city" required>
-        <mat-option *ngFor="let city of cities" [value]="city">
-            {{ city }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('city')?.hasError('required')">
-        City is required
-        </mat-error>
-    </mat-form-field>
+        <h2 class="form-section-title">Firm Information</h2>
+        <div class="form-grid">
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Firm Name</mat-label>
+                <mat-select formControlName="firmName" required (selectionChange)="onChangeFirm($event.value)">
+                    <mat-option *ngFor="let firm of firmNames" [value]="firm">
+                        {{ firm }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('firmName')?.hasError('required')">
+                    Firm Name is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>State</mat-label>
-        <mat-select formControlName="state" required>
-        <mat-option *ngFor="let state of states" [value]="state">
-            {{ state }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('state')?.hasError('required')">
-        State is required
-        </mat-error>
-    </mat-form-field>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Firm City</mat-label>
+                <mat-select formControlName="firmCity" required>
+                    <mat-option *ngFor="let city of cities" [value]="city">
+                        {{ city }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('firmCity')?.hasError('required')">
+                    Firm City is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Zip Code</mat-label>
-        <input matInput formControlName="zipCode" placeholder="Enter Zip Code">
-        <mat-error *ngIf="caseForm.get('zipCode')?.hasError('required')">
-        Zip Code is required
-        </mat-error>
-        <mat-error *ngIf="caseForm.get('zipCode')?.hasError('pattern')">
-        Enter a valid 5-digit Zip Code
-        </mat-error>
-    </mat-form-field>
-    </div>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Firm State</mat-label>
+                <mat-select formControlName="firmState" required>
+                    <mat-option *ngFor="let state of states" [value]="state">
+                        {{ state }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('firmState')?.hasError('required')">
+                    Firm State is required
+                </mat-error>
+            </mat-form-field>
 
-    <h2 class="form-section-title">Firm Information</h2>
-    <div class="form-grid">
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Firm Name</mat-label>
-        <mat-select formControlName="firmName" required>
-        <mat-option *ngFor="let firm of firmNames" [value]="firm">
-            {{ firm }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('firmName')?.hasError('required')">
-        Firm Name is required
-        </mat-error>
-    </mat-form-field>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Firm Zip Code</mat-label>
+                <input matInput formControlName="firmZipCode" placeholder="Enter Firm Zip Code">
+                <mat-error *ngIf="caseForm.get('firmZipCode')?.hasError('required')">
+                    Firm Zip Code is required
+                </mat-error>
+                <mat-error *ngIf="caseForm.get('firmZipCode')?.hasError('pattern')">
+                    Enter a valid 5-digit Zip Code
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Firm City</mat-label>
-        <mat-select formControlName="firmCity" required>
-        <mat-option *ngFor="let city of cities" [value]="city">
-            {{ city }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('firmCity')?.hasError('required')">
-        Firm City is required
-        </mat-error>
-    </mat-form-field>
+        <h2 class="form-section-title">Insurance Information</h2>
+        <div class="form-grid">
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Insurance Name</mat-label>
+                <mat-select formControlName="insuranceName" required>
+                    <mat-option *ngFor="let insurance of insuranceNames" [value]="insurance">
+                        {{ insurance }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('insuranceName')?.hasError('required')">
+                    Insurance Name is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Firm State</mat-label>
-        <mat-select formControlName="firmState" required>
-        <mat-option *ngFor="let state of states" [value]="state">
-            {{ state }}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="caseForm.get('firmState')?.hasError('required')">
-        Firm State is required
-        </mat-error>
-    </mat-form-field>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>City</mat-label>
+                <mat-select formControlName="city" required>
+                    <mat-option *ngFor="let city of cities" [value]="city">
+                        {{ city }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('city')?.hasError('required')">
+                    City is required
+                </mat-error>
+            </mat-form-field>
 
-    <mat-form-field class="half-width" appearance="outline">
-        <mat-label>Firm Zip Code</mat-label>
-        <input matInput formControlName="firmZipCode" placeholder="Enter Firm Zip Code">
-        <mat-error *ngIf="caseForm.get('firmZipCode')?.hasError('required')">
-        Firm Zip Code is required
-        </mat-error>
-        <mat-error *ngIf="caseForm.get('firmZipCode')?.hasError('pattern')">
-        Enter a valid 5-digit Zip Code
-        </mat-error>
-    </mat-form-field>
-    </div>  
-    <button mat-raised-button color="primary" [disabled]="!caseForm.invalid">Submit</button>
-</form>
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state" required>
+                    <mat-option *ngFor="let state of states" [value]="state">
+                        {{ state }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="caseForm.get('state')?.hasError('required')">
+                    State is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Zip Code</mat-label>
+                <input matInput formControlName="zipCode" placeholder="Enter Zip Code">
+                <mat-error *ngIf="caseForm.get('zipCode')?.hasError('required')">
+                    Zip Code is required
+                </mat-error>
+                <mat-error *ngIf="caseForm.get('zipCode')?.hasError('pattern')">
+                    Enter a valid 5-digit Zip Code
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" [disabled]="caseForm.invalid">Submit</button>
+    </form>
 </mat-card>
