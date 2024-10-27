@@ -2,6 +2,7 @@ const { user } = require("../Model");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { Op, Sequelize } = require("sequelize");
 
 const validateUser = [
   body("firstName").notEmpty().withMessage("First name is required"),
@@ -40,7 +41,17 @@ const signin = async (req, res) => {
       return res.status(401).send({ error: "Invalid credentials" });
     }
     const token = jwt.sign(
-      { userId: foundUser.id, email: foundUser.email, role: foundUser.role },
+      {
+        userId: foundUser.id,
+        email: foundUser.email,
+        role: foundUser.role,
+        Name:
+          foundUser.firstName +
+          " " +
+          foundUser.middleName +
+          " " +
+          foundUser.lastName,
+      },
       "your-secret-key",
       { expiresIn: "2h" }
     );
@@ -84,10 +95,27 @@ const signup = async (req, res) => {
   console.log(dob);
   try {
     const existingUser = await user.findOne({ where: { email } });
+    const dobDate = new Date(dob).toISOString().split("T")[0];
+
+    console.log(dobDate);
     const PatientUnique = await user.findOne({
-      where: { firstName, middleName, lastName, role: "patient", dob },
+      where: {
+        firstName,
+        middleName,
+        lastName,
+        role: "patient",
+        dob: {
+          [Op.eq]: Sequelize.fn("DATE", dobDate),
+        },
+      },
     });
-    if (existingUser || PatientUnique) {
+    console.log("This is the Unique Patient", PatientUnique);
+    if (PatientUnique) {
+      return res.status(400).json({
+        message: "patient cannot have same Name and Date of Birth",
+      });
+    }
+    if (existingUser) {
       return res.status(400).json({
         message: "Email is already taken",
       });

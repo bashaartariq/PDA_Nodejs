@@ -1,7 +1,12 @@
 const axios = require("axios");
-const getFirm = async (req, res) => {
+const addDoctor = async (req, res) => {
+  const formData = req.body;
+  console.log(formData);
   try {
-    const response = await axios.get("http://localhost:8000/api/getFirm");
+    const response = await axios.post(
+      "http://localhost:8000/api/createDoctor",
+      formData
+    );
     console.log("Data Retrived : ", response.data);
     return res.status(200).send(response.data);
   } catch (error) {
@@ -13,13 +18,13 @@ const getFirm = async (req, res) => {
   }
 };
 
-const getInsurance = async (req, res) => {
-  console.log("Working");
-
-  const firm = req.params.firm;
-  console.log(firm);
+const getDoctorForPracticeLocationAndSpeciality = async (req, res) => {
+  const practiceLocationId = req.params.practiceLocationId;
+  const specialityId = req.params.specialityId;
   try {
-    const response = await axios.get(`http://localhost:8000/api/getInsurance`);
+    const response = await axios.get(
+      `http://localhost:8000/api/getDoctor/${practiceLocationId}/${specialityId}`
+    );
     console.log("Data Retrived : ", response.data);
     return res.status(200).send(response.data);
   } catch (error) {
@@ -31,4 +36,4 @@ const getInsurance = async (req, res) => {
   }
 };
 
-module.exports = { getFirm, getInsurance };
+module.exports = { addDoctor, getDoctorForPracticeLocationAndSpeciality };
