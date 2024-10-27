@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class SigninComponent implements OnInit {
   loginForm: any = FormGroup;
-  constructor(private fb: FormBuilder, private auth: AuthService,private route:Router) { }
+  constructor(private fb: FormBuilder, private auth: AuthService, private route: Router) { }
   ngOnInit(): void {
     this.initializeForm();
   }

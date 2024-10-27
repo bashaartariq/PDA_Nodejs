@@ -65,9 +65,9 @@
         <div class="form-grid">
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Firm Name</mat-label>
-                <mat-select formControlName="firmName" required (selectionChange)="onChangeFirm($event.value)">
-                    <mat-option *ngFor="let firm of firmNames" [value]="firm">
-                        {{ firm }}
+                <mat-select formControlName="firmName" required>
+                    <mat-option *ngFor="let firm of firmData" [value]="firm.name">
+                        {{ firm.name }}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="caseForm.get('firmName')?.hasError('required')">
@@ -78,8 +78,8 @@
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Firm City</mat-label>
                 <mat-select formControlName="firmCity" required>
-                    <mat-option *ngFor="let city of cities" [value]="city">
-                        {{ city }}
+                    <mat-option [value]="caseForm.get('firmCity')?.value">
+                        {{ caseForm.get('firmCity')?.value }}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="caseForm.get('firmCity')?.hasError('required')">
@@ -90,8 +90,8 @@
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Firm State</mat-label>
                 <mat-select formControlName="firmState" required>
-                    <mat-option *ngFor="let state of states" [value]="state">
-                        {{ state }}
+                    <mat-option [value]="caseForm.get('firmState')?.value">
+                        {{ caseForm.get('firmState')?.value}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="caseForm.get('firmState')?.hasError('required')">
@@ -101,7 +101,8 @@
 
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Firm Zip Code</mat-label>
-                <input matInput formControlName="firmZipCode" placeholder="Enter Firm Zip Code">
+                <input matInput formControlName="firmZipCode" placeholder="Enter Firm Zip Code"
+                    [value]="caseForm.get('firmZipCode')?.value">
                 <mat-error *ngIf="caseForm.get('firmZipCode')?.hasError('required')">
                     Firm Zip Code is required
                 </mat-error>
@@ -116,8 +117,8 @@
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Insurance Name</mat-label>
                 <mat-select formControlName="insuranceName" required>
-                    <mat-option *ngFor="let insurance of insuranceNames" [value]="insurance">
-                        {{ insurance }}
+                    <mat-option *ngFor="let insurance of insuranceData" [value]="insurance.name">
+                        {{ insurance.name }}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="caseForm.get('insuranceName')?.hasError('required')">
@@ -128,8 +129,8 @@
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>City</mat-label>
                 <mat-select formControlName="city" required>
-                    <mat-option *ngFor="let city of cities" [value]="city">
-                        {{ city }}
+                    <mat-option [value]="caseForm.get('city')?.value">
+                        {{ caseForm.get('city')?.value }}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="caseForm.get('city')?.hasError('required')">
@@ -140,8 +141,8 @@
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>State</mat-label>
                 <mat-select formControlName="state" required>
-                    <mat-option *ngFor="let state of states" [value]="state">
-                        {{ state }}
+                    <mat-option [value]="caseForm.get('state')?.value">
+                        {{ caseForm.get('state')?.value }}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="caseForm.get('state')?.hasError('required')">
@@ -151,7 +152,8 @@
 
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Zip Code</mat-label>
-                <input matInput formControlName="zipCode" placeholder="Enter Zip Code">
+                <input matInput formControlName="zipCode" placeholder="Enter Zip Code"
+                    [value]="caseForm.get('zipCode')?.value">
                 <mat-error *ngIf="caseForm.get('zipCode')?.hasError('required')">
                     Zip Code is required
                 </mat-error>

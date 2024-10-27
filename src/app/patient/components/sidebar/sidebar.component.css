@@ -1,0 +1,46 @@
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%; 
+    padding: 48px 0 0; /* Space for fixed navbar */
+    background-color: #f8f9fa; /* Light background */
+}
+/* Sidebar Styles */
+.sidebar {
+    position: relative;
+    left: -250px; /* Hide sidebar off-screen initially */
+    height: 100%; /* Full height */
+    background-color: #f8f9fa;
+    transition: left 0.3s; /* Transition for sliding */
+    z-index: 1000; /* Ensure it appears on top of other elements */
+    width: 250px; /* Width of the sidebar */
+}
+
+
+/* Show sidebar when active */
+.sidebar.active {
+    left: 0; /* Slide sidebar into view */
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff; /* Active link color */
+}
+
+.sidebar .nav-link:hover {
+    color: #0056b3; /* Link color on hover */
+}
+
+.sidebar-heading {
+    font-size: 1.25rem; /* Font size for the heading */
+    padding: 0.5rem 1rem; /* Padding for the heading */
+    color: #333;
+}
+

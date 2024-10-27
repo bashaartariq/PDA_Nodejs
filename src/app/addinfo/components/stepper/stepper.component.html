@@ -7,7 +7,7 @@
   </mat-step>
 
   <mat-step label="Case">
-    <app-cases></app-cases>
+    <app-cases (formSubmitted)="goToNextStep($event)"></app-cases>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>

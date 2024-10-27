@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 @Component({
@@ -10,37 +10,19 @@ export class CasesComponent implements OnInit {
   caseForm: any = FormGroup;
   practiceLocations: any;
   categories: any;
-
   purposes: any;
-
   caseTypes: any;
-  insuranceNames = [
-    'Aetna',
-    'Blue Cross Blue Shield',
-    'Cigna',
-    'UnitedHealthcare',
-    'Humana'
-  ];
-
-  cities = [
-    'New York',
-    'Los Angeles',
-    'Chicago',
-    'Houston',
-    'Phoenix'
-  ];
-
-  states = [
-    'NY - New York',
-    'CA - California',
-    'IL - Illinois',
-    'TX - Texas',
-    'AZ - Arizona'
-  ];
-
+  insuranceNames: any;
+  cities: any;
+  states: any;
+  firmData: any;
   firmNames: any;
+  insuranceData: any;
+
 
   constructor(private fb: FormBuilder, private service: AuthService) { }
+  @Output() formSubmitted = new EventEmitter<any>();
+
 
   ngOnInit(): void {
     this.createForm();
@@ -49,6 +31,9 @@ export class CasesComponent implements OnInit {
     this.initailizePurposeOfVisit();
     this.initializeCaseType();
     this.initializeFirm();
+    this.selectFirm();
+    this.initailizeInsurance();
+    this.selectInsurance();
   }
 
 
@@ -98,21 +83,9 @@ export class CasesComponent implements OnInit {
   initializeFirm(): void {
     this.service.getFirm().subscribe((result) => {
       let data = result;
-      data = data.map((e: any) => {
-        return e.name;
-      });
-      this.firmNames = data;
+      this.firmData = data;
+      console.log(this.firmData);
     });
-  }
-  onChangeFirm(firm: string): void {
-    this.service.getInsurance(firm).subscribe((result) => {
-      console.log(result);
-      let data = result;
-      data = data.map((e: any) => {
-        return e.name;
-      })
-      this.insuranceNames = data;
-    })
   }
 
   createForm() {
@@ -126,28 +99,79 @@ export class CasesComponent implements OnInit {
       insuranceName: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]], // Zip code pattern for 5 digits
+      zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
 
       firmName: ['', Validators.required],
       firmCity: ['', Validators.required],
       firmState: ['', Validators.required],
-      firmZipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]] // 5-digit zip code
+      firmZipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]]
     });
   }
 
+  initailizeInsurance(): void {
+    this.service.getInsurance().subscribe((result) => {
+      let data = result;
+      this.insuranceData = data;
+      this.insuranceNames = data.map((e: any) => {
+        return e.name;
+      });
+      console.log(this.insuranceData);
+    });
+  }
+
+  selectInsurance(): void {
+    this.caseForm.get('insuranceName')?.valueChanges.subscribe((selectedInsuranceName: any) => {
+      const selectedInsurance = this.insuranceData.find((Insurance: any) => Insurance.name === selectedInsuranceName);
+      if (selectedInsurance) {
+        this.caseForm.patchValue({
+          city: selectedInsurance.city,
+          state: selectedInsurance.state,
+          zipCode: selectedInsurance.zip_code
+        });
+      } else {
+        this.caseForm.patchValue({
+          city: '',
+          state: '',
+          zipCode: ''
+        });
+      }
+    });
+  }
+
+  selectFirm(): void {
+    this.caseForm.get('firmName')?.valueChanges.subscribe((selectedFirmName: any) => {
+      const selectedFirm = this.firmData.find((firm: any) => firm.name === selectedFirmName);
+      if (selectedFirm) {
+        this.caseForm.patchValue({
+          firmCity: selectedFirm.city,
+          firmState: selectedFirm.state,
+          firmZipCode: selectedFirm.zip_code
+        });
+      } else {
+        this.caseForm.patchValue({
+          firmCity: '',
+          firmState: '',
+          firmZipCode: ''
+        });
+      }
+    });
+  }
 
   onSubmit() {
     if (this.caseForm.valid) {
-
       const formValues = this.caseForm.value;
       if (formValues.doa) {
         const formattedDoa = new Date(formValues.doa).toISOString().split('T')[0];
         this.caseForm.patchValue({ doa: formattedDoa });
       }
-
       const formData = this.caseForm.value;
       console.log('Form Data:', formData);
-      this.service.submitCase(formData).subscribe(result => { }, err => { });
+      this.service.submitCase(formData).subscribe(result => {
+        alert(result.message);
+        this.formSubmitted.emit(result);
+      }, err => {
+        alert(err.error.message);
+      });
     } else {
       console.log('Form is invalid!');
     }

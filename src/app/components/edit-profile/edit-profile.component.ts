@@ -2,30 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
-import { DialogService } from 'src/app/Services/dialog.service';
-
-interface speciality {
-  id: number;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  deleted_at: string | null;
-}
-interface PracticeLocation {
-  id: number;
-  name: string;
-  created_at: string; // or Date if you want to handle it as a date object
-  updated_at: string; // or Date
-  deleted_at: string | null; // can be null if not set
-}
-
+import { speciality, PracticeLocation } from 'src/app/model/interfaces';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class SignupComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
 
   signupForm: any = FormGroup;
   doctorForm: any = FormGroup;
@@ -35,11 +19,9 @@ export class SignupComponent implements OnInit {
   speciality: speciality[] = [];
   practiceLocation: PracticeLocation[] = [];
 
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
-  constructor(private fb: FormBuilder,
-    private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
-    this.initializeForm();
   }
 
   onRoleChange(selectedRole: string): void {
@@ -100,19 +82,21 @@ export class SignupComponent implements OnInit {
       }
 
       this.authService.signup(this.signupForm.value).subscribe(result => {
-        localStorage.setItem('token', result.token);
-        this.authService.user = result.user;
-        console.log(this.authService);
-        if (this.signupForm.get('role')?.value == 'doctor') {
+        //console.log(result);
+        if (this.signupForm.get('role')?.value === 'doctor') {
           const formData = {
             ...this.doctorForm.value,
             userId: this.authService.decodeToken()?.userId
           };
-          alert(result.message);
+
           console.log(formData);
           this.authService.createDoctor(formData).subscribe((result: any) => {
           });
         }
+        alert(result.message);
+        localStorage.setItem('token', result.token);
+        this.authService.user = result.user;
+        console.log(this.authService);
         this.router.navigate(['patient/add']);
       }, err => {
         //console.log(err);

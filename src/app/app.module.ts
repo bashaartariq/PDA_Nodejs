@@ -22,11 +22,15 @@ import { AddinfoModule } from './addinfo/addinfo.module';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageComponent } from './components/page/page.component';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    PageComponent
+    PageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ObservableLike } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
-
-interface user {
-  userId: number;
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-  email: string;
-  role: string;
-}
+import { user } from '../model/interfaces';
 
 
 @Injectable({
@@ -21,6 +13,8 @@ interface user {
 export class AuthService {
   NodeApiUrl: string = environment.NodeApiUrl;
   user: any;
+  patient: any;
+  getSignin: boolean = false;
   constructor(private http: HttpClient) { }
   decodeToken(): user | null {
     console.log("Calling from Decoder");
@@ -37,6 +31,7 @@ export class AuthService {
       return null;
     }
   }
+
   signup(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/signup`, data);
   }
@@ -45,6 +40,10 @@ export class AuthService {
   }
   addInfo(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addPatientInfo`, data);
+  }
+  getPatientInfo(): Observable<any> {
+    const userId = this.decodeToken()?.userId;
+    return this.http.get(`${this.NodeApiUrl}/getPatientInfo/${userId}`);
   }
   getStates(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getStates`);
@@ -67,17 +66,35 @@ export class AuthService {
   getFirm(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getFirm`);
   }
-  getInsurance(firm: string): Observable<any> {
-    console.log(firm);
-    return this.http.get(`${this.NodeApiUrl}/getInsurance/${firm}`);
+  getInsurance(): Observable<any> {
+    return this.http.get(`${this.NodeApiUrl}/getInsurance`);
   }
-
   submitCase(formData: any): Observable<any> {
-
     const userId = this.decodeToken()?.userId;
     console.log(userId);
     const dataToSubmit = { ...formData, userId };
-
     return this.http.post(`${this.NodeApiUrl}/addCase`, dataToSubmit);
   }
+  createDoctor(formData: any): Observable<any> {
+    return this.http.post(`${this.NodeApiUrl}/addDoctorInfo`, formData);
+  }
+  getSpecailiy(): Observable<any> {
+    return this.http.get(`${this.NodeApiUrl}/getSpeciality`);
+  }
+  getCases(): Observable<any> {
+    const PID = this.decodeToken()?.userId;
+    return this.http.get(`${this.NodeApiUrl}/getCases/${PID}`);
+  }
+  getAppointments(): Observable<any> {
+    return this.http.get(`${this.NodeApiUrl}/getAppointmentTypes`);
+  }
+
+  getDoctorByPracticeLocationAndSpeciality(PracticeLocationId: number, SpecialityId: number): Observable<any> {
+    return this.http.get(`${this.NodeApiUrl}/getDoctor/${PracticeLocationId}/${SpecialityId}`);
+  }
+
+  addAppointment(formData: any): Observable<any> {
+    return this.http.post(`${this.NodeApiUrl}/addAppointment`, formData);
+  }
+
 }

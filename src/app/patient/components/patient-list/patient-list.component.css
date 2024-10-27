@@ -3,145 +3,243 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f7fa;
     color: #333;
-    margin: 0; /* Ensure no default margin */
-    padding: 0; /* Ensure no default padding */
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
     margin-bottom: 30px;
     text-align: center;
-    color: #000000;
-    font-size: 30px;
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+/* Container and Layout */
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.mainDiv {
+    margin-left: -150px;
+    padding: 2rem;
 }
 
 /* Card Styles */
 .card {
-    box-shadow: 10px 8px 10px rgba(0, 0, 0, 0.288);
-    border-radius: 20px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    background-color: rgb(248, 245, 245);
-    height: auto; /* Set height to auto for responsiveness */
-    margin: 1rem; /* Margin for spacing */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    margin: 0 1rem;
+    overflow: hidden;
 }
 
-/* Uncomment this section for hover effect */
-/*
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
-*/
 
 .card-header {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #007bff; /* Default header color */
+    padding: 1rem;
     text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
+
+/* Card Colors */
+.card.bg-primary .card-header { background-color: #007bff; }
+.card.bg-success .card-header { background-color: #28a745; }
+.card.bg-info .card-header { background-color: #17a2b8; }
+.card.bg-warning .card-header { background-color: #ffc107; }
+.card.bg-danger .card-header { background-color: #dc3545; }
+.card.bg-secondary .card-header { background-color: #6c757d; }
 
 /* Button Styles */
 .btn-secondary {
     background-color: #6c757d;
     border: none;
-    padding: 0.5rem 1rem; /* Added padding for better touch target */
+    padding: 0.6rem 1.2rem;
+    color: #ffffff;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
 }
 
 .btn-secondary:hover {
     background-color: #5a6268;
 }
 
-#btn1 {
-    margin-top: 2rem;
+/* Profile and List Group Styles */
+.card-body {
+    font-size: 0.95rem;
+    color: #555;
 }
 
-#btn2 {
-    margin-top: 4.47rem;
-}
-
-#btn3 {
-    margin-top: 6rem;
-}
-
-/* Card Borders */
-.card.border-primary { border-left: 5px solid #007bff; }
-.card.border-success { border-left: 5px solid #28a745; }
-.card.border-info { border-left: 5px solid #17a2b8; }
-.card.border-warning { border-left: 5px solid #ffc107; }
-.card.border-danger { border-left: 5px solid #dc3545; }
-.card.border-dark { border-left: 5px solid #343a40; }
-.card.border-secondary { border-left: 5px solid #6c757d; }
-
-/* Sidebar Styles */
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    height: 100%; /* Full height */
-    padding: 48px 0 0; /* Space for fixed navbar */
-    background-color: #f8f9fa; /* Light background */
-}
-/* Sidebar Styles */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Hide sidebar off-screen */
-    height: 100%; /* Full height */
-    background-color: #f8f9fa;
-    transition: left 0.3s; /* Transition for sliding */
-    z-index: 1000; /* Ensure it is on top */
-    width: 250px; /* Width of the sidebar */
-}
-
-/* Show sidebar when active */
-.sidebar.active {
-    left: 0; /* Slide sidebar into view */
-}
-
-.sidebar .nav-link {
+.card-title {
+    font-size: 1.1rem;
     font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.6rem;
+    background-color: #f8f9fa;
+    font-weight: 400;
     color: #333;
 }
 
-.sidebar .nav-link.active {
-    color: #007bff; /* Active link color */
-}
-
-.sidebar .nav-link:hover {
-    color: #0056b3; /* Link color on hover */
-}
-
-.sidebar-heading {
-    font-size: 1.25rem; /* Font size for the heading */
-    padding: 0.5rem 1rem; /* Padding for the heading */
-    color: #333;
-}
-
-
-/* Responsive Styles */
 @media (max-width: 768px) {
     h1 {
-        font-size: 24px; /* Smaller font size for headings on smaller screens */
+        font-size: 1.8rem;
+    }
+
+    .card-header {
+        font-size: 1.2rem;
     }
 
     .card {
-        margin: 1rem; /* Adjust margin for smaller screens */
+        margin: 0.8rem 0;
     }
 
     .btn-secondary {
-        width: 100%; /* Full-width buttons on smaller screens */
-        padding: 0.75rem; /* Increase padding for better usability */
-    }
-
-    #btn1, #btn2, #btn3 {
-        margin-top: 1rem; /* Reduce margin for buttons on smaller screens */
+        width: 100%;
+        padding: 0.75rem;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
     h1 {
-        font-size: 20px; /* Further reduce heading size */
+        font-size: 1.5rem;
     }
 
     .card {
-        margin: 0.5rem; /* Further adjust margin for very small screens */
+        margin: 0.5rem 0;
+    }
+
+    .mainDiv {
+        padding: 0.5rem;
+    }
+}
+
+
+
+/* Main table container */
+.ngx-datatable.material {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table Header */
+.ngx-datatable.material .datatable-header {
+    background-color: #f4f7fa;
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: left;
+    padding: 10px 15px;
+}
+
+/* Header Cells */
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+}
+
+/* Row Styling */
+.ngx-datatable.material .datatable-body-row {
+    transition: background-color 0.2s ease;
+}
+
+.ngx-datatable.material .datatable-body-row:hover {
+    background-color: #f9f9f9;
+}
+
+/* Table Cells */
+.ngx-datatable.material .datatable-body-cell {
+    padding: 10px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Alternating Row Colors */
+.ngx-datatable.material .datatable-row-even {
+    background-color: #fdfdfd;
+}
+
+.ngx-datatable.material .datatable-row-odd {
+    background-color: #ffffff;
+}
+
+/* Row Detail Styling */
+.ngx-datatable.material .datatable-row-detail {
+    background-color: #f7f8fa;
+    border-top: 1px solid #e6e6e6;
+    padding: 15px;
+}
+
+/* Row Detail - Nested Table */
+.ngx-datatable.material .datatable-row-detail ngx-datatable {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: none;
+    margin-top: 10px;
+}
+
+/* Nested Table Header */
+.ngx-datatable.material .datatable-row-detail .datatable-header {
+    background-color: #ebeff2;
+    font-weight: bold;
+}
+
+/* Nested Table Cells */
+.ngx-datatable.material .datatable-row-detail .datatable-body-cell {
+    padding: 8px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+/* Buttons inside table cells */
+.ngx-datatable .btn {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-view {
+    background-color: #17a2b8;
+}
+
+.btn-edit {
+    background-color: #28a745;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .ngx-datatable.material .datatable-header,
+    .ngx-datatable.material .datatable-body-cell {
+        font-size: 0.9rem;
+        padding: 8px;
     }
 }

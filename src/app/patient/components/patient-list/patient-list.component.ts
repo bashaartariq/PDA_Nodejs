@@ -1,32 +1,30 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/Services/auth.service';
+import { DialogService } from 'src/app/Services/dialog.service';
+import { EditProfileComponent } from 'src/app/components/edit-profile/edit-profile.component';
 @Component({
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.css']
 })
 export class PatientListComponent implements OnInit {
-  isActive = false;
-  constructor() { }
+  name: string = "";
+  email: string = "";
+  role: string = "";
+
+  constructor(private dialog: DialogService, private Service: AuthService) { }
 
   ngOnInit(): void {
+    this.inititalizeUserInfo();
   }
 
-
-  // Listen for clicks on the document
-  @HostListener('document:click', ['$event'])
-  handleClick(event: MouseEvent) {
-    const sidebar = document.querySelector('.sidebar');
-    const toggleButton = document.getElementById('sidebarToggle');
-
-    // Check if the click was outside the sidebar and toggle button
-    if (this.isActive && sidebar && !sidebar.contains(event.target as Node) && toggleButton && !toggleButton.contains(event.target as Node)) {
-      this.isActive = false; // Collapse the sidebar
-    }
+  inititalizeUserInfo(): void {
+    this.name = this.Service.decodeToken()?.firstName || "";
+    this.email = this.Service.decodeToken()?.email || "";
+    this.role = this.Service.decodeToken()?.role || "";
   }
- 
 
-  toggleSidebar() {
-      this.isActive = !this.isActive; // Toggle the active class
+  EditProfile(): void {
+    this.dialog.openDialog(EditProfileComponent);
   }
 }

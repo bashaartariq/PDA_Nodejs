@@ -11,6 +11,7 @@ export class PatientinfoComponent implements OnInit {
   patientForm: any = FormGroup;
   states: any;
   cities: string[] = [];
+  patient: any;
   constructor(private fb: FormBuilder, private service: AuthService) { }
   ngOnInit(): void {
     this.initializeForm();
@@ -33,8 +34,30 @@ export class PatientinfoComponent implements OnInit {
       city: ['', Validators.required],
       zip: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]]
     });
+    this.service.getPatientInfo().subscribe((response) => {
+      const patientData = {
+        ssn: response.data?.ssn || '',
+        homePhone: response.data?.home_phone || '',
+        cellPhone: response.data?.cell_phone || '',
+        address: response.data?.address || '',
+        state: response.data?.state || '',
+        city: response.data?.city || '',
+        zip: response.data?.zip || ''
+      };
+
+      this.patientForm.patchValue(patientData);
+      console.log(patientData);
+    })
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.patientForm.patchValue(this.service.patient);
+    }
+
+
+
   }
   onStateChange(state: string) {
+    console.log("Working on state change");
     console.log(state);
     this.service.getCity(state).subscribe((result) => {
       const data = result;
@@ -58,6 +81,8 @@ export class PatientinfoComponent implements OnInit {
     this.service.addInfo(formData).subscribe(response => {
       alert(response.message);
       console.log(response);
+      this.service.patient = this.patientForm.value;
+      console.log(this.service.patient);
       this.formSubmitted.emit(response);
     }, err => {
       alert(err.error.message);

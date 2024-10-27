@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-light nav-link-hover" [routerLink]="['/home']">
+                    <a class="nav-link text-light nav-link-hover" (click)="navigateto()" style="cursor: pointer;">
                         <i class="fas fa-home"></i> Home
                     </a>
                 </li>
@@ -24,16 +24,22 @@
                         <i class="fas fa-cogs"></i> Services
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!signin">
                     <a class="nav-link text-light nav-link-hover" [routerLink]="['/home/signin']">
                         <i class="fa fa-sign-in-alt"></i> Login
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light nav-link-hover" [routerLink]="['home/signup']">
+                <li class="nav-item" *ngIf="!signin">
+                    <a class="nav-link text-light nav-link-hover" [routerLink]="['/home/signup']">
                         <i class="fa fa-user-plus"></i> Signup
                     </a>
                 </li>
+                <li class="nav-item" *ngIf="signin">
+                    <a class="nav-link text-light nav-link-hover" (click)="logout()" style="cursor: pointer;">
+                        <i class="fa fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
