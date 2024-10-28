@@ -31,7 +31,6 @@ export class AuthService {
       return null;
     }
   }
-
   signup(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/signup`, data);
   }
@@ -41,10 +40,12 @@ export class AuthService {
   addInfo(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addPatientInfo`, data);
   }
+
   getPatientInfo(): Observable<any> {
     const userId = this.decodeToken()?.userId;
     return this.http.get(`${this.NodeApiUrl}/getPatientInfo/${userId}`);
   }
+
   getStates(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getStates`);
   }
@@ -75,26 +76,35 @@ export class AuthService {
     const dataToSubmit = { ...formData, userId };
     return this.http.post(`${this.NodeApiUrl}/addCase`, dataToSubmit);
   }
+  
   createDoctor(formData: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addDoctorInfo`, formData);
   }
+  
   getSpecailiy(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getSpeciality`);
   }
+  
   getCases(): Observable<any> {
-    const PID = this.decodeToken()?.userId;
-    return this.http.get(`${this.NodeApiUrl}/getCases/${PID}`);
-  }
-  getAppointments(): Observable<any> {
-    return this.http.get(`${this.NodeApiUrl}/getAppointmentTypes`);
+    const user_id = this.decodeToken()?.userId;
+    return this.http.get(`${this.NodeApiUrl}/getCases/${user_id}`);
   }
 
+  getAppointmentsType(): Observable<any> {
+    return this.http.get(`${this.NodeApiUrl}/getAppointmentTypes`);
+  }
+  
   getDoctorByPracticeLocationAndSpeciality(PracticeLocationId: number, SpecialityId: number): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getDoctor/${PracticeLocationId}/${SpecialityId}`);
   }
-
+  
   addAppointment(formData: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addAppointment`, formData);
+  }
+
+  getAppointment(case_id:number):Observable<any>
+  {
+    return this.http.get(`${this.NodeApiUrl}/getAppointment/${case_id}`);
   }
 
 }

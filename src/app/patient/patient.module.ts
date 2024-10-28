@@ -16,6 +16,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { DataTableComponent } from './components/data-table/data-table.component';
+import { FormsModule } from '@angular/forms';
+import { AppointmentDataTablesComponent } from './components/appointment-data-tables/appointment-data-tables.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { DataTableComponent } from './components/data-table/data-table.component
     PatientListComponent,
     SidebarComponent,
     EditProfileComponent,
-    DataTableComponent
+    DataTableComponent,
+    AppointmentDataTablesComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +41,8 @@ import { DataTableComponent } from './components/data-table/data-table.component
     MatIconModule,
     MatButtonModule,
     MatInputModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    FormsModule
   ]
 })
 export class PatientModule { }

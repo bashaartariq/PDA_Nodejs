@@ -50,12 +50,11 @@ export class AppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeCase();
     this.initializeAppointmentType();
     this.getSpecialityandPracticeLocation();
     this.appointmentForm.get('speciality')?.valueChanges.subscribe(() => this.fetchDoctor());
     this.appointmentForm.get('location')?.valueChanges.subscribe(() => this.fetchDoctor());
-
+    this.initializeCase();
   }
 
   getSpecialityandPracticeLocation() {
@@ -69,7 +68,7 @@ export class AppointmentComponent implements OnInit {
 
 
   initializeAppointmentType() {
-    this.Service.getAppointments().subscribe((response) => {
+    this.Service.getAppointmentsType().subscribe((response) => {
       this.appointmentTypes = response;
     }, (err) => {
       alert(err.error.message);
@@ -78,7 +77,8 @@ export class AppointmentComponent implements OnInit {
 
   initializeCase(): void {
     this.Service.getCases().subscribe((response) => {
-      this.cases = response.cases;
+      this.cases = response;
+      console.log(response);
     }, (err) => {
       alert(err.error.message);
     })

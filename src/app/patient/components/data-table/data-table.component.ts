@@ -1,6 +1,5 @@
-import { Component, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
-import { NgStyle } from '@angular/common';
-import { ColumnMode } from '@swimlane/ngx-datatable';
+import { Component, OnInit,Input } from '@angular/core';
+import { AuthService } from 'src/app/Services/auth.service';
 
 
 @Component({
@@ -9,221 +8,66 @@ import { ColumnMode } from '@swimlane/ngx-datatable';
   styleUrls: ['./data-table.component.css']
 })
 export class DataTableComponent implements OnInit {
-  @ViewChild('myTable') table: any;
-
-  ngOnInit(): void {
-
+  patientCases: any[] = [];
+  pages: number[] = [1,2,3,4,5,6];
+  page: number = 0;
+  pageSize: number = 5;
+  searchTerm: string = '';
+  filteredCases: any[] = [];
+  selectedCaseAppointments: any[] = [];
+  selectedCaseId: number | null = null;
+  constructor(private Service:AuthService){}
+  ngOnInit() {
+    this.initializeCases();
+    console.log(this.filteredCases);
   }
-
-  funder: any = [];
-  calculated: any = [];
-  pending: any = [];
-  groups: any = [];
-
-  editing: any = {};
-  rows: any = [
-    {
-      age: 25,
-      exppayyes: 1,
-      exppayno: 0,
-      exppaypending: 0,
-      source: 'Referral',
-      name: 'John Doe',
-      gender: 'Male',
-      comment: 'First-time visitor'
-    },
-    {
-      age: 30,
-      exppayyes: 0,
-      exppayno: 1,
-      exppaypending: 0,
-      source: 'Walk-in',
-      name: 'Jane Smith',
-      gender: 'Female',
-      comment: 'Returning patient'
-    },
-    {
-      age: 25,
-      exppayyes: 0,
-      exppayno: 0,
-      exppaypending: 1,
-      source: 'Online',
-      name: 'Alice Johnson',
-      gender: 'Female',
-      comment: 'Follow-up needed'
-    },
-    {
-      age: 30,
-      exppayyes: 1,
-      exppayno: 0,
-      exppaypending: 0,
-      source: 'Walk-in',
-      name: 'Robert Brown',
-      gender: 'Male',
-      comment: 'Consultation'
-    },
-    {
-      age: 35,
-      exppayyes: 1,
-      exppayno: 0,
-      exppaypending: 0,
-      source: 'Referral',
-      name: 'Michael Davis',
-      gender: 'Male',
-      comment: 'Annual check-up'
-    },
-    {
-      age: 35,
-      exppayyes: 0,
-      exppayno: 1,
-      exppaypending: 0,
-      source: 'Online',
-      name: 'Emily Taylor',
-      gender: 'Female',
-      comment: 'Urgent care'
-    }
-  ];
-
-  ColumnMode = ColumnMode;
-
-  constructor() {
-    this.fetch((data: any) => {
-      this.rows = data;
-    });
+  initializeCases():void{
+    this.Service.getCases().subscribe((response)=>{
+      this.patientCases = response;
+      console.log(this.patientCases);
+      this.filteredCases = [...this.patientCases];
+    }); 
   }
-
-  fetch(cb: any) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `assets/data/forRowGrouping.json`);
-
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-
-    req.send();
-  }
-
-  getGroupRowHeight(group: any, rowHeight: any) {
-    let style = {};
-
-    style = {
-      height: group.length * 40 + 'px',
-      width: '100%'
-    };
-
-    return style;
-  }
-
-  checkGroup(event: any, row: any, rowIndex: any, group: any) {
-    let groupStatus = 'Pending';
-    let expectedPaymentDealtWith = true;
-
-    row.exppayyes = 0;
-    row.exppayno = 0;
-    row.exppaypending = 0;
-
-    if (event.target.checked) {
-      if (event.target.value === '0') {
-        // expected payment yes selected
-        row.exppayyes = 1;
-      } else if (event.target.value === '1') {
-        // expected payment yes selected
-        row.exppayno = 1;
-      } else if (event.target.value === '2') {
-        // expected payment yes selected
-        row.exppaypending = 1;
-      }
-    }
-
-    if (group.length === 2) {
-      // There are only 2 lines in a group
-      // tslint:disable-next-line:max-line-length
-      if (
-        ['Calculated', 'Funder'].indexOf(group[0].source) > -1 &&
-        ['Calculated', 'Funder'].indexOf(group[1].source) > -1
-      ) {
-        // Sources are funder and calculated
-        // tslint:disable-next-line:max-line-length
-        if (group[0].startdate === group[1].startdate && group[0].enddate === group[1].enddate) {
-          // Start dates and end dates match
-          for (let index = 0; index < group.length; index++) {
-            if (group[index].source !== row.source) {
-              if (event.target.value === '0') {
-                // expected payment yes selected
-                group[index].exppayyes = 0;
-                group[index].exppaypending = 0;
-                group[index].exppayno = 1;
-              }
-            }
-
-            if (group[index].exppayyes === 0 && group[index].exppayno === 0 && group[index].exppaypending === 0) {
-              expectedPaymentDealtWith = false;
-            }
-            console.log('expectedPaymentDealtWith', expectedPaymentDealtWith);
-          }
-        }
-      }
+  view(case_id:any):void{
+    console.log(case_id);
+    if (case_id) {
+      this.selectedCaseId = case_id;
+      this.Service.getAppointment(case_id).subscribe((response)=>{
+        console.log(response);
+        this.selectedCaseAppointments = response;
+      })
     } else {
-      for (let index = 0; index < group.length; index++) {
-        if (group[index].exppayyes === 0 && group[index].exppayno === 0 && group[index].exppaypending === 0) {
-          expectedPaymentDealtWith = false;
-        }
-        console.log('expectedPaymentDealtWith', expectedPaymentDealtWith);
-      }
+      console.error('Case ID is undefined');
+  }}
+  editAppointment(appointment_id:number){
+    console.log(appointment_id);
+  }
+  filterCases() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredCases = this.patientCases.filter((caseItem:any) =>
+      caseItem.category.toLowerCase().includes(term) ||
+      caseItem.purpose_of_visit.toLowerCase().includes(term) ||
+      caseItem.case_type.toLowerCase().includes(term) ||
+      caseItem.insurance_name.toLowerCase().includes(term) ||
+      caseItem.firm_name.toLowerCase().includes(term) ||
+      caseItem.practice_location_name.toLowerCase().includes(term)
+    );
+    this.page = 0;
+  }
+  onPage(event: any) {
+    this.page = event.offset;
+  }
+  setPage(page: number) {
+    this.page = page;
+  }
+  nextPage() {
+    if (this.page < this.filteredCases.length / this.pageSize - 1) {
+      this.page++;
     }
-
-    // check if there is a pending selected payment or a row that does not have any expected payment selected
-    if (
-      group.filter((rowFilter: any) => rowFilter.exppaypending === 1).length === 0 &&
-      group.filter((rowFilter: any) => rowFilter.exppaypending === 0 && rowFilter.exppayyes === 0 && rowFilter.exppayno === 0)
-        .length === 0
-    ) {
-      console.log('expected payment dealt with');
-
-      // check if can set the group status
-      const numberOfExpPayYes = group.filter((rowFilter: any) => rowFilter.exppayyes === 1).length;
-      const numberOfSourceFunder = group.filter((rowFilter: any) => rowFilter.exppayyes === 1 && rowFilter.source === 'Funder')
-        .length;
-      const numberOfSourceCalculated = group.filter(
-        (rowFilter: any) => rowFilter.exppayyes === 1 && rowFilter.source === 'Calculated'
-      ).length;
-      const numberOfSourceManual = group.filter((rowFilter: any) => rowFilter.exppayyes === 1 && rowFilter.source === 'Manual')
-        .length;
-
-      console.log('numberOfExpPayYes', numberOfExpPayYes);
-      console.log('numberOfSourceFunder', numberOfSourceFunder);
-      console.log('numberOfSourceCalculated', numberOfSourceCalculated);
-      console.log('numberOfSourceManual', numberOfSourceManual);
-
-      if (numberOfExpPayYes > 0) {
-        if (numberOfExpPayYes === numberOfSourceFunder) {
-          groupStatus = 'Funder Selected';
-        } else if (numberOfExpPayYes === numberOfSourceCalculated) {
-          groupStatus = 'Calculated Selected';
-        } else if (numberOfExpPayYes === numberOfSourceManual) {
-          groupStatus = 'Manual Selected';
-        } else {
-          groupStatus = 'Hybrid Selected';
-        }
-      }
+  }
+  previousPage() {
+    if (this.page > 0) {
+      this.page--;
     }
-
-    group[0].groupstatus = groupStatus;
   }
-
-  updateValue(event: any, cell: any, rowIndex: any) {
-    this.editing[rowIndex + '-' + cell] = false;
-    this.rows[rowIndex][cell] = event.target.value;
-    this.rows = [...this.rows];
-  }
-
-  toggleExpandGroup(group: any) {
-    console.log('Toggled Expand Group!', group);
-    this.table.groupHeader.toggleExpandGroup(group);
-  }
-
-  onDetailToggle(event: any) {
-    console.log('Detail Toggled', event);
-  }
-
 }

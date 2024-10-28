@@ -5,7 +5,7 @@
     <mat-card-content>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Select Case</mat-label>
-        <mat-select formControlName="selectedCase" required>
+        <mat-select formControlName="selectedCase" required (click)="initializeCase()">
           <mat-option *ngFor="let case of cases" [value]="case.id">
             {{ 'Case '+case.id }}
           </mat-option>
