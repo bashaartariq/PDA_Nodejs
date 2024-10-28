@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
 import { PatientRoutingModule } from './patient-routing.module';
 import { PatientListComponent } from './components/patient-list/patient-list.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -17,17 +16,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { FormsModule } from '@angular/forms';
-import { AppointmentDataTablesComponent } from './components/appointment-data-tables/appointment-data-tables.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
     PatientListComponent,
     SidebarComponent,
     EditProfileComponent,
-    DataTableComponent,
-    AppointmentDataTablesComponent
-  ],
+    DataTableComponent],
   imports: [
     CommonModule,
     PatientRoutingModule,
@@ -42,7 +38,8 @@ import { AppointmentDataTablesComponent } from './components/appointment-data-ta
     MatButtonModule,
     MatInputModule,
     NgxDatatableModule,
-    FormsModule
+    FormsModule,
+    MatTooltipModule
   ]
 })
 export class PatientModule { }

@@ -20,7 +20,7 @@
         [offset]="page"
         (page)="onPage($event)"
     >
-        <ngx-datatable-column name="Case id" prop="id"></ngx-datatable-column>
+        <ngx-datatable-column name="Case ID" prop="id"></ngx-datatable-column>
         <ngx-datatable-column name="Category" prop="category"></ngx-datatable-column>
         <ngx-datatable-column name="Purpose of Visit" prop="purpose_of_visit"></ngx-datatable-column>
         <ngx-datatable-column name="Case Type" prop="case_type"></ngx-datatable-column>
@@ -37,9 +37,6 @@
                     </button>
                     <button class="action-btn edit-btn">
                         <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn delete-btn">
-                        <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
             </ng-template>
@@ -69,9 +66,7 @@
     <div class="search-bar">
         <input
             type="text"
-            placeholder="Search Appointments..."
-            [(ngModel)]="searchTerm"
-            (ngModelChange)="filterCases()"
+            placeholder="Search Appointments..." 
             class="search-input"
         />
     </div>
@@ -86,16 +81,30 @@
             [rowHeight]="'auto'"
         >
             <ngx-datatable-column name="Appointment ID" prop="id"></ngx-datatable-column>
-            <ngx-datatable-column name="Description" prop="Description"></ngx-datatable-column>
+            
+            <!-- Description Column -->
+            <ngx-datatable-column name="Description" prop="Description">
+                <ng-template ngx-datatable-cell-template let-row="row">
+                    <span 
+                        class="description-text" 
+                        [matTooltip]="row.Description" 
+                        matTooltipPosition="above" 
+                        matTooltipShowDelay="300"
+                        [attr.title]="row.Description" 
+                        [ngClass]="{'text-truncated': row.Description.length > 15}">
+                        {{ row.Description.length > 15 ? (row.Description | slice:0:15) + '...' : row.Description }}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+
             <ngx-datatable-column name="Date" prop="date"></ngx-datatable-column>
             <ngx-datatable-column name="Time" prop="appointment_time"></ngx-datatable-column>
-            <ngx-datatable-column name="Duration" prop="Duration"></ngx-datatable-column>
+            <ngx-datatable-column name="Duration" prop="duration"></ngx-datatable-column>
             <ngx-datatable-column name="Doctor Name" prop="doctor_name"></ngx-datatable-column>
             <ngx-datatable-column name="Appointment Type" prop="appointment_type"></ngx-datatable-column>
             <ngx-datatable-column name="Location" prop="practice_location_name"></ngx-datatable-column>
             <ngx-datatable-column name="Specialty" prop="speciality_name"></ngx-datatable-column>
 
-            <!-- Action Column with Icon -->
             <ngx-datatable-column name="Actions">
                 <ng-template ngx-datatable-cell-template let-row="row">
                     <button class="edit-btn" (click)="editAppointment(row.id)">
@@ -117,7 +126,7 @@
         >
             {{ p + 1 }}
         </button>
-        <button class="pagination-btn" (click)="nextPage()" [disabled]="page >= (filteredCases.length / pageSize) - 1">
+        <button class="pagination-btn" (click)="nextPage()" [disabled]="page >= (selectedCaseAppointments.length / pageSize) - 1">
             Next <span>&#9654;</span>
         </button>
     </div>
