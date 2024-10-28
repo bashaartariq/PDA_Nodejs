@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 import { Case, AppointmentType, speciality, PracticeLocation, Doctor } from 'src/app/model/interfaces';
@@ -10,7 +10,8 @@ import { Case, AppointmentType, speciality, PracticeLocation, Doctor } from 'src
   styleUrls: ['./appointment.component.css']
 })
 export class AppointmentComponent implements OnInit {
-  appointmentForm: FormGroup;
+  @Input() appointmentForm!: FormGroup;
+  @Output() formSubmit = new EventEmitter<any>();
 
   cases: Case[] = [];
   appointmentTypes: AppointmentType[] = [];
@@ -18,19 +19,7 @@ export class AppointmentComponent implements OnInit {
   doctors: Doctor[] = [];
   locations: PracticeLocation[] = [];
 
-  constructor(private fb: FormBuilder, private Service: AuthService) {
-    this.appointmentForm = this.fb.group({
-      selectedCase: ['', Validators.required],
-      date: ['', Validators.required],
-      time: ['', Validators.required],
-      appointmentType: ['', Validators.required],
-      speciality: ['', Validators.required],
-      doctor: ['', Validators.required],
-      location: ['', Validators.required],
-      duration: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      description: ['']
-    });
-  }
+  constructor(private fb: FormBuilder, private Service: AuthService) { }
 
   fetchDoctor(): void {
     const specialityId = this.appointmentForm.get('speciality')?.value;
@@ -54,9 +43,7 @@ export class AppointmentComponent implements OnInit {
     this.getSpecialityandPracticeLocation();
     this.appointmentForm.get('speciality')?.valueChanges.subscribe(() => this.fetchDoctor());
     this.appointmentForm.get('location')?.valueChanges.subscribe(() => this.fetchDoctor());
-    this.initializeCase();
   }
-
   getSpecialityandPracticeLocation() {
     this.Service.getSpecailiy().subscribe((result) => {
       this.specialities = result;
@@ -66,22 +53,12 @@ export class AppointmentComponent implements OnInit {
     });
   }
 
-
   initializeAppointmentType() {
     this.Service.getAppointmentsType().subscribe((response) => {
       this.appointmentTypes = response;
     }, (err) => {
       alert(err.error.message);
     });
-  }
-
-  initializeCase(): void {
-    this.Service.getCases().subscribe((response) => {
-      this.cases = response;
-      console.log(response);
-    }, (err) => {
-      alert(err.error.message);
-    })
   }
 
   onSubmit(): void {
@@ -92,19 +69,7 @@ export class AppointmentComponent implements OnInit {
         this.appointmentForm.patchValue({ date: formattedDoa });
       }
       console.log(this.appointmentForm.value);
-
-      this.Service.addAppointment(this.appointmentForm.value).subscribe(
-        (result) => {
-          alert(result.message);
-        },
-        (err) => {
-          if (err.status === 400) {
-            alert(err.error.message);
-          } else {
-            console.error("An unexpected error occurred:", err);
-          }
-        }
-      );
+      this.formSubmit.emit(this.appointmentForm.value);
     }
   }
 }

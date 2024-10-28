@@ -16,7 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { FormsModule } from '@angular/forms';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatInputModule,
     NgxDatatableModule,
     FormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class PatientModule { }

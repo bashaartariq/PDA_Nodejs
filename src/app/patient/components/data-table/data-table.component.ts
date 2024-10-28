@@ -1,6 +1,8 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
-
+import { AppointmentComponent } from 'src/app/addinfo/components/appointment/appointment.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-data-table',
@@ -9,42 +11,82 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class DataTableComponent implements OnInit {
   patientCases: any[] = [];
-  pages: number[] = [1,2,3,4,5,6];
+  pages: number[] = [1, 2, 3, 4, 5, 6];
   page: number = 0;
   pageSize: number = 5;
   searchTerm: string = '';
   filteredCases: any[] = [];
   selectedCaseAppointments: any[] = [];
   selectedCaseId: number | null = null;
-  constructor(private Service:AuthService){}
+  appointmentForm: any;
+
+  constructor(private Service: AuthService, private dialog: MatDialog, private fb: FormBuilder) { }
   ngOnInit() {
     this.initializeCases();
     console.log(this.filteredCases);
+    this.initializeAppointmentForm();
   }
-  initializeCases():void{
-    this.Service.getCases().subscribe((response)=>{
+  initializeCases(): void {
+    this.Service.getCases().subscribe((response) => {
       this.patientCases = response;
       console.log(this.patientCases);
       this.filteredCases = [...this.patientCases];
-    }); 
+    });
   }
-  view(case_id:any):void{
+  initializeAppointmentForm(): void {
+    this.appointmentForm = this.fb.group({
+      date: ['', Validators.required],
+      time: ['', Validators.required],
+      appointmentType: ['', Validators.required],
+      speciality: ['', Validators.required],
+      doctor: ['', Validators.required],
+      location: ['', Validators.required],
+      duration: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      description: ['']
+    });
+  }
+
+
+  view(case_id: any): void {
     console.log(case_id);
     if (case_id) {
       this.selectedCaseId = case_id;
-      this.Service.getAppointment(case_id).subscribe((response)=>{
+      this.Service.getAppointment(case_id).subscribe((response) => {
         console.log(response);
         this.selectedCaseAppointments = response;
       })
     } else {
       console.error('Case ID is undefined');
-  }}
-  editAppointment(appointment_id:number){
+    }
+  }
+  addAppointment(case_id: any): void {
+    const dialogRef = this.dialog.open(AppointmentComponent, {
+      panelClass: 'custom-dialog-container', // Optional: Add a custom class for more styles
+      height: 'auto', // or a fixed height, e.g., '400px'
+      maxHeight: '80vh', // Set a maximum height relative to the viewport height
+      width: '600px', // Set a width for your dialog
+    });
+    dialogRef.componentInstance.appointmentForm = this.appointmentForm;
+    dialogRef.componentInstance.formSubmit.subscribe((formValues: any) => {
+      this.onFormSubmitAppointment(formValues, case_id);
+      dialogRef.close();
+    });
+  }
+  onFormSubmitAppointment(formData: any, case_Id: number) {
+    console.log("This is the Form Values", formData);
+    const case_id = case_Id;
+    const dataToSubmit = { ...formData, case_id };
+    this.Service.addAppointment(dataToSubmit).subscribe((response) => {
+      alert(response.message);
+    })
+  }
+
+  editAppointment(appointment_id: number) {
     console.log(appointment_id);
   }
   filterCases() {
     const term = this.searchTerm.toLowerCase();
-    this.filteredCases = this.patientCases.filter((caseItem:any) =>
+    this.filteredCases = this.patientCases.filter((caseItem: any) =>
       caseItem.category.toLowerCase().includes(term) ||
       caseItem.purpose_of_visit.toLowerCase().includes(term) ||
       caseItem.case_type.toLowerCase().includes(term) ||

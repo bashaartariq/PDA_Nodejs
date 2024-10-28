@@ -1,20 +1,7 @@
 <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="appointment-form">
   <mat-card>
     <mat-card-title class="mat-card-title">Appointment Information</mat-card-title>
-
     <mat-card-content>
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Select Case</mat-label>
-        <mat-select formControlName="selectedCase" required (click)="initializeCase()">
-          <mat-option *ngFor="let case of cases" [value]="case.id">
-            {{ 'Case '+case.id }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf=" appointmentForm.get('selectedCase')?.hasError('required')">
-          Case selection is required
-        </mat-error>
-      </mat-form-field>
-
       <div class="form-row">
         <mat-form-field appearance="fill" class="half-width">
           <mat-label>Date</mat-label>

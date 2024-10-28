@@ -7,7 +7,7 @@
   </mat-step>
 
   <mat-step label="Case">
-    <app-cases (formSubmitted)="goToNextStep($event)"></app-cases>
+    <app-cases [caseForm]="caseForm" (formSubmit)="onFormSubmitCase($event)"></app-cases>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
@@ -15,7 +15,8 @@
   </mat-step>
 
   <mat-step label="Appointment">
-    <app-appointment></app-appointment>
+    <app-appointment [appointmentForm]="appointmentForm"
+      (formSubmit)="onFormSubmitAppointment($event)"></app-appointment>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="onSubmit()">Finish</button>

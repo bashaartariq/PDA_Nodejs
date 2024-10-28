@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 @Component({
@@ -7,7 +7,9 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./cases.component.css']
 })
 export class CasesComponent implements OnInit {
-  caseForm: any = FormGroup;
+  @Input() caseForm!: FormGroup;
+  @Output() formSubmit = new EventEmitter<any>();
+
   practiceLocations: any;
   categories: any;
   purposes: any;
@@ -21,11 +23,9 @@ export class CasesComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private service: AuthService) { }
-  @Output() formSubmitted = new EventEmitter<any>();
 
 
   ngOnInit(): void {
-    this.createForm();
     this.initailizePracticeLocation();
     this.initalizeCategory();
     this.initailizePurposeOfVisit();
@@ -88,25 +88,6 @@ export class CasesComponent implements OnInit {
     });
   }
 
-  createForm() {
-    this.caseForm = this.fb.group({
-      practiceLocation: ['', Validators.required],
-      category: ['', Validators.required],
-      purposeOfVisit: ['', Validators.required],
-      caseType: ['', Validators.required],
-      doa: [''],
-
-      insuranceName: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-
-      firmName: ['', Validators.required],
-      firmCity: ['', Validators.required],
-      firmState: ['', Validators.required],
-      firmZipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]]
-    });
-  }
 
   initailizeInsurance(): void {
     this.service.getInsurance().subscribe((result) => {
@@ -156,7 +137,6 @@ export class CasesComponent implements OnInit {
       }
     });
   }
-
   onSubmit() {
     if (this.caseForm.valid) {
       const formValues = this.caseForm.value;
@@ -166,15 +146,9 @@ export class CasesComponent implements OnInit {
       }
       const formData = this.caseForm.value;
       console.log('Form Data:', formData);
-      this.service.submitCase(formData).subscribe(result => {
-        alert(result.message);
-        this.formSubmitted.emit(result);
-      }, err => {
-        alert(err.error.message);
-      });
+      this.formSubmit.emit(this.caseForm.value);
     } else {
       console.log('Form is invalid!');
     }
   }
-
 }
