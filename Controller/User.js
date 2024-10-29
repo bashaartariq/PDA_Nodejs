@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { user } = require("../Model");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
@@ -23,14 +24,11 @@ const validateUser = [
 ];
 
 const signin = async (req, res) => {
-  console.log("I am running");
   const { email, password } = req.body;
   console.log(email, password);
-
   if (!email || !password) {
     return res.status(400).send({ error: "Email and password are required" });
   }
-
   try {
     const foundUser = await user.findOne({ where: { email } });
     if (!foundUser) {
@@ -52,7 +50,7 @@ const signin = async (req, res) => {
           " " +
           foundUser.lastName,
       },
-      "your-secret-key",
+      process.env.privateKey,
       { expiresIn: "2h" }
     );
 
@@ -136,7 +134,7 @@ const signup = async (req, res) => {
 
     const token = jwt.sign(
       { userId: newUser.id, email: newUser.email, role: newUser.role },
-      "your-secret-key",
+      process.env.privateKey,
       { expiresIn: "2h" }
     );
     res.status(200).json({

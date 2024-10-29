@@ -1,4 +1,5 @@
 const express = require("express");
+const { authenticate } = require("../Authentication/authenticate");
 const Router = express.Router();
 const { signin, signup } = require("../Controller/User");
 const { addinfo, getPatientInfo } = require("../Controller/Patient");
@@ -10,42 +11,57 @@ const { getCategory } = require("../Controller/Category");
 const { getPurposeOfVisit } = require("../Controller/PurposeOfVisit");
 const { getCaseType } = require("../Controller/Case_TypeController");
 const { getFirm, getInsurance } = require("../Controller/FirmController");
-const { addCase, getCases,updateCase } = require("../Controller/CaseController");
+const {
+  addCase,
+  getCases,
+  updateCase,
+} = require("../Controller/CaseController");
 const {
   addDoctor,
-  getDoctorForPracticeLocationAndSpeciality,getAppointmentsForDoctor
+  getDoctorForPracticeLocationAndSpeciality,
+  getAppointmentsForDoctor,
 } = require("../Controller/DoctorController");
 const { getSpeciality } = require("../Controller/DoctorSpeciality");
 const { getAppointmentTypes } = require("../Controller/Appointment_types");
 const {
   addAppointment,
   getAppointment,
-  updateAppointment
+  updateAppointment,
 } = require("../Controller/AppointmentController");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
-Router.post("/addPatientInfo", addinfo);
-Router.get("/getStates", getStates);
-Router.get("/getCity/:state", getCity);
-Router.get("/getPracticeLocation", practicelocation);
-Router.get("/getCategory", getCategory);
-Router.get("/getPurposeOfVisit", getPurposeOfVisit);
-Router.get("/getCaseType", getCaseType);
-Router.get("/getFirm", getFirm);
-Router.get("/getInsurance", getInsurance);
-Router.post("/addCase", addCase);
-Router.get("/getSpeciality", getSpeciality);
-Router.get("/getCases/:PID", getCases);
-Router.get("/getAppointmentTypes", getAppointmentTypes);
-Router.post("/addDoctorInfo", addDoctor);
+Router.post("/addPatientInfo", authenticate, addinfo);
+Router.get("/getStates", authenticate, getStates);
+Router.get("/getCity/:state", authenticate, getCity);
+Router.get("/getPracticeLocation", authenticate, practicelocation);
+Router.get("/getCategory", authenticate, getCategory);
+Router.get("/getPurposeOfVisit", authenticate, getPurposeOfVisit);
+Router.get("/getCaseType", authenticate, getCaseType);
+Router.get("/getFirm", authenticate, getFirm);
+Router.get("/getInsurance", authenticate, getInsurance);
+Router.post("/addCase", authenticate, addCase);
+Router.get("/getSpeciality", authenticate, getSpeciality);
+Router.get("/getCases/:PID", authenticate, getCases);
+Router.get("/getAppointmentTypes", authenticate, getAppointmentTypes);
+Router.post("/addDoctorInfo", authenticate, addDoctor);
 Router.get(
   "/getDoctor/:practiceLocationId/:specialityId",
+  authenticate,
   getDoctorForPracticeLocationAndSpeciality
 );
-Router.post("/addAppointment", addAppointment);
-Router.get("/getPatientInfo/:userid", getPatientInfo);
-Router.get("/getAppointment/:CaseID", getAppointment);
-Router.put("/updateCase/:caseId",updateCase);
-Router.put("/updateAppointment/:appointment_id",updateAppointment);
-Router.get('/getAppointmentsForDoctor/:doctorId',getAppointmentsForDoctor);
+Router.post("/addAppointment", authenticate, addAppointment);
+Router.get("/getPatientInfo/:userid", authenticate, getPatientInfo);
+Router.get("/getAppointment/:CaseID", authenticate, getAppointment);
+Router.put("/updateCase/:caseId", authenticate, updateCase);
+Router.put(
+  "/updateAppointment/:appointment_id",
+  authenticate,
+  updateAppointment
+);
+Router.get(
+  "/getAppointmentsForDoctor/:doctorId",
+  authenticate,
+  getAppointmentsForDoctor
+);
+
 module.exports = Router;
