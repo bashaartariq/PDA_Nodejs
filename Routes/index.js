@@ -28,39 +28,130 @@ const {
   getAppointment,
   updateAppointment,
 } = require("../Controller/AppointmentController");
+const { allowRoles } = require("../Authorization/checkRole");
+
+// Define routes
 Router.post("/signin", signin);
 Router.post("/signup", signup);
-Router.post("/addPatientInfo", authenticate, addinfo);
-Router.get("/getStates", authenticate, getStates);
-Router.get("/getCity/:state", authenticate, getCity);
-Router.get("/getPracticeLocation", authenticate, practicelocation);
-Router.get("/getCategory", authenticate, getCategory);
-Router.get("/getPurposeOfVisit", authenticate, getPurposeOfVisit);
-Router.get("/getCaseType", authenticate, getCaseType);
-Router.get("/getFirm", authenticate, getFirm);
-Router.get("/getInsurance", authenticate, getInsurance);
-Router.post("/addCase", authenticate, addCase);
-Router.get("/getSpeciality", authenticate, getSpeciality);
-Router.get("/getCases/:PID", authenticate, getCases);
-Router.get("/getAppointmentTypes", authenticate, getAppointmentTypes);
-Router.post("/addDoctorInfo", authenticate, addDoctor);
+
+Router.post(
+  "/addPatientInfo",
+  authenticate,
+  allowRoles(["admin", "patient"]),
+  addinfo
+);
+
+Router.get(
+  "/getStates",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getStates
+);
+Router.get(
+  "/getCity/:state",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getCity
+);
+Router.get(
+  "/getPracticeLocation",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  practicelocation
+);
+Router.get(
+  "/getCategory",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getCategory
+);
+Router.get(
+  "/getPurposeOfVisit",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getPurposeOfVisit
+);
+Router.get(
+  "/getCaseType",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getCaseType
+);
+Router.get(
+  "/getFirm",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getFirm
+);
+Router.get(
+  "/getInsurance",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getInsurance
+);
+
+Router.post("/addCase", authenticate, allowRoles(["patient"]), addCase);
+Router.get(
+  "/getSpeciality",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getSpeciality
+);
+Router.get(
+  "/getCases/:PID",
+  authenticate,
+  allowRoles(["admin", "patient"]),
+  getCases
+);
+Router.get(
+  "/getAppointmentTypes",
+  authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
+  getAppointmentTypes
+);
+
+Router.post("/addDoctorInfo", authenticate, allowRoles(["admin"]), addDoctor);
 Router.get(
   "/getDoctor/:practiceLocationId/:specialityId",
   authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
   getDoctorForPracticeLocationAndSpeciality
 );
-Router.post("/addAppointment", authenticate, addAppointment);
-Router.get("/getPatientInfo/:userid", authenticate, getPatientInfo);
-Router.get("/getAppointment/:CaseID", authenticate, getAppointment);
-Router.put("/updateCase/:caseId", authenticate, updateCase);
+
+Router.post(
+  "/addAppointment",
+  authenticate,
+  allowRoles(["admin", "patient"]),
+  addAppointment
+);
+Router.get(
+  "/getPatientInfo/:userid",
+  authenticate,
+  allowRoles(["admin", "patient"]),
+  getPatientInfo
+);
+Router.get(
+  "/getAppointment/:CaseID",
+  authenticate,
+  allowRoles(["admin", "patient"]),
+  getAppointment
+);
+Router.put(
+  "/updateCase/:caseId",
+  authenticate,
+  allowRoles(["admin", "patient"]),
+  updateCase
+);
 Router.put(
   "/updateAppointment/:appointment_id",
   authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
   updateAppointment
 );
 Router.get(
   "/getAppointmentsForDoctor/:doctorId",
   authenticate,
+  allowRoles(["admin", "doctor", "patient"]),
   getAppointmentsForDoctor
 );
 

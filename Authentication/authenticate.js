@@ -5,6 +5,7 @@ function authenticate(req, res, next) {
   const header = req.headers["authorization"];
   console.log(header);
   const token = header && header.split(" ")[1];
+  console.log(token);
   if (token == undefined) {
     return res.sendStatus(401);
   } else {
@@ -13,6 +14,7 @@ function authenticate(req, res, next) {
         res.sendStatus(403);
       } else {
         res.locals = response;
+        console.log(response);
         next();
       }
     });
