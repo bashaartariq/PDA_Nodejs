@@ -10,16 +10,17 @@ const { getCategory } = require("../Controller/Category");
 const { getPurposeOfVisit } = require("../Controller/PurposeOfVisit");
 const { getCaseType } = require("../Controller/Case_TypeController");
 const { getFirm, getInsurance } = require("../Controller/FirmController");
-const { addCase, getCases } = require("../Controller/CaseController");
+const { addCase, getCases,updateCase } = require("../Controller/CaseController");
 const {
   addDoctor,
-  getDoctorForPracticeLocationAndSpeciality,
+  getDoctorForPracticeLocationAndSpeciality,getAppointmentsForDoctor
 } = require("../Controller/DoctorController");
 const { getSpeciality } = require("../Controller/DoctorSpeciality");
 const { getAppointmentTypes } = require("../Controller/Appointment_types");
 const {
   addAppointment,
   getAppointment,
+  updateAppointment
 } = require("../Controller/AppointmentController");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
@@ -44,4 +45,7 @@ Router.get(
 Router.post("/addAppointment", addAppointment);
 Router.get("/getPatientInfo/:userid", getPatientInfo);
 Router.get("/getAppointment/:CaseID", getAppointment);
+Router.put("/updateCase/:caseId",updateCase);
+Router.put("/updateAppointment/:appointment_id",updateAppointment);
+Router.get('/getAppointmentsForDoctor/:doctorId',getAppointmentsForDoctor);
 module.exports = Router;

@@ -35,5 +35,22 @@ const getDoctorForPracticeLocationAndSpeciality = async (req, res) => {
     res.status(500).send(error.response.data);
   }
 };
+const getAppointmentsForDoctor = async(req,res)=>{
+  const doctorId = req.params.doctorId;
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/getAppointmentsForDoctor/${doctorId}`
+    );
+    console.log("Data Retrieved:", response.data);
+    if (response.status === 400) {
+      return res.status(400).send(response.data);
+    }
+    return res.status(200).send(response.data);
+  }
+  catch (error) {
+    console.error("Error fetching data:",error.response ? error.response.data : error.message);
+    res.status(error.response?.status || 500).send(error.response?.data || error.message);}
+}
 
-module.exports = { addDoctor, getDoctorForPracticeLocationAndSpeciality };
+
+module.exports = { addDoctor, getDoctorForPracticeLocationAndSpeciality,getAppointmentsForDoctor };
