@@ -38,7 +38,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatButtonModule,
     MatInputModule,
-    NgxDatatableModule,
     FormsModule,
     MatTooltipModule,
     MatDialogModule

@@ -113,7 +113,15 @@ export class SignupComponent implements OnInit {
           this.authService.createDoctor(formData).subscribe((result: any) => {
           });
         }
-        this.router.navigate(['patient/add']);
+
+        if(this.authService.decodeToken()?.role === 'patient')
+        {
+          this.router.navigate(['patient/add']);
+        }
+        else if(this.authService.decodeToken()?.role === 'doctor')
+        {
+          this.router.navigate(['app/doctor/dashboard']);
+        }
       }, err => {
         //console.log(err);
         alert(err.error.message);

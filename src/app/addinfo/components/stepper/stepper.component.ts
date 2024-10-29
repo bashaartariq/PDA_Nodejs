@@ -46,13 +46,14 @@ export class StepperComponent implements OnInit {
     });
     this.stepper.next();
   }
+  
   onFormSubmitAppointment(formData: any) {
     console.log('From Stepper:', formData);
     const case_id = this.case_Id;
     const dataToSubmit = { ...formData, case_id };
 
     this.Service.addAppointment(dataToSubmit).subscribe((response) => {
-      alert(response);
+      alert(response.message);
     })
   }
 
@@ -83,6 +84,7 @@ export class StepperComponent implements OnInit {
   }
 
   onSubmit() {
+    this.case_Id = 0;
     this.route.navigate(['app/patient/list']);
     console.log("HELLO");
   }

@@ -29,7 +29,14 @@ export class SigninComponent implements OnInit {
       localStorage.setItem('token', token);
       console.log(this.auth.user);
       alert(response.message);
-      this.route.navigate(['app/patient/list']);
+      if(this.auth.decodeToken()?.role === 'patient')
+        {
+          this.route.navigate(['app/patient/list']);
+        }
+        else if(this.auth.decodeToken()?.role === 'doctor')
+        {
+          this.route.navigate(['app/doctor/dashboard']);
+        }
     }, (err) => { });
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService } from 'src/app/Services/dialog.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 @Component({
@@ -9,7 +8,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   signin: boolean = true;
-  constructor(private dialog: DialogService, private route: Router, private service: AuthService) { }
+  constructor(private route: Router, private service: AuthService) { }
   ngOnInit(): void {
   }
 
@@ -18,12 +17,12 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateto() {
-    const token = localStorage.getItem('token');
-    if (token) {
+    const role = this.service.decodeToken()?.role;
+    if (role === 'patient') {
       this.route.navigate(['/app/patient/list']);
     }
-    else {
-      this.route.navigate(['/home']);
+    else if(role === 'doctor') {
+      this.route.navigate(['/app/doctor/dashboard']);
     }
   }
   logout(): void {

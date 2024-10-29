@@ -89,22 +89,27 @@ export class AuthService {
     const user_id = this.decodeToken()?.userId;
     return this.http.get(`${this.NodeApiUrl}/getCases/${user_id}`);
   }
-
   getAppointmentsType(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getAppointmentTypes`);
   }
-  
   getDoctorByPracticeLocationAndSpeciality(PracticeLocationId: number, SpecialityId: number): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getDoctor/${PracticeLocationId}/${SpecialityId}`);
   }
-  
   addAppointment(formData: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addAppointment`, formData);
   }
-
   getAppointment(case_id:number):Observable<any>
   {
     return this.http.get(`${this.NodeApiUrl}/getAppointment/${case_id}`);
   }
-
+  updateCase(formdata:any,caseId:number):Observable<any>{
+    return this.http.put(`${this.NodeApiUrl}/updateCase/${caseId}`,formdata);
+  }
+  updateAppointment(formvalues:any,appointment_id:number):Observable<any>{
+    return this.http.put(`${this.NodeApiUrl}/updateAppointment/${appointment_id}`,formvalues);
+  }
+  getDoctorAppointment(user_id:number):Observable<any>
+  {
+    return this.http.get(`${this.NodeApiUrl}/getAppointmentsForDoctor/${user_id}`);
+  }
 }

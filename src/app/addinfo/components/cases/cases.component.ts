@@ -34,6 +34,7 @@ export class CasesComponent implements OnInit {
     this.selectFirm();
     this.initailizeInsurance();
     this.selectInsurance();
+    console.log("This is my Case form",this.caseForm.value);
   }
 
 
@@ -99,7 +100,6 @@ export class CasesComponent implements OnInit {
       console.log(this.insuranceData);
     });
   }
-
   selectInsurance(): void {
     this.caseForm.get('insuranceName')?.valueChanges.subscribe((selectedInsuranceName: any) => {
       const selectedInsurance = this.insuranceData.find((Insurance: any) => Insurance.name === selectedInsuranceName);
@@ -118,7 +118,6 @@ export class CasesComponent implements OnInit {
       }
     });
   }
-
   selectFirm(): void {
     this.caseForm.get('firmName')?.valueChanges.subscribe((selectedFirmName: any) => {
       const selectedFirm = this.firmData.find((firm: any) => firm.name === selectedFirmName);

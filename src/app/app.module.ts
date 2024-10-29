@@ -13,18 +13,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { NativeDateModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker'; // mat-datepicker
-import { MatFormFieldModule } from '@angular/material/form-field'; // mat-form-field
-import { MatSelectModule } from '@angular/material/select'; // mat-select (for mat-option)
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpinterceptorInterceptor } from './interceptors/httpinterceptor.interceptor';
 import { AddinfoModule } from './addinfo/addinfo.module';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageComponent } from './components/page/page.component';
-
-
-
 
 @NgModule({
   declarations: [
