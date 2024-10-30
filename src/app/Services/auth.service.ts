@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import { user } from '../model/interfaces';
@@ -15,12 +15,16 @@ export class AuthService {
   user: any;
   patient: any;
   getSignin: boolean = false;
+  private signinSubject = new BehaviorSubject<boolean>(false);
+  signin$: Observable<boolean> = this.signinSubject.asObservable();
+
   constructor(private http: HttpClient) { }
   decodeToken(): user | null {
     console.log("Calling from Decoder");
     const token = localStorage.getItem('token');
     if (token) {
       try {
+        this.signinSubject.next(true);
         return jwtDecode<user>(token);
       } catch (error) {
         console.error('Invalid token', error);
@@ -36,6 +40,9 @@ export class AuthService {
   }
   signin(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/signin`, data);
+  }
+  logout(){
+    this.signinSubject.next(false);
   }
   addInfo(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addPatientInfo`, data);

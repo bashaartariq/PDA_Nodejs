@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/Services/auth.service';
 @Component({
   selector: 'app-navbar',
@@ -7,14 +8,17 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  signin: boolean = true;
-  constructor(private route: Router, private service: AuthService) { }
+  signin$:Observable<boolean>;
+  constructor(private route: Router, private service: AuthService, ) {
+    this.signin$ = this.service.signin$;
+   }
   ngOnInit(): void {
+    this.signinTrue();
   }
 
   signinTrue(): void {
-    this.signin = localStorage.getItem('token') ? true : false;
-  }
+    const loggedIn = localStorage.getItem('token') ? true : false;
+    }
 
   navigateto() {
     const role = this.service.decodeToken()?.role;
@@ -26,9 +30,9 @@ export class NavbarComponent implements OnInit {
     }
   }
   logout(): void {
-    this.signin = false;
     localStorage.clear();
+    this.service.logout();
+    this.signin$ = this.service.signin$;
     this.route.navigate(['/home']);
-
   }
 }

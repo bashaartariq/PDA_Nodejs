@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';
+import { Router,NavigationEnd,Event } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-stepper',
@@ -22,6 +23,12 @@ export class StepperComponent implements OnInit {
     this.initializeAppointmentForm();
     this.initializeCaseForm();
   }
+  ngOninit():void{}
+
+  
+
+
+  
 
   initializeAppointmentForm(): void {
     this.appointmentForm = this.fb.group({
@@ -35,7 +42,6 @@ export class StepperComponent implements OnInit {
       description: ['']
     });
   }
-
 
   onFormSubmitCase(formData: any): void {
     console.log('Form submitted from stepper:', formData);
@@ -78,6 +84,7 @@ export class StepperComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+
 
   goToNextStep(event: any) {
     this.stepper.next();

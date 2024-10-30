@@ -1,8 +1,8 @@
 <mat-horizontal-stepper linear #stepper class="container" style="margin-left: auto;margin-right: auto;">
   <mat-step label="Patient Information">
-    <app-patientinfo (formSubmitted)="goToNextStep($event)"></app-patientinfo>
+    <app-patientinfo (formSubmitted)="goToNextStep($event)" ></app-patientinfo>
     <div>
-      <button mat-button matStepperNext>Next</button>
+      <button mat-button matStepperNext >Next</button>
     </div>
   </mat-step>
 

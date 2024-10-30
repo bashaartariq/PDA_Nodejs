@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 @Component({
@@ -12,6 +12,7 @@ export class PatientinfoComponent implements OnInit {
   states: any;
   cities: string[] = [];
   patient: any;
+  firstTime:boolean = true;
   constructor(private fb: FormBuilder, private service: AuthService) { }
   ngOnInit(): void {
     this.initializeForm();
@@ -44,7 +45,7 @@ export class PatientinfoComponent implements OnInit {
         city: response.data?.city || '',
         zip: response.data?.zip || ''
       };
-
+      this.firstTime = false;
       this.patientForm.patchValue(patientData);
       console.log(patientData);
     })

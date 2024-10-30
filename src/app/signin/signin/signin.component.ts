@@ -37,6 +37,6 @@ export class SigninComponent implements OnInit {
         {
           this.route.navigate(['app/doctor/dashboard']);
         }
-    }, (err) => { });
+    }, (err) => {alert(err.error.message);});
   }
 }

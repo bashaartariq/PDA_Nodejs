@@ -7,10 +7,9 @@
                 <div class="card">
                     <div class="card-header bg-primary text-white">Profile</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{name}}</h5>
                         <p class="card-text">Role: {{role[0].toUpperCase()+ role.slice(1)}}</p>
                         <p class="card-text">Email: {{email}}</p>
-                        <a class="btn btn-secondary" id="btn1">Edit Profile</a>
+                        <a class="btn btn-secondary" id="btn1" [routerLink]="['/patient/add']">Edit Profile</a>
                     </div>
                 </div>
             </div>
@@ -24,9 +23,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </div>
