@@ -105,6 +105,7 @@ export class DataTableComponent implements OnInit {
     dialogRef.componentInstance.caseForm = this.caseForm;
     dialogRef.componentInstance.formSubmit.subscribe((formValues:any)=>{
       this.onFormSubmitCaseForEdit(formValues,Case.id);
+      this.initializeCases();
       dialogRef.close();
     });
   }
@@ -127,6 +128,13 @@ export class DataTableComponent implements OnInit {
     dialogRef.componentInstance.appointmentForm = this.appointmentForm;
     dialogRef.componentInstance.formSubmit.subscribe((formValues: any) => {
       this.onFormSubmitAppointment(formValues, case_id);
+        if(this.selectedCaseId){
+          this.Service.getAppointment(this.selectedCaseId).subscribe((response) => {
+            console.log(response);
+            this.selectedCaseAppointments = response;
+          })}
+        else 
+          {console.error('Case ID is undefined');}   
       dialogRef.close();
     });
   }
@@ -163,6 +171,15 @@ export class DataTableComponent implements OnInit {
     dialogRef.componentInstance.appointmentForm = this.appointmentForm;
     dialogRef.componentInstance.formSubmit.subscribe((formValues: any) => {
       this.onFormSubmitAppointmentEdit(formValues,appointment.id);
+      if(this.selectedCaseId)
+      {
+        this.Service.getAppointment(this.selectedCaseId).subscribe((response) => {
+          console.log(response);
+          this.selectedCaseAppointments = response;
+        })
+      } else {
+        console.error('Case ID is undefined');
+      } 
       dialogRef.close();
     });
   }
