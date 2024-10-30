@@ -141,8 +141,16 @@ export class DataTableComponent implements OnInit {
       alert(err.error.message);
     })
   }
-
   editAppointment(appointment: any) {
+   const data = { date: appointment.date,
+    time:appointment.appointment_time ,
+    appointmentType:appointment.appointment_type ,
+    speciality: appointment.speciality_name,
+    doctor:appointment.doctor_name,
+    location: appointment.practice_location_name,
+    duration:appointment.Duration ,
+    description:appointment.Description
+  }
     console.log(appointment);
     const dialogRef = this.dialog.open(AppointmentComponent, {
       panelClass: 'custom-dialog-container',
@@ -150,13 +158,13 @@ export class DataTableComponent implements OnInit {
       maxHeight: '80vh',
       width: '600px',
     });
+    this.appointmentForm.patchValue(data);
+    console.log(appointment);
     dialogRef.componentInstance.appointmentForm = this.appointmentForm;
     dialogRef.componentInstance.formSubmit.subscribe((formValues: any) => {
       this.onFormSubmitAppointmentEdit(formValues,appointment.id);
       dialogRef.close();
     });
-
-
   }
 
   onFormSubmitAppointmentEdit(formvalues:any,appointment_id:number){

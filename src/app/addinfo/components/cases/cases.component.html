@@ -2,7 +2,6 @@
     <mat-card-title>Case Information</mat-card-title>
     <form [formGroup]="caseForm" (ngSubmit)="onSubmit()">
         <h2 class="form-section-title">Case Information</h2>
-
         <div class="form-grid">
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Practice Location</mat-label>
@@ -15,7 +14,6 @@
                     Practice Location is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Category</mat-label>
                 <mat-select formControlName="category" required>
@@ -27,7 +25,6 @@
                     Category is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Purpose of Visit</mat-label>
                 <mat-select formControlName="purposeOfVisit" required>
@@ -39,7 +36,6 @@
                     Purpose of Visit is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Case Type</mat-label>
                 <mat-select formControlName="caseType" required>
@@ -51,7 +47,6 @@
                     Case Type is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Date of Accident (DOA)</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="doa" placeholder="Choose a date">
@@ -59,8 +54,6 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
-
-
         <h2 class="form-section-title">Firm Information</h2>
         <div class="form-grid">
             <mat-form-field class="half-width" appearance="outline">
@@ -74,7 +67,6 @@
                     Firm Name is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Firm City</mat-label>
                 <mat-select formControlName="firmCity" required>
@@ -86,7 +78,6 @@
                     Firm City is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Firm State</mat-label>
                 <mat-select formControlName="firmState" required>
@@ -98,7 +89,6 @@
                     Firm State is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Firm Zip Code</mat-label>
                 <input matInput formControlName="firmZipCode" placeholder="Enter Firm Zip Code"
@@ -111,7 +101,6 @@
                 </mat-error>
             </mat-form-field>
         </div>
-
         <h2 class="form-section-title">Insurance Information</h2>
         <div class="form-grid">
             <mat-form-field class="half-width" appearance="outline">
@@ -125,7 +114,6 @@
                     Insurance Name is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>City</mat-label>
                 <mat-select formControlName="city" required>
@@ -137,7 +125,6 @@
                     City is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>State</mat-label>
                 <mat-select formControlName="state" required>
@@ -149,7 +136,6 @@
                     State is required
                 </mat-error>
             </mat-form-field>
-
             <mat-form-field class="half-width" appearance="outline">
                 <mat-label>Zip Code</mat-label>
                 <input matInput formControlName="zipCode" placeholder="Enter Zip Code"
@@ -162,7 +148,6 @@
                 </mat-error>
             </mat-form-field>
         </div>
-
         <button mat-raised-button color="primary" [disabled]="caseForm.invalid">Submit</button>
     </form>
 </mat-card>

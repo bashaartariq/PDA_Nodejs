@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
-import { DialogService } from 'src/app/Services/dialog.service';
 
 interface speciality {
   id: number;
@@ -14,9 +13,9 @@ interface speciality {
 interface PracticeLocation {
   id: number;
   name: string;
-  created_at: string; // or Date if you want to handle it as a date object
-  updated_at: string; // or Date
-  deleted_at: string | null; // can be null if not set
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
 }
 
 

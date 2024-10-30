@@ -25,4 +25,8 @@ export class DataTablesComponent implements OnInit {
       },(err)=>{});
     }
   }
+  editAppointment(row:any)
+  {
+    console.log(row);
+  }
 }

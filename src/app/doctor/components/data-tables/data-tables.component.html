@@ -24,8 +24,8 @@
 
         <ngx-datatable-column name="Actions">
             <ng-template ngx-datatable-cell-template let-row="row">
-                <button class="edit-btn">
-                    <i class="fas fa-edit"></i> Edit
+                <button class="edit-btn" (click)="editAppointment(row)">
+                    <i class="fas fa-edit" ></i> Edit
                 </button>
             </ng-template>
         </ngx-datatable-column>
