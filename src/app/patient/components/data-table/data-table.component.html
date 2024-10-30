@@ -3,19 +3,27 @@
         <input type="text" placeholder="Search Cases..." [(ngModel)]="searchTerm" (ngModelChange)="filterCases()"
             class="search-input" />
     </div>
-
-    <ngx-datatable class="material custom-table" [rows]="filteredCases" [columnMode]="'force'" [headerHeight]="50"
-        [footerHeight]="50" [rowHeight]="'auto'" [limit]="pageSize" [offset]="page" (page)="onPage($event)">
-        <ngx-datatable-column name="Case ID" prop="id"></ngx-datatable-column>
-        <ngx-datatable-column name="Category" prop="category"></ngx-datatable-column>
-        <ngx-datatable-column name="Purpose of Visit" prop="purpose_of_visit"></ngx-datatable-column>
-        <ngx-datatable-column name="Case Type" prop="case_type"></ngx-datatable-column>
-        <ngx-datatable-column name="DOA" prop="DOA"></ngx-datatable-column>
-        <ngx-datatable-column name="Insurance Name" prop="insurance_name"></ngx-datatable-column>
-        <ngx-datatable-column name="Firm Name" prop="firm_name"></ngx-datatable-column>
-        <ngx-datatable-column name="Practice Location" prop="practice_location_name"></ngx-datatable-column>
-
-        <ngx-datatable-column name="Actions">
+    <ngx-datatable 
+        class="material custom-table" 
+        [rows]="filteredCases" 
+        [columnMode]="'force'" 
+        [headerHeight]="50"
+        [footerHeight]="50" 
+        [rowHeight]="'auto'" 
+        [limit]="pageSize"  
+        [offset]="page" 
+        (page)="onPage($event)"
+        [scrollbarH]="true" 
+        [style.width.px]="1150">
+        <ngx-datatable-column name="Case ID" prop="id" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column name="Category" prop="category" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="Purpose of Visit" prop="purpose_of_visit" [width]="250"></ngx-datatable-column>
+        <ngx-datatable-column name="Case Type" prop="case_type" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column name="DOA" prop="DOA" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column name="Insurance Name" prop="insurance_name" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="Firm Name" prop="firm_name" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="Practice Location" prop="practice_location_name" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="Actions" [width]="200">
             <ng-template ngx-datatable-cell-template let-row="row">
                 <div class="action-buttons">
                     <button class="action-btn view-btn" (click)="view(row.id)">
@@ -27,12 +35,10 @@
                     <button class="action-btn add-btn" (click)="addAppointment(row.id)">
                         <i class="fas fa-add"></i>
                     </button>
-
                 </div>
             </ng-template>
         </ngx-datatable-column>
     </ngx-datatable>
-
     <div class="pagination-controls">
         <button class="pagination-btn" (click)="previousPage()" [disabled]="page === 0">
             <span>&#9664;</span> Previous
@@ -45,19 +51,26 @@
         </button>
     </div>
 </div>
-
-<!-- Appointment -->
 <div class="table-container">
     <div class="search-bar">
         <input type="text" placeholder="Search Appointments..." class="search-input" />
     </div>
+
     <div *ngIf="selectedCaseAppointments && selectedCaseAppointments.length">
         <h3>Appointments for Case ID: {{ selectedCaseId }}</h3>
-        <ngx-datatable class="material custom-table" [rows]="selectedCaseAppointments" [columnMode]="'force'"
-            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'">
-            <ngx-datatable-column name="Appointment ID" prop="id"></ngx-datatable-column>
-            
-            <ngx-datatable-column name="Description" prop="Description">
+
+        <ngx-datatable 
+            class="material custom-table" 
+            [rows]="selectedCaseAppointments" 
+            [columnMode]="'force'"
+            [headerHeight]="50" 
+            [footerHeight]="50" 
+            [rowHeight]="'auto'"
+            [scrollbarH]="true" 
+            [style.width.px]="1150">
+
+            <ngx-datatable-column name="Appointment ID" prop="id" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Description" prop="Description" [width]="300">
                 <ng-template ngx-datatable-cell-template let-row="row">
                     <span class="description-text" [matTooltip]="row.Description" matTooltipPosition="above"
                         matTooltipShowDelay="300" [attr.title]="row.Description"
@@ -66,12 +79,12 @@
                     </span>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Date" prop="date"></ngx-datatable-column>
-            <ngx-datatable-column name="Time" prop="appointment_time"></ngx-datatable-column>
-            <ngx-datatable-column name="Duration" prop="Duration"></ngx-datatable-column>
-            <ngx-datatable-column name="Appointment Type" prop="appointment_type"></ngx-datatable-column>
-            <ngx-datatable-column name="Location" prop="practice_location_name"></ngx-datatable-column>
-            <ngx-datatable-column name="Actions">
+            <ngx-datatable-column name="Date" prop="date" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Time" prop="appointment_time" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Duration" prop="Duration" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Appointment Type" prop="appointment_type" [width]="200"></ngx-datatable-column>
+            <ngx-datatable-column name="Location" prop="practice_location_name" [width]="200"></ngx-datatable-column>
+            <ngx-datatable-column name="Actions" [width]="150">
                 <ng-template ngx-datatable-cell-template let-row="row">
                     <button class="edit-btn" (click)="editAppointment(row)">
                         <i class="fas fa-edit"></i> Edit
@@ -87,8 +100,7 @@
         <button *ngFor="let p of pages" (click)="setPage(p)" [class.active]="p === page" class="page-number">
             {{ p + 1 }}
         </button>
-        <button class="pagination-btn" (click)="nextPage()"
-            [disabled]="page >= (selectedCaseAppointments.length / pageSize) - 1">
+        <button class="pagination-btn" (click)="nextPage()" [disabled]="page >= (selectedCaseAppointments.length / pageSize) - 1">
             Next <span>&#9654;</span>
         </button>
     </div>
