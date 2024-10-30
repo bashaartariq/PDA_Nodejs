@@ -4,6 +4,7 @@ function allowRoles(roles) {
     if (roles.includes(res.locals.role)) {
       return next();
     } else {
+      console.log("authorization error");
       return res.sendStatus(401);
     }
   };

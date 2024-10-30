@@ -29,18 +29,14 @@ const {
   updateAppointment,
 } = require("../Controller/AppointmentController");
 const { allowRoles } = require("../Authorization/checkRole");
-
-// Define routes
 Router.post("/signin", signin);
 Router.post("/signup", signup);
-
 Router.post(
   "/addPatientInfo",
   authenticate,
   allowRoles(["admin", "patient"]),
   addinfo
 );
-
 Router.get(
   "/getStates",
   authenticate,
@@ -55,8 +51,6 @@ Router.get(
 );
 Router.get(
   "/getPracticeLocation",
-  authenticate,
-  allowRoles(["admin", "doctor", "patient"]),
   practicelocation
 );
 Router.get(
@@ -93,8 +87,6 @@ Router.get(
 Router.post("/addCase", authenticate, allowRoles(["patient"]), addCase);
 Router.get(
   "/getSpeciality",
-  authenticate,
-  allowRoles(["admin", "doctor", "patient"]),
   getSpeciality
 );
 Router.get(
@@ -109,15 +101,11 @@ Router.get(
   allowRoles(["admin", "doctor", "patient"]),
   getAppointmentTypes
 );
-
-Router.post("/addDoctorInfo", authenticate, allowRoles(["admin"]), addDoctor);
+Router.post("/addDoctorInfo", addDoctor);
 Router.get(
   "/getDoctor/:practiceLocationId/:specialityId",
-  authenticate,
-  allowRoles(["admin", "doctor", "patient"]),
   getDoctorForPracticeLocationAndSpeciality
 );
-
 Router.post(
   "/addAppointment",
   authenticate,

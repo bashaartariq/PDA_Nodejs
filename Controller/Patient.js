@@ -25,6 +25,10 @@ const getPatientInfo = async (req, res) => {
       `http://localhost:8000/api/getPatientInfo/${userId}`
     );
     console.log("Data Retrived : ", response.data);
+    if(!!response.data)
+      {
+        return res.sendStatus(404);
+      }  
     return res.status(200).send(response.data);
   } catch (error) {
     console.error(
