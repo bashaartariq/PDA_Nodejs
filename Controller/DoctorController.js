@@ -53,4 +53,19 @@ const getAppointmentsForDoctor = async(req,res)=>{
 }
 
 
-module.exports = { addDoctor, getDoctorForPracticeLocationAndSpeciality,getAppointmentsForDoctor };
+const getApppointmentCase = async(req,res)=>{
+  const appointment_id = req.params.appointmentId;
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/getAppointmentCase/${appointment_id}`
+    );
+    console.log("Data Retrieved:", response.data);
+    return res.status(200).send(response.data);
+  }
+  catch (error) {
+    console.error("Error fetching data:",error.response ? error.response.data : error.message);
+    res.status(error.response?.status || 500).send(error.response?.data || error.message);}
+}
+
+
+module.exports = { addDoctor, getDoctorForPracticeLocationAndSpeciality,getAppointmentsForDoctor,getApppointmentCase };

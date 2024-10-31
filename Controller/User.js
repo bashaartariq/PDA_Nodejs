@@ -1,8 +1,10 @@
+const axios = require("axios");
 require("dotenv").config();
 const { user } = require("../Model");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
 const { Op, Sequelize } = require("sequelize");
 
 const validateUser = [
@@ -71,13 +73,6 @@ const signin = async (req, res) => {
 
 const signup = async (req, res) => {
   console.log(req.body);
-  // const errors = validationResult(req);
-  // if(!errors.isEmpty())
-  // {
-  //     return res.status(400).json({
-  //         message:'Validation failed'
-  //     })
-  // }
   const {
     firstName,
     middleName,
@@ -149,4 +144,30 @@ const signup = async (req, res) => {
     });
   }
 };
-module.exports = { signin, signup };
+
+const getRoles = async(req,res)=>{
+  try {
+    const response = await axios.get("http://localhost:8000/api/getRoles");
+    console.log("Data Retrived : ", response.data);
+    return res.status(200).send(response.data);
+  } catch (error) {
+    console.log(
+      "Error fetching data:",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).send(error.response.data);
+  }
+
+}
+const getGender = async(req,res)=>{
+  try{
+    const response = await axios.get('http://localhost:8000/api/Gender');
+    console.log("Data received : ",response.data);
+    return res.status(200).send(response.data);}
+  catch(err)
+  {
+    console.log("Error while fetching the Gender");
+    res.status(500).send("ERROR");
+  }
+}
+module.exports = { signin, signup,getRoles,getGender };

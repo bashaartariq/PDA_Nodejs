@@ -1,7 +1,7 @@
 const express = require("express");
 const { authenticate } = require("../Authentication/authenticate");
 const Router = express.Router();
-const { signin, signup } = require("../Controller/User");
+const { signin, signup,getRoles,getGender } = require("../Controller/User");
 const { addinfo, getPatientInfo } = require("../Controller/Patient");
 const { getStates, getCity } = require("../Controller/State_City_Zip");
 const {
@@ -20,6 +20,7 @@ const {
   addDoctor,
   getDoctorForPracticeLocationAndSpeciality,
   getAppointmentsForDoctor,
+  getApppointmentCase,
 } = require("../Controller/DoctorController");
 const { getSpeciality } = require("../Controller/DoctorSpeciality");
 const { getAppointmentTypes } = require("../Controller/Appointment_types");
@@ -142,5 +143,7 @@ Router.get(
   allowRoles(["admin", "doctor", "patient"]),
   getAppointmentsForDoctor
 );
-
+Router.get("/getAppointmentCase/:appointmentId",authenticate,allowRoles(["doctor"]),getApppointmentCase);
+Router.get('/Roles',getRoles);
+Router.get('/Genders',getGender);
 module.exports = Router;

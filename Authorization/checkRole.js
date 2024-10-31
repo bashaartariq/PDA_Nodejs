@@ -1,4 +1,3 @@
-// roleMiddleware.js
 function allowRoles(roles) {
   return (req, res, next) => {
     if (roles.includes(res.locals.role)) {
