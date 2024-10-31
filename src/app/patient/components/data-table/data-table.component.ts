@@ -21,9 +21,8 @@ export class DataTableComponent implements OnInit {
   selectedCaseId: number | null = null;
   appointmentForm: any;
   caseForm:any;
-
   constructor(private Service: AuthService, private dialog: MatDialog, private fb: FormBuilder) { }
-  ngOnInit() {
+  ngOnInit(){
     this.initializeCases();
     console.log(this.filteredCases);
     this.initializeAppointmentForm();
@@ -68,7 +67,6 @@ export class DataTableComponent implements OnInit {
       firmZipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]]
     });
   }
-
   view(case_id: any): void {
     console.log(case_id);
     if (case_id) {
@@ -81,7 +79,6 @@ export class DataTableComponent implements OnInit {
       console.error('Case ID is undefined');
     }
   }
-
   editCase(Case:any):void
   {
     const dialogRef = this.dialog.open(CasesComponent, {
@@ -109,7 +106,6 @@ export class DataTableComponent implements OnInit {
       dialogRef.close();
     });
   }
-
   onFormSubmitCaseForEdit(formValues:any,case_Id:number)
   {
     console.log("This is the form of the case",formValues);
@@ -117,7 +113,6 @@ export class DataTableComponent implements OnInit {
       console.log("This is the Response ",response);
     },(err:any)=>{console.log("This is the Error while updating the case",err);});
   }
-
   addAppointment(case_id: any): void {
     const dialogRef = this.dialog.open(AppointmentComponent, {
       panelClass: 'custom-dialog-container',
@@ -138,7 +133,6 @@ export class DataTableComponent implements OnInit {
       dialogRef.close();
     });
   }
-
   onFormSubmitAppointment(formData: any, case_Id: number) {
     console.log("This is the Form Values", formData);
     const case_id = case_Id;
@@ -183,7 +177,6 @@ export class DataTableComponent implements OnInit {
       dialogRef.close();
     });
   }
-
   onFormSubmitAppointmentEdit(formvalues:any,appointment_id:number){
     console.log("This is the Form Values",formvalues,appointment_id);
     this.Service.updateAppointment(formvalues,appointment_id).subscribe((response:any)=>{
@@ -192,7 +185,6 @@ export class DataTableComponent implements OnInit {
       alert(err.error.message);
     });
   }
-
   filterCases() {
     const term = this.searchTerm.toLowerCase();
     this.filteredCases = this.patientCases.filter((caseItem: any) =>
@@ -205,25 +197,20 @@ export class DataTableComponent implements OnInit {
     );
     this.page = 0;
   }
-
   onPage(event: any) {
     this.page = event.offset;
   }
-
   setPage(page: number) {
     this.page = page;
   }
-
   nextPage() {
     if (this.page < this.filteredCases.length / this.pageSize - 1) {
       this.page++;
     }
   }
-
   previousPage() {
     if (this.page > 0) {
       this.page--;
     }
   }
-
 }

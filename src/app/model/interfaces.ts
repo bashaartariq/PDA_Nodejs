@@ -6,6 +6,17 @@ export interface user {
     email: string;
     role: string;
 }
+export interface SignupUser {
+    confirmPassword: string;
+    dob: string; 
+    email: string;
+    firstName: string;
+    gender: "male" | "female"; 
+    lastName: string;
+    middleName: string;
+    password: string;
+    role: "patient" | "doctor";
+}  
 export interface Case {
     DOA: string;
     PID: number;
@@ -60,6 +71,7 @@ export interface UserD {
     created_at: string;
     updated_at: string;
 }
+
 export interface Doctor {
     id: number;
     speciality_id: number;

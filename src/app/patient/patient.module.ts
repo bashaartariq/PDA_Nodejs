@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { PatientRoutingModule } from './patient-routing.module';
 import { PatientListComponent } from './components/patient-list/patient-list.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { EditProfileComponent } from '../components/edit-profile/edit-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -22,7 +21,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     PatientListComponent,
-    SidebarComponent,
     EditProfileComponent,
     DataTableComponent],
   imports: [

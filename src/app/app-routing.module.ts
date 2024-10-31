@@ -29,6 +29,11 @@ const routes: Routes = [
     path: 'app', loadChildren: () => import('./patient/patient.module').then(m => m.PatientModule),
     canActivate: [AuthGuard],
     data: { roles: ['patient'] }
+  },
+  { 
+    path: 'app/admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
   }
 ];
 

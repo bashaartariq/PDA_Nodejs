@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import { user } from '../model/interfaces';
-
+import { SignupUser } from '../model/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class AuthService {
   signin$: Observable<boolean> = this.signinSubject.asObservable();
 
   constructor(private http: HttpClient) { }
+
   decodeToken(): user | null {
     console.log("Calling from Decoder");
     const token = localStorage.getItem('token');
@@ -35,7 +36,8 @@ export class AuthService {
       return null;
     }
   }
-  signup(data: any): Observable<any> {
+  signup(data: SignupUser): Observable<any> {
+    console.log(data);
     return this.http.post(`${this.NodeApiUrl}/signup`, data);
   }
   signin(data: any): Observable<any> {
@@ -47,12 +49,10 @@ export class AuthService {
   addInfo(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addPatientInfo`, data);
   }
-
   getPatientInfo(): Observable<any> {
     const userId = this.decodeToken()?.userId;
     return this.http.get(`${this.NodeApiUrl}/getPatientInfo/${userId}`);
   }
-
   getStates(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getStates`);
   }
@@ -83,15 +83,12 @@ export class AuthService {
     const dataToSubmit = { ...formData, userId };
     return this.http.post(`${this.NodeApiUrl}/addCase`, dataToSubmit);
   }
-  
   createDoctor(formData: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/addDoctorInfo`, formData);
   }
-  
   getSpecailiy(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/getSpeciality`);
   }
-  
   getCases(): Observable<any> {
     const user_id = this.decodeToken()?.userId;
     return this.http.get(`${this.NodeApiUrl}/getCases/${user_id}`);
@@ -118,5 +115,17 @@ export class AuthService {
   getDoctorAppointment(user_id:number):Observable<any>
   {
     return this.http.get(`${this.NodeApiUrl}/getAppointmentsForDoctor/${user_id}`);
+  }
+  getAppointmentCase(appointment_id:number):Observable<any>
+  {
+    return this.http.get(`${this.NodeApiUrl}/getAppointmentCase/${appointment_id}`);
+  }
+  getRoles()
+  {
+    return this.http.get(`${this.NodeApiUrl}/Roles`);
+  }
+  getGender()
+  {
+    return this.http.get(`${this.NodeApiUrl}/Genders`);
   }
 }

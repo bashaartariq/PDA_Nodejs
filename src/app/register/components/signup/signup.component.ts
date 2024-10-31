@@ -28,8 +28,8 @@ export class SignupComponent implements OnInit {
 
   signupForm: any = FormGroup;
   doctorForm: any = FormGroup;
-  roles: string[] = ['patient', 'doctor'];
-  genders: string[] = ['male', 'female', 'other'];
+  roles: string[] = [];
+  genders: string[] =[];
   isDoctor: boolean = false;
   speciality: speciality[] = [];
   practiceLocation: PracticeLocation[] = [];
@@ -38,9 +38,26 @@ export class SignupComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
+    this.initializeRoles();
+    this.initializeGender();
     this.initializeForm();
   }
-
+  initializeGender()
+  {
+    this.authService.getGender().subscribe((response:any)=>{
+      this.genders = response.map((e:any)=>{
+        return e.name;
+      });
+    })
+  }
+  initializeRoles()
+  {
+    this.authService.getRoles().subscribe((response:any)=>{
+      this.roles = response.map((e:any)=>{
+        return e.name;
+      });
+    })
+  }
   onRoleChange(selectedRole: string): void {
     this.isDoctor = selectedRole === 'doctor';
     this.initializeDoctorForm();
@@ -112,7 +129,6 @@ export class SignupComponent implements OnInit {
           this.authService.createDoctor(formData).subscribe((result: any) => {
           });
         }
-
         if(this.authService.decodeToken()?.role === 'patient')
         {
           this.router.navigate(['patient/add']);
@@ -120,6 +136,10 @@ export class SignupComponent implements OnInit {
         else if(this.authService.decodeToken()?.role === 'doctor')
         {
           this.router.navigate(['app/doctor/dashboard']);
+        }
+        else if(this.authService.decodeToken()?.role === 'admin')
+        {
+          this.router.navigate(['app/admin']);
         }
       }, err => {
         //console.log(err);
