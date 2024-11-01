@@ -30,6 +30,7 @@ const {
   updateAppointment,
 } = require("../Controller/AppointmentController");
 const { allowRoles } = require("../Authorization/checkRole");
+const {getDoctorPatientCount,getAllPatient,deletePatient} = require("../Controller/Admin");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
 Router.post(
@@ -143,7 +144,12 @@ Router.get(
   allowRoles(["admin", "doctor", "patient"]),
   getAppointmentsForDoctor
 );
+
 Router.get("/getAppointmentCase/:appointmentId",authenticate,allowRoles(["doctor"]),getApppointmentCase);
 Router.get('/Roles',getRoles);
+
 Router.get('/Genders',getGender);
+Router.get('/doctorAndPatientCount',authenticate,allowRoles("admin"),getDoctorPatientCount);
+Router.get('/AllPatient',authenticate,allowRoles("admin"),getAllPatient);
+Router.delete('/Patients/:PatientIdsArr',authenticate,allowRoles("admin"),deletePatient);
 module.exports = Router;
