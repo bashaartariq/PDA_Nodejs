@@ -128,4 +128,16 @@ export class AuthService {
   {
     return this.http.get(`${this.NodeApiUrl}/Genders`);
   }
+  getTotalDoctorandPatient()
+  {
+    return this.http.get(`${this.NodeApiUrl}/doctorAndPatientCount`);
+  }
+  getAllPatient()
+  {
+    return this.http.get(`${this.NodeApiUrl}/AllPatient`);
+  }
+  DeletePatient(patientids:any)
+  {
+    return this.http.delete(`${this.NodeApiUrl}/Patients/${patientids}`);
+  }
 }

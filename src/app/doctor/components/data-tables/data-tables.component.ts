@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CasesComponent } from 'src/app/addinfo/components/cases/cases.component';
 import { Validators, FormGroup,FormBuilder} from '@angular/forms';
+import { AppointmentComponent } from 'src/app/addinfo/components/appointment/appointment.component';
+
 @Component({
   selector: 'app-data-tables',
   templateUrl: './data-tables.component.html',
@@ -11,9 +12,23 @@ import { Validators, FormGroup,FormBuilder} from '@angular/forms';
 export class DataTablesComponent implements OnInit {
   selectedCaseAppointments: any = [];
   selectAppointmentCase:any = [];
+  appointmentForm:any = FormGroup;
   constructor(private service:AuthService,private dialog: MatDialog,private fb:FormBuilder) { }
   ngOnInit(): void {
     this.getAppointments();
+    this.initializeAppointmentForm();
+  }
+  initializeAppointmentForm(): void {
+    this.appointmentForm = this.fb.group({
+      date: ['', Validators.required],
+      time: ['', Validators.required],
+      appointmentType: ['', Validators.required],
+      speciality: ['', Validators.required],
+      doctor: ['', Validators.required],
+      location: ['', Validators.required],
+      duration: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      description: ['']
+    });    
   }
   viewCases(row:any){
     this.service.getAppointmentCase(row.id).subscribe((result)=>{
@@ -36,7 +51,30 @@ export class DataTablesComponent implements OnInit {
       },(err)=>{});
     }
   }
+
   editAppointment(row:any)
   {
     console.log(row);
-  }}
+    const dialogRef = this.dialog.open(AppointmentComponent,{
+      panelClass: 'custom-dialog-container',
+      height: 'auto',
+      maxHeight: '80vh',
+      width: '600px',
+    });
+    dialogRef.componentInstance.appointmentForm = this.appointmentForm;
+    dialogRef.componentInstance.formSubmit.subscribe((formValues: any) => {
+      this.onFormSubmitAppointmentEdit(formValues,row.id);
+      dialogRef.close();
+    });
+  }
+
+  onFormSubmitAppointmentEdit(formValues:any,appointment_id:number)
+  {
+    console.log(formValues,appointment_id);
+    this.service.updateAppointment(formValues,appointment_id).subscribe((response:any)=>{
+      alert(response.message);
+    },(err:any)=>{
+      alert(err.error.message);
+    });
+  }
+}

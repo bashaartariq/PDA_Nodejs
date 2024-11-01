@@ -55,18 +55,11 @@ export class DataTableComponent implements OnInit {
       purposeOfVisit: ['', Validators.required],
       caseType: ['', Validators.required],
       doa: [''],
-
       insuranceName: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-
       firmName: ['', Validators.required],
-      firmCity: ['', Validators.required],
-      firmState: ['', Validators.required],
-      firmZipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]]
     });
   }
+
   view(case_id: any): void {
     console.log(case_id);
     if (case_id) {
@@ -79,6 +72,7 @@ export class DataTableComponent implements OnInit {
       console.error('Case ID is undefined');
     }
   }
+
   editCase(Case:any):void
   {
     const dialogRef = this.dialog.open(CasesComponent, {
@@ -106,6 +100,7 @@ export class DataTableComponent implements OnInit {
       dialogRef.close();
     });
   }
+
   onFormSubmitCaseForEdit(formValues:any,case_Id:number)
   {
     console.log("This is the form of the case",formValues);
@@ -113,6 +108,7 @@ export class DataTableComponent implements OnInit {
       console.log("This is the Response ",response);
     },(err:any)=>{console.log("This is the Error while updating the case",err);});
   }
+
   addAppointment(case_id: any): void {
     const dialogRef = this.dialog.open(AppointmentComponent, {
       panelClass: 'custom-dialog-container',
@@ -133,6 +129,7 @@ export class DataTableComponent implements OnInit {
       dialogRef.close();
     });
   }
+  
   onFormSubmitAppointment(formData: any, case_Id: number) {
     console.log("This is the Form Values", formData);
     const case_id = case_Id;

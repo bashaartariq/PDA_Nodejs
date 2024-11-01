@@ -1,0 +1,10 @@
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+  }
+  ngx-datatable {
+    min-width: 600px;
+  }
+  @media (max-width: 768px) {
+    ngx-datatable {font-size: 0.9em;}}
+  

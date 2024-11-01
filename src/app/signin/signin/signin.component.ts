@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
-
 @Component({
   selector: 'app-login',
   templateUrl: './signin.component.html',
@@ -11,15 +10,18 @@ import { AuthService } from 'src/app/Services/auth.service';
 export class SigninComponent implements OnInit {
   loginForm: any = FormGroup;
   constructor(private fb: FormBuilder, private auth: AuthService, private route: Router) { }
+  
   ngOnInit(): void {
     this.initializeForm();
   }
+  
   initializeForm() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
+
   onSubmit() {
     console.log(this.loginForm.value);
     this.auth.signin(this.loginForm.value).subscribe((response) => {
@@ -36,6 +38,10 @@ export class SigninComponent implements OnInit {
         else if(this.auth.decodeToken()?.role === 'doctor')
         {
           this.route.navigate(['app/doctor/dashboard']);
+        }
+        else if(this.auth.decodeToken()?.role === 'admin')
+        {
+          this.route.navigate(['app/admin']);
         }
     }, (err) => {
       alert(err.error.error);});
