@@ -1,1 +1,91 @@
-<button (click)="selectDateRange()">Select Date Range for the Specific Doctor</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 *ngIf="!!doctor_name" class="text-center mt-4">
+                Appointments for Doctor: {{ doctor_name }}
+            </h3>
+            <ngx-datatable class="material custom-table container p-4 mt-4" [rows]="Doctors" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="pageSize" [offset]="page"
+                [scrollbarH]="true" [style.width.px]="1050">
+                <ngx-datatable-column name="Doctor ID" prop="id"></ngx-datatable-column>
+                <ngx-datatable-column name="Name" prop="doctor_name" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Email" prop="email" [width]="250"></ngx-datatable-column>
+                <ngx-datatable-column name="Gender" prop="gender" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Practice Location" prop="practice_location"
+                    [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Speciality" prop="speciality" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Actions">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                        <button class="view-btn" (click)="viewDoctorAppointments(row)" style="width: min-content;">
+                            View
+                        </button>
+                        <button class="view-btn" (click)="DateRangeDoctor(row)" style="width: min-content;">
+                            Create
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+
+    <div class="mx-5 mt-4">
+        <ngx-datatable class="material custom-table" [rows]="Appointments" [columnMode]="'force'" [headerHeight]="50"
+            [footerHeight]="50" [rowHeight]="'auto'" [limit]="pageSize" [offset]="page" [scrollbarH]="true">
+            <ngx-datatable-column name="Appointment ID" prop="id"></ngx-datatable-column>
+            <ngx-datatable-column name="Description" prop="description">
+                <ng-template ngx-datatable-cell-template let-row="row">
+                    <span class="description-text" [matTooltip]="row.description" matTooltipPosition="above"
+                        matTooltipShowDelay="300" [attr.title]="row.description"
+                        [ngClass]="{'text-truncated': row.description.length > 15}">
+                        {{ row.description.length > 15 ? (row.description | slice:0:15) + '...' : row.description }}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Date" prop="date" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Time" prop="time" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Duration" prop="duration" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Appointment Type" prop="appointment_type" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Location" prop="practice_location" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Specialty" prop="speciality" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Patient Id" prop="patient_id" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Patient Name" prop="patient_name" [width]="150"></ngx-datatable-column>
+            <ngx-datatable-column name="Actions">
+                <ng-template ngx-datatable-cell-template let-row="row">
+                    <button class="edit-btn" (click)="editAppointment(row)">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="view-btn" (click)="viewCases(row)">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+
+        <div class="pagination-controls mt-3">
+            <button class="pagination-btn" (click)="previousPage()" [disabled]="page === 0">
+                <span>&#9664;</span> Previous
+            </button>
+            <button class="pagination-btn" (click)="nextPage()"
+                [disabled]="page >= (Appointments.length / pageSize) - 1">
+                Next <span>&#9654;</span>
+            </button>
+        </div>
+
+        <div class="table-container">
+            <h3 class="mt-4">Appointment Case</h3>
+            <ngx-datatable class="material custom-table" [rows]="selectAppointmentCase" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true">
+                <ngx-datatable-column name="Case ID" prop="id" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Category" prop="category" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Purpose of Visit" prop="purpose_of_visit"
+                    [width]="250"></ngx-datatable-column>
+                <ngx-datatable-column name="Case Type" prop="case_type" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="DOA" prop="DOA" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Insurance Name" prop="insurance_name" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Firm Name" prop="firm_name" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Practice Location" prop="practice_location_name"
+                    [width]="200"></ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>

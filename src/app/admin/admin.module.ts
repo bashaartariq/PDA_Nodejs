@@ -8,19 +8,36 @@ import { DataTablesForPatientComponent } from './components/data-tables-patient/
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DataTablesDoctorComponent } from './components/data-tables-doctor/data-tables-doctor.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { PDFComponent } from './components/pdf/pdf.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AdminPageComponent,
     DataTablesForPatientComponent,
-    DataTablesDoctorComponent
+    DataTablesDoctorComponent,
+    PDFComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
+    MatInputModule,
     MatCardModule,
+    MatDatepickerModule,
     MatIconModule,
+    MatNativeDateModule,
     NgxDatatableModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ]
 })
 export class AdminModule { }

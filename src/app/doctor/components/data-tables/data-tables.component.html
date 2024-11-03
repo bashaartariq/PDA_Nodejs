@@ -3,8 +3,8 @@
         <div>
             <h3>Appointments for Doctor</h3>
             <ngx-datatable class="material custom-table p-2" [rows]="selectedCaseAppointments" [columnMode]="'force'"
-                [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true"
-                [style.width.px]="1050">
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="pageSize" [offset]="page"
+                [scrollbarH]="true" [style.width.px]="1050">
                 <ngx-datatable-column name="Appointment ID" prop="id"></ngx-datatable-column>
                 <ngx-datatable-column name="Description" prop="description">
                     <ng-template ngx-datatable-cell-template let-row="row">
@@ -35,6 +35,15 @@
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
+            <div class="pagination-controls">
+                <button class="pagination-btn" (click)="previousPage()" [disabled]="page === 0">
+                    <span>&#9664;</span> Previous
+                </button>
+                <button class="pagination-btn" (click)="nextPage()"
+                    [disabled]="page >= (selectedCaseAppointments.length / pageSize) - 1">
+                    Next <span>&#9654;</span>
+                </button>
+            </div>
         </div>
         <div class="table-container">
             <h3>Appointment Case</h3>

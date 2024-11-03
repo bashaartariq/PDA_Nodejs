@@ -1,0 +1,10 @@
+<form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
+    <input formControlName="startDate" type="date" placeholder="Start Date">
+    <input formControlName="endDate" type="date" placeholder="End Date">
+
+    <div *ngIf="dateRangeForm.hasError('invalidDateRange') && dateRangeForm.dirty">
+        <small class="text-danger">The start date must be earlier than the end date.</small>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>

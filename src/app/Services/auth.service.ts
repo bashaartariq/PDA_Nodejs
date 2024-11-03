@@ -138,4 +138,13 @@ export class AuthService {
     return this.http.get(`${this.NodeApiUrl}/AllDoctors`);
   }
 
+  Doctor(): Observable<any> {
+    return this.http.get(`${this.NodeApiUrl}/AllDoctors`);
+  }
+  DoctorAppoitnmentbyAdmin(id: number): Observable<any> {
+    return this.http.get(`${this.NodeApiUrl}/DoctorAppointments/${id}`);
+  }
+  getPDF(data: any): Observable<any> {
+    return this.http.post(`${this.NodeApiUrl}/PDF`, data);
+  }
 }
