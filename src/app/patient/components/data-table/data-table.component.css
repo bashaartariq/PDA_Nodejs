@@ -1,9 +1,9 @@
 .table-container {
   margin: 20px auto;
   padding: 20px;
-  background: #e7e7e7a6;
+  background: #f7f9fc; /* Light background for contrast */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
   overflow-x: auto;
 }
@@ -17,47 +17,45 @@
 .search-input {
   padding: 10px 15px;
   font-size: 16px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc; /* Soft border */
   border-radius: 4px;
   width: 250px;
   transition: border-color 0.3s;
 }
 
 .search-input:focus {
-  border-color: #5a67d8;
+  border-color: #6c63ff; /* Highlight border on focus */
   outline: none;
 }
 
 .ngx-datatable.material {
-  border: 1px solid #dddddd1f;
+  border: none; /* No border for a cleaner look */
   border-radius: 8px;
-  overflow: hidden;
   font-family: Arial, sans-serif;
 }
 
-.ngx-datatable .datatable-header, .ngx-datatable .datatable-body {
-  border: 1px solid #ccc;
+.ngx-datatable .datatable-header,
+.ngx-datatable .datatable-body {
+  border: none; /* No border between header and body */
 }
 
 .ngx-datatable .datatable-header-cell {
-  background: #5a67d8;
+  background: #6c63ff; /* Header background */
   color: white;
   font-weight: bold;
   padding: 12px;
-  border-right: 1px solid #ddd;
 }
 
 .ngx-datatable .datatable-body-row {
   transition: background 0.2s ease-in-out;
-  border-bottom: 1px solid #ddd;
 }
 
 .ngx-datatable .datatable-body-row {
-  border: 1px solid black; /* Added solid black border for each row */
+  border-bottom: 1px solid #eaeaea; /* Light border for rows */
 }
 
 .ngx-datatable .datatable-body-row:nth-child(odd) {
-  background-color: #f9f9f9; /* Light gray for odd rows */
+  background-color: #f9f9f9; /* Slightly darker for odd rows */
 }
 
 .ngx-datatable .datatable-body-row:nth-child(even) {
@@ -66,13 +64,12 @@
 
 .ngx-datatable .datatable-body-cell {
   padding: 10px;
-  border-right: 1px solid #ddd;
-  color: #555;
+  color: #333; /* Darker text color */
 }
 
 .ngx-datatable .datatable-body-cell:last-child,
 .ngx-datatable .datatable-header-cell:last-child {
-  border-right: none;
+  border-right: none; /* No border on last cell */
 }
 
 .action-buttons .action-btn {
@@ -85,15 +82,16 @@
 }
 
 .action-btn.view-btn:hover {
-  color: #4a90e2;
+  color: #007bff; /* Bootstrap primary */
 }
 
 .action-btn.edit-btn:hover {
-  color: #ff6b6b;
+  color: #ff8c00; /* Orange for edit */
 }
 
-.edit-btn i, .action-btn i {
-  color: #777;
+.edit-btn i,
+.action-btn i {
+  color: #666; /* Softer icon color */
   font-size: 18px;
 }
 
@@ -107,7 +105,7 @@
 
 .pagination-btn,
 .page-number {
-  background: #5a67d8;
+  background: #6c63ff; /* Primary button color */
   color: white;
   border: none;
   padding: 8px 14px;
@@ -119,16 +117,16 @@
 
 .pagination-btn:hover,
 .page-number:hover {
-  background: #4e60bd;
+  background: #5a52d1; /* Darker shade on hover */
 }
 
 .page-number.active {
-  background: #4e60bd;
+  background: #5a52d1; /* Active button color */
   font-weight: bold;
 }
 
 .pagination-btn[disabled] {
-  background: #b8c1ec;
+  background: #c0c0c0; /* Grey for disabled */
   cursor: not-allowed;
 }
 
@@ -137,15 +135,16 @@ h3 {
   font-size: 18px;
   margin-bottom: 10px;
 }
+
 .description-text {
-  cursor: pointer; /* Change the cursor to indicate interactivity */
-  display: inline-block; /* Ensure it behaves like inline elements */
+  cursor: pointer; /* Indicate interactivity */
+  display: inline-block;
   max-width: 150px; /* Adjust according to your layout */
-  overflow: hidden; /* Hide overflow text */
-  white-space: nowrap; /* Prevent wrapping */
-  text-overflow: ellipsis; /* Add ellipsis for truncated text */
+  overflow: hidden; 
+  white-space: nowrap;
+  text-overflow: ellipsis; 
 }
 
 .text-truncated:hover {
-  text-decoration: underline; /* Optional: Indicate that it's hoverable */
+  text-decoration: underline;
 }

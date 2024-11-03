@@ -1,31 +1,3 @@
-<div class="dashboard container mt-4">
-  <mat-card class="card doctor-card">
-    <mat-card-header>
-      <mat-icon color="primary">medical_services</mat-icon>
-      <div class="card-title">Doctors</div>
-    </mat-card-header>
-    <mat-card-content>
-      <br>
-      <h2 class="count">{{totalDoctors}}</h2>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="card patient-card">
-    <mat-card-header>
-      <mat-icon color="accent">people</mat-icon>
-      <div class="card-title">Patients</div>
-    </mat-card-header>
-    <mat-card-content>
-      <br>
-      <h2 class="count">{{totalPatients}}</h2>
-    </mat-card-content>
-  </mat-card>
-</div>
-
-
-
-
-
 <div class="container">
   <ng-container *ngIf="(asyncTabs | async) as tabs; else loading">
     <mat-tab-group>
@@ -39,10 +11,4 @@
   <ng-template #loading>
     Loading tabs...
   </ng-template>
-
 </div>
-
-<!-- 
-<div class="container mt-4">
-  <app-data-tables></app-data-tables>
-</div> -->

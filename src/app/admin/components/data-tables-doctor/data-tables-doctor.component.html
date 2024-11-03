@@ -1,9 +1,7 @@
 <div class="container-fluid">
+    <h2 class="mt-4">Total Doctors are {{doctorCount}}</h2>
     <div class="row">
         <div class="col-12">
-            <h3 *ngIf="!!doctor_name" class="text-center mt-4">
-                Appointments for Doctor: {{ doctor_name }}
-            </h3>
             <ngx-datatable class="material custom-table container p-4 mt-4" [rows]="Doctors" [columnMode]="'force'"
                 [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="pageSize" [offset]="page"
                 [scrollbarH]="true" [style.width.px]="1050">
@@ -29,6 +27,9 @@
     </div>
 
     <div class="mx-5 mt-4">
+        <h3 *ngIf="!!doctor_name" class="text-center mt-4">
+            Appointments for Doctor: {{ doctor_name }}
+        </h3>
         <ngx-datatable class="material custom-table" [rows]="Appointments" [columnMode]="'force'" [headerHeight]="50"
             [footerHeight]="50" [rowHeight]="'auto'" [limit]="pageSize" [offset]="page" [scrollbarH]="true">
             <ngx-datatable-column name="Appointment ID" prop="id"></ngx-datatable-column>

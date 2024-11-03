@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -11,6 +11,7 @@ import { PDFComponent } from '../pdf/pdf.component';
   styleUrls: ['./data-tables-doctor.component.css']
 })
 export class DataTablesDoctorComponent implements OnInit {
+  @Input() doctorCount: any;
   Doctors: any = [];
   Appointments: any = [];
   selectAppointmentCase: any = [];

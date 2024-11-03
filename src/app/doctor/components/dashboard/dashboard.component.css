@@ -1,43 +1,51 @@
 .dashboard {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 50px;
-background-color: #f5f5f5;
-border-radius: 8px;
-}
-.card {
-width: 320px;
-border-radius: 8px;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-background-color: #ffffff;
-}
-.icon-container {
-background-color: #3f51b5;
-color: #ffffff;
-display: flex;
-justify-content: center;
-align-items: center;
-width: 40px;
-height: 40px;
-border-radius: 50%;
-}
-.mat-card-title {
-font-size: 1.25rem;
-font-weight: 600;
-}
-.mat-card-subtitle {
-color: #757575;
-font-size: 0.875rem;
-}
-.appointment-count {
-font-size: 2.5rem;
-color: #3f51b5;
-margin: 0;
-font-weight: 700;
-text-align: center;
-}
-.mat-card-actions {
-display: flex;
-justify-content: center;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    background-color: #e0e0e0; /* Change background to a light gray */
+    border-radius: 8px;
+  }
+  
+  .card {
+    width: 320px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Darker shadow for depth */
+    background-color: #ffffff; /* Keep the card white for contrast */
+  }
+  
+  .icon-container {
+    background-color: #6200ea; /* Dark purple for the icon background */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .mat-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333; /* Dark gray for better readability */
+  }
+  
+  .mat-card-subtitle {
+    color: #757575;
+    font-size: 0.875rem;
+  }
+  
+  .appointment-count {
+    font-size: 2.5rem;
+    color: #6200ea;
+    margin: 0;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .mat-card-actions {
+    display: flex;
+    justify-content: center;
+  }
+  

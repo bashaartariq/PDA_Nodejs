@@ -18,8 +18,8 @@ export class AdminPageComponent implements OnInit {
     this.asyncTabs = new Observable((observer: Observer<any>) => {
       setTimeout(() => {
         observer.next([
-          { label: 'Patient', component: DataTablesForPatientComponent },
-          { label: 'Doctor', component: DataTablesDoctorComponent },
+          { label: 'Patient', component: DataTablesForPatientComponent, inputData: this.totalPatients },
+          { label: 'Doctor', component: DataTablesDoctorComponent, inputData: this.totalDoctors },
         ]);
       }, 1000);
     });

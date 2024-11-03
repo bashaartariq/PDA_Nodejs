@@ -1,59 +1,75 @@
 /* Base Styles */
-div {
+body {
+  font-family: 'Arial', sans-serif; /* Consistent font */
+  background-color: #f8f9fa; /* Light gray for overall background */
+  margin: 0; 
+  padding: 0; 
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  background-color: #f7f8fa;
 }
 
 h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
+  font-size: 1.75rem; /* Increased heading size */
+  font-weight: 700; /* Bolder heading */
+  color: #34495e; /* Darker shade for headings */
   margin-bottom: 1rem;
 }
 
 .custom-table {
-  width: 100%;
+  width: 100%; /* Ensure the table takes full width */
+  max-width: 100%; /* Prevent exceeding the container's width */
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  max-width: 100%; /* Ensures table fits within the viewport */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+  background-color: #ffffff; /* White background for tables */
+  overflow: hidden; /* Prevent overflow on rounded corners */
+  table-layout: auto; /* Allow columns to expand */
 }
 
+/* Header Styling */
 .ngx-datatable.material .datatable-header {
-  background-color: #3f51b5;
-  color: #ffffff;
-  font-weight: bold;
+  background-color: #2c3e50; /* Darker color for headers matching navbar */
+  color: #ecf0f1; /* Lighter text color for contrast */
+  font-weight: 700; /* Bold header text */
   text-align: center;
+  text-transform: uppercase; /* Uppercase for header text */
+  letter-spacing: 0.05em; /* Spacing for improved readability */
 }
 
 .ngx-datatable.material .datatable-header-cell {
   font-size: 1rem;
-  padding: 10px;
-  color: #ffffff;
+  padding: 12px; /* Increased padding */
+  color: #ecf0f1; /* Match header text color */
 }
 
+/* Row Styling */
 .ngx-datatable.material .datatable-row-center {
   text-align: center;
 }
 
 .ngx-datatable.material .datatable-row-group {
-  background-color: #f5f5f5;
+  background-color: #f9f9f9; /* Light gray for row groups */
 }
 
 .ngx-datatable.material .datatable-body-row {
   font-size: 0.95rem;
-  color: #4a4a4a;
+  color: #34495e; /* Darker text for better contrast */
 }
 
 .ngx-datatable.material .datatable-body-cell {
-  padding: 10px;
+  padding: 12px; /* Increased padding for comfort */
 }
 
+/* Description Text */
 .description-text {
   font-weight: 500;
-  color: #333;
+  color: #555; /* Slightly lighter color for description */
 }
 
+/* Truncated Text */
 .text-truncated {
   display: inline-block;
   max-width: 150px;
@@ -62,6 +78,7 @@ h3 {
   text-overflow: ellipsis;
 }
 
+/* Tooltip Styling */
 ::ng-deep .mat-tooltip {
   background-color: #333;
   color: #ffffff;
@@ -69,16 +86,21 @@ h3 {
   padding: 8px 12px;
 }
 
-.edit-btn {
-  background-color: #4caf50;
-  color: #ffffff;
+/* Button Styles */
+.btn {
   border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
+  border-radius: 5px;
+  padding: 8px 14px;
   cursor: pointer;
   font-size: 0.875rem;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.edit-btn {
+  background-color: #27ae60; /* Green button for edit */
+  color: #ffffff;
 }
 
 .edit-btn i {
@@ -86,31 +108,58 @@ h3 {
 }
 
 .edit-btn:hover {
-  background-color: #388e3c;
+  background-color: #219653; /* Darker green on hover */
+}
+
+.view-btn {
+  background-color: #2980b9; /* Blue button for view */
+  color: #ffffff;
+}
+
+.view-btn:hover {
+  background-color: #1c6691; /* Darker blue on hover */
+}
+
+/* Pagination Button Styles */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-btn {
+  background-color: #ecf0f1; /* Light gray for pagination buttons */
+  border-radius: 5px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #34495e; /* Dark text color */
+  margin: 0 5px;
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.pagination-btn:hover {
+  background-color: #dcdcdc; /* Darker gray on hover */
 }
 
 /* Medium screens */
 @media (max-width: 768px) {
-  div {
-    padding: 15px;
-  }
-
   h3 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 
   .ngx-datatable.material .datatable-header-cell,
   .ngx-datatable.material .datatable-body-cell {
     font-size: 0.9rem;
-    padding: 8px;
+    padding: 10px; /* Consistent padding */
   }
 
   .text-truncated {
     max-width: 100px;
   }
 
-  .edit-btn {
-    padding: 4px 8px;
+  .btn {
+    padding: 6px 10px;
     font-size: 0.8rem;
   }
 
@@ -122,21 +171,21 @@ h3 {
 /* Small screens */
 @media (max-width: 576px) {
   h3 {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .ngx-datatable.material .datatable-header-cell,
   .ngx-datatable.material .datatable-body-cell {
     font-size: 0.8rem;
-    padding: 6px;
+    padding: 8px; /* Consistent padding */
   }
 
   .text-truncated {
     max-width: 80px;
   }
 
-  .edit-btn {
-    padding: 3px 6px;
+  .btn {
+    padding: 4px 8px;
     font-size: 0.75rem;
   }
 
@@ -151,4 +200,3 @@ h3 {
   align-items: center;
   padding: 20px;
 }
-

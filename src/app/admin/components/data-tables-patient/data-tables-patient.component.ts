@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SelectionType } from '@swimlane/ngx-datatable';
 import { AuthService } from 'src/app/Services/auth.service';
 
@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./data-tables-patient.component.css']
 })
 export class DataTablesForPatientComponent implements OnInit {
+  @Input() patientCount: any;
+
   selectionType = SelectionType.checkbox;
   selected: any = [];
 
