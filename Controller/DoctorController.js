@@ -32,10 +32,10 @@ const getDoctorForPracticeLocationAndSpeciality = async (req, res) => {
       "Error fetching data:",
       error.response ? error.response.data : error.message
     );
-    res.status(500).send(error.response.data);
+    res.status(500).send("Doctor Not Found");
   }
 };
-const getAppointmentsForDoctor = async(req,res)=>{
+const getAppointmentsForDoctor = async (req, res) => {
   const doctorId = req.params.doctorId;
   try {
     const response = await axios.get(
@@ -46,14 +46,18 @@ const getAppointmentsForDoctor = async(req,res)=>{
       return res.status(400).send(response.data);
     }
     return res.status(200).send(response.data);
+  } catch (error) {
+    console.error(
+      "Error fetching data:",
+      error.response ? error.response.data : error.message
+    );
+    res
+      .status(error.response?.status || 500)
+      .send(error.response?.data || error.message);
   }
-  catch (error) {
-    console.error("Error fetching data:",error.response ? error.response.data : error.message);
-    res.status(error.response?.status || 500).send(error.response?.data || error.message);}
-}
+};
 
-
-const getApppointmentCase = async(req,res)=>{
+const getApppointmentCase = async (req, res) => {
   const appointment_id = req.params.appointmentId;
   try {
     const response = await axios.get(
@@ -61,11 +65,20 @@ const getApppointmentCase = async(req,res)=>{
     );
     console.log("Data Retrieved:", response.data);
     return res.status(200).send(response.data);
+  } catch (error) {
+    console.error(
+      "Error fetching data:",
+      error.response ? error.response.data : error.message
+    );
+    res
+      .status(error.response?.status || 500)
+      .send(error.response?.data || error.message);
   }
-  catch (error) {
-    console.error("Error fetching data:",error.response ? error.response.data : error.message);
-    res.status(error.response?.status || 500).send(error.response?.data || error.message);}
-}
+};
 
-
-module.exports = { addDoctor, getDoctorForPracticeLocationAndSpeciality,getAppointmentsForDoctor,getApppointmentCase };
+module.exports = {
+  addDoctor,
+  getDoctorForPracticeLocationAndSpeciality,
+  getAppointmentsForDoctor,
+  getApppointmentCase,
+};

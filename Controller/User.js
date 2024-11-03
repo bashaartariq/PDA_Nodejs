@@ -1,36 +1,20 @@
 const axios = require("axios");
 require("dotenv").config();
 const { user } = require("../Model");
-const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { Op, Sequelize } = require("sequelize");
 
-const validateUser = [
-  body("firstName").notEmpty().withMessage("First name is required"),
-  body("lastName").notEmpty().withMessage("Last name is required"),
-  body("gender")
-    .isIn(["male", "female", "other"])
-    .withMessage("Gender is required and must be one of: male, female, other"),
-  body("email").isEmail().withMessage("Valid email is required"),
-  body("password")
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters long"),
-  body("confirmPassword")
-    .custom((value, { req }) => value === req.body.password)
-    .withMessage("Passwords must match"),
-  body("role")
-    .isIn(["admin", "doctor", "patient"])
-    .withMessage("Role is required and must be one of: admin, doctor, patient"),
-];
-
 const signin = async (req, res) => {
   const { email, password } = req.body;
+
   console.log(email, password);
+
   if (!email || !password) {
     return res.status(400).send({ error: "Email and password are required" });
   }
+
   try {
     const foundUser = await user.findOne({ where: { email } });
     if (!foundUser) {
@@ -51,6 +35,7 @@ const signin = async (req, res) => {
           foundUser.middleName +
           " " +
           foundUser.lastName,
+        dob: foundUser.dob,
       },
       process.env.privateKey,
       { expiresIn: "2h" }
@@ -64,6 +49,7 @@ const signin = async (req, res) => {
         email: foundUser.email,
         role: foundUser.role,
       },
+      foundUser,
     });
   } catch (err) {
     console.error("Error:", err);
@@ -79,7 +65,6 @@ const signup = async (req, res) => {
     lastName,
     gender,
     email,
-    confirmPassword,
     role,
     password,
     dob,
@@ -128,13 +113,19 @@ const signup = async (req, res) => {
     });
 
     const token = jwt.sign(
-      { userId: newUser.id, email: newUser.email, role: newUser.role },
+      {
+        userId: newUser.id,
+        email: newUser.email,
+        role: newUser.role,
+        DOB: newUser.dob,
+      },
       process.env.privateKey,
       { expiresIn: "2h" }
     );
     res.status(200).json({
       message: "User created successfully",
       token: token,
+      User: newUser,
     });
   } catch (error) {
     console.error("Error creating user:", error);
@@ -145,7 +136,7 @@ const signup = async (req, res) => {
   }
 };
 
-const getRoles = async(req,res)=>{
+const getRoles = async (req, res) => {
   try {
     const response = await axios.get("http://localhost:8000/api/getRoles");
     console.log("Data Retrived : ", response.data);
@@ -157,17 +148,16 @@ const getRoles = async(req,res)=>{
     );
     res.status(500).send(error.response.data);
   }
+};
 
-}
-const getGender = async(req,res)=>{
-  try{
-    const response = await axios.get('http://localhost:8000/api/Gender');
-    console.log("Data received : ",response.data);
-    return res.status(200).send(response.data);}
-  catch(err)
-  {
+const getGender = async (req, res) => {
+  try {
+    const response = await axios.get("http://localhost:8000/api/Gender");
+    console.log("Data received : ", response.data);
+    return res.status(200).send(response.data);
+  } catch (err) {
     console.log("Error while fetching the Gender");
     res.status(500).send("ERROR");
   }
-}
-module.exports = { signin, signup,getRoles,getGender };
+};
+module.exports = { signin, signup, getRoles, getGender };

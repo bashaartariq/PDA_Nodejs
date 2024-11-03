@@ -1,7 +1,7 @@
 const express = require("express");
 const { authenticate } = require("../Authentication/authenticate");
 const Router = express.Router();
-const { signin, signup,getRoles,getGender } = require("../Controller/User");
+const { signin, signup, getRoles, getGender } = require("../Controller/User");
 const { addinfo, getPatientInfo } = require("../Controller/Patient");
 const { getStates, getCity } = require("../Controller/State_City_Zip");
 const {
@@ -30,7 +30,12 @@ const {
   updateAppointment,
 } = require("../Controller/AppointmentController");
 const { allowRoles } = require("../Authorization/checkRole");
-const {getDoctorPatientCount,getAllPatient,deletePatient} = require("../Controller/Admin");
+const {
+  getDoctorPatientCount,
+  getAllPatient,
+  deletePatient,
+  allDoctor,
+} = require("../Controller/Admin");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
 Router.post(
@@ -51,10 +56,7 @@ Router.get(
   allowRoles(["admin", "doctor", "patient"]),
   getCity
 );
-Router.get(
-  "/getPracticeLocation",
-  practicelocation
-);
+Router.get("/getPracticeLocation", practicelocation);
 Router.get(
   "/getCategory",
   authenticate,
@@ -87,10 +89,7 @@ Router.get(
 );
 
 Router.post("/addCase", authenticate, allowRoles(["patient"]), addCase);
-Router.get(
-  "/getSpeciality",
-  getSpeciality
-);
+Router.get("/getSpeciality", getSpeciality);
 Router.get(
   "/getCases/:PID",
   authenticate,
@@ -145,11 +144,27 @@ Router.get(
   getAppointmentsForDoctor
 );
 
-Router.get("/getAppointmentCase/:appointmentId",authenticate,allowRoles(["doctor"]),getApppointmentCase);
-Router.get('/Roles',getRoles);
+Router.get(
+  "/getAppointmentCase/:appointmentId",
+  authenticate,
+  allowRoles(["doctor"]),
+  getApppointmentCase
+);
+Router.get("/Roles", getRoles);
 
-Router.get('/Genders',getGender);
-Router.get('/doctorAndPatientCount',authenticate,allowRoles("admin"),getDoctorPatientCount);
-Router.get('/AllPatient',authenticate,allowRoles("admin"),getAllPatient);
-Router.delete('/Patients/:PatientIdsArr',authenticate,allowRoles("admin"),deletePatient);
+Router.get("/Genders", getGender);
+Router.get(
+  "/doctorAndPatientCount",
+  authenticate,
+  allowRoles("admin"),
+  getDoctorPatientCount
+);
+Router.get("/AllPatient", authenticate, allowRoles("admin"), getAllPatient);
+Router.delete(
+  "/Patients/:PatientIdsArr",
+  authenticate,
+  allowRoles("admin"),
+  deletePatient
+);
+Router.get("/AllDoctors", authenticate, allowRoles("admin"), allDoctor);
 module.exports = Router;
