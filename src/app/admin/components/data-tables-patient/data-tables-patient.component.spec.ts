@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataTablesComponent } from './data-tables.component';
+import { DataTablesComponent } from './data-tables-patient.component';
 
 describe('DataTablesComponent', () => {
   let component: DataTablesComponent;
@@ -8,9 +8,9 @@ describe('DataTablesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DataTablesComponent ]
+      declarations: [DataTablesComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DataTablesComponent);
     component = fixture.componentInstance;

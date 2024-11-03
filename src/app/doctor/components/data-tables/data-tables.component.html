@@ -1,61 +1,57 @@
-<div>
-    <h3>Appointments for Doctor</h3>
-    <ngx-datatable class="material custom-table" 
-        [rows]="selectedCaseAppointments" 
-        [columnMode]="'force'"
-        [headerHeight]="50" 
-        [footerHeight]="50" 
-        [rowHeight]="'auto'" 
-        [scrollbarH]="true" 
-        [style.width.px]="1050">
-        <ngx-datatable-column name="Appointment ID" prop="id"></ngx-datatable-column>
-        <ngx-datatable-column name="Description" prop="description">
-            <ng-template ngx-datatable-cell-template let-row="row">
-                <span class="description-text" [matTooltip]="row.description" matTooltipPosition="above"
-                    matTooltipShowDelay="300" [attr.title]="row.description"
-                    [ngClass]="{'text-truncated': row.description.length > 15}">
-                    {{ row.description.length > 15 ? (row.description | slice:0:15) + '...' : row.description }}
-                </span>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Date" prop="date" [width]="100"></ngx-datatable-column>
-        <ngx-datatable-column name="Time" prop="time" [width]="100"></ngx-datatable-column>
-        <ngx-datatable-column name="Duration" prop="duration" [width]="100"></ngx-datatable-column>
-        <ngx-datatable-column name="Appointment Type" prop="appointment_type" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Location" prop="practice_location" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Specialty" prop="speciality" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Patient Id" prop="patient_id" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Patient Name" prop="patient_name" [width]="150"></ngx-datatable-column>  
-        <ngx-datatable-column name="Actions">
-            <ng-template ngx-datatable-cell-template let-row="row">
-                <button class="edit-btn" (click)="editAppointment(row)">
-                    <i class="fas fa-edit"></i> Edit
-                </button>
-                <button class="view-btn" (click)="viewCases(row)">
-                    <i class="fas fa-view"></i> View
-                </button>
-            </ng-template>
-        </ngx-datatable-column>
-    </ngx-datatable>
-</div>
-<div class="table-container">
-    <h3>Appointment Case</h3>
-    <ngx-datatable
-        class="material custom-table" 
-        [columnMode]="'force'" 
-        [headerHeight]="50"
-        [footerHeight]="50" 
-        [rowHeight]="'auto'" 
-        [scrollbarH]="true" 
-        [style.width.px]="1050"
-        [rows]="selectAppointmentCase" >
-        <ngx-datatable-column name="Case ID" prop="id" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Category" prop="category" [width]="200"></ngx-datatable-column>
-        <ngx-datatable-column name="Purpose of Visit" prop="purpose_of_visit" [width]="250"></ngx-datatable-column>
-        <ngx-datatable-column name="Case Type" prop="case_type" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="DOA" prop="DOA" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Insurance Name" prop="insurance_name" [width]="200"></ngx-datatable-column>
-        <ngx-datatable-column name="Firm Name" prop="firm_name" [width]="200"></ngx-datatable-column>
-        <ngx-datatable-column name="Practice Location" prop="practice_location_name" [width]="200"></ngx-datatable-column>
-    </ngx-datatable>
+<div class="center-container mx-5 mt-4">
+    <div class="custom-table">
+        <div>
+            <h3>Appointments for Doctor</h3>
+            <ngx-datatable class="material custom-table p-2" [rows]="selectedCaseAppointments" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true"
+                [style.width.px]="1050">
+                <ngx-datatable-column name="Appointment ID" prop="id"></ngx-datatable-column>
+                <ngx-datatable-column name="Description" prop="description">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                        <span class="description-text" [matTooltip]="row.description" matTooltipPosition="above"
+                            matTooltipShowDelay="300" [attr.title]="row.description"
+                            [ngClass]="{'text-truncated': row.description.length > 15}">
+                            {{ row.description.length > 15 ? (row.description | slice:0:15) + '...' : row.description }}
+                        </span>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Date" prop="date" [width]="100"></ngx-datatable-column>
+                <ngx-datatable-column name="Time" prop="time" [width]="100"></ngx-datatable-column>
+                <ngx-datatable-column name="Duration" prop="duration" [width]="100"></ngx-datatable-column>
+                <ngx-datatable-column name="Appointment Type" prop="appointment_type"
+                    [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Location" prop="practice_location" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Specialty" prop="speciality" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Patient Id" prop="patient_id" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Patient Name" prop="patient_name" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Actions">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                        <button class="edit-btn" (click)="editAppointment(row)">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="view-btn" (click)="viewCases(row)">
+                            <i class="fas fa-view"></i> View
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+        <div class="table-container">
+            <h3>Appointment Case</h3>
+            <ngx-datatable class="material custom-table p-2" [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [style.width.px]="1050"
+                [rows]="selectAppointmentCase">
+                <ngx-datatable-column name="Case ID" prop="id" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Category" prop="category" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Purpose of Visit" prop="purpose_of_visit"
+                    [width]="250"></ngx-datatable-column>
+                <ngx-datatable-column name="Case Type" prop="case_type" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="DOA" prop="DOA" [width]="150"></ngx-datatable-column>
+                <ngx-datatable-column name="Insurance Name" prop="insurance_name" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Firm Name" prop="firm_name" [width]="200"></ngx-datatable-column>
+                <ngx-datatable-column name="Practice Location" prop="practice_location_name"
+                    [width]="200"></ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
 </div>

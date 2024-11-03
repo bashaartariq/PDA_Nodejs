@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
   signupForm: any = FormGroup;
   doctorForm: any = FormGroup;
   roles: string[] = [];
-  genders: string[] =[];
+  genders: string[] = [];
   isDoctor: boolean = false;
   speciality: speciality[] = [];
   practiceLocation: PracticeLocation[] = [];
@@ -42,18 +42,16 @@ export class SignupComponent implements OnInit {
     this.initializeGender();
     this.initializeForm();
   }
-  initializeGender()
-  {
-    this.authService.getGender().subscribe((response:any)=>{
-      this.genders = response.map((e:any)=>{
+  initializeGender() {
+    this.authService.getGender().subscribe((response: any) => {
+      this.genders = response.map((e: any) => {
         return e.name;
       });
     })
   }
-  initializeRoles()
-  {
-    this.authService.getRoles().subscribe((response:any)=>{
-      this.roles = response.map((e:any)=>{
+  initializeRoles() {
+    this.authService.getRoles().subscribe((response: any) => {
+      this.roles = response.map((e: any) => {
         return e.name;
       });
     })
@@ -63,7 +61,6 @@ export class SignupComponent implements OnInit {
     this.initializeDoctorForm();
     this.getSpecialityandPracticeLocation();
   }
-
   getSpecialityandPracticeLocation() {
     this.authService.getSpecailiy().subscribe((result) => {
       this.speciality = result;
@@ -73,17 +70,12 @@ export class SignupComponent implements OnInit {
     });
   }
 
-
-
   initializeDoctorForm(): void {
     this.doctorForm = this.fb.group({
       practicelocation: ['', [Validators.required]],
       speciality: ['', [Validators.required]]
     });
-
   }
-
-
   initializeForm(): void {
     this.signupForm = this.fb.group({
       firstName: ['', [Validators.required]],
@@ -117,7 +109,7 @@ export class SignupComponent implements OnInit {
 
       this.authService.signup(this.signupForm.value).subscribe(result => {
         localStorage.setItem('token', result.token);
-        this.authService.user = result.user;
+        this.authService.user = result.User;
         console.log(this.authService);
         if (this.signupForm.get('role')?.value == 'doctor') {
           const formData = {
@@ -129,16 +121,13 @@ export class SignupComponent implements OnInit {
           this.authService.createDoctor(formData).subscribe((result: any) => {
           });
         }
-        if(this.authService.decodeToken()?.role === 'patient')
-        {
+        if (this.authService.decodeToken()?.role === 'patient') {
           this.router.navigate(['patient/add']);
         }
-        else if(this.authService.decodeToken()?.role === 'doctor')
-        {
+        else if (this.authService.decodeToken()?.role === 'doctor') {
           this.router.navigate(['app/doctor/dashboard']);
         }
-        else if(this.authService.decodeToken()?.role === 'admin')
-        {
+        else if (this.authService.decodeToken()?.role === 'admin') {
           this.router.navigate(['app/admin']);
         }
       }, err => {

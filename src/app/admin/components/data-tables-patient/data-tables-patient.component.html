@@ -1,0 +1,21 @@
+<div class="table-responsive mt-4">
+  <button (click)="deleteSelected()" class="btn btn-danger mb-2" [disabled]="selected.length === 0">
+    Delete Patient
+  </button>
+  <button (click)="unselectAll()" class="btn btn-secondary mb-2 ml-2 mx-2" [disabled]="selected.length === 0">
+    Unselect All
+  </button>
+
+  <ngx-datatable [rows]="patients" [columns]="columns" class="bootstrap" [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="'auto'" [columnMode]="'force'" [reorderable]="true" [count]="patients.length" [limit]="10"
+    [scrollbarH]="true" [selected]="selected" [selectionType]="selectionType" (select)="_onSelect($event)">
+  </ngx-datatable>
+</div>
+
+Here i need to show the all the patients and their ids
+++
+All the Doctors and their names
+++
+and also add a delete button to it
+++
+also add the checkbox to delete all the selected patients

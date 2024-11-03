@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { Router,NavigationEnd,Event } from '@angular/router';
+import { Router, NavigationEnd, Event } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { filter } from 'rxjs/operators';
 
@@ -15,21 +15,13 @@ export class StepperComponent implements OnInit {
   @ViewChild('stepper') private stepper!: MatStepper;
   appointmentForm: any;
   case_Id: number = 0;
-
-
   caseForm: any;
-
   constructor(private route: Router, private fb: FormBuilder, private Service: AuthService) {
     this.initializeAppointmentForm();
     this.initializeCaseForm();
   }
-  ngOninit():void{}
 
-  
-
-
-  
-
+  ngOninit(): void { }
   initializeAppointmentForm(): void {
     this.appointmentForm = this.fb.group({
       date: ['', Validators.required],
@@ -49,10 +41,12 @@ export class StepperComponent implements OnInit {
       console.log(response);
       this.case_Id = response.case_Id;
       alert(response.message);
+    }, (err) => {
+      alert(err.error.message);
     });
     this.stepper.next();
   }
-  
+
   onFormSubmitAppointment(formData: any) {
     console.log('From Stepper:', formData);
     const case_id = this.case_Id;

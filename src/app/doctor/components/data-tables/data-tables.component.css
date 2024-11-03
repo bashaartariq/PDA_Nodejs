@@ -1,89 +1,154 @@
+/* Base Styles */
 div {
-    padding: 20px;
-    background-color: #f7f8fa;
+  padding: 20px;
+  background-color: #f7f8fa;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.custom-table {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  max-width: 100%; /* Ensures table fits within the viewport */
+}
+
+.ngx-datatable.material .datatable-header {
+  background-color: #3f51b5;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ngx-datatable.material .datatable-header-cell {
+  font-size: 1rem;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.ngx-datatable.material .datatable-row-center {
+  text-align: center;
+}
+
+.ngx-datatable.material .datatable-row-group {
+  background-color: #f5f5f5;
+}
+
+.ngx-datatable.material .datatable-body-row {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+}
+
+.ngx-datatable.material .datatable-body-cell {
+  padding: 10px;
+}
+
+.description-text {
+  font-weight: 500;
+  color: #333;
+}
+
+.text-truncated {
+  display: inline-block;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .mat-tooltip {
+  background-color: #333;
+  color: #ffffff;
+  font-size: 0.875rem;
+  padding: 8px 12px;
+}
+
+.edit-btn {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+}
+
+.edit-btn i {
+  margin-right: 4px;
+}
+
+.edit-btn:hover {
+  background-color: #388e3c;
+}
+
+/* Medium screens */
+@media (max-width: 768px) {
+  div {
+    padding: 15px;
   }
-  
+
   h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 1rem;
+    font-size: 1.25rem;
   }
-  
-  .custom-table {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-  }
-  
-  .ngx-datatable.material .datatable-header {
-    background-color: #3f51b5;
-    color: #ffffff;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .ngx-datatable.material .datatable-header-cell {
-    font-size: 1rem;
-    padding: 10px;
-    color: #ffffff;
-  }
-  
-  .ngx-datatable.material .datatable-row-center {
-    text-align: center;
-  }
-  
-  .ngx-datatable.material .datatable-row-group {
-    background-color: #f5f5f5;
-  }
-  
-  .ngx-datatable.material .datatable-body-row {
-    font-size: 0.95rem;
-    color: #4a4a4a;
-  }
-  
+
+  .ngx-datatable.material .datatable-header-cell,
   .ngx-datatable.material .datatable-body-cell {
-    padding: 10px;
+    font-size: 0.9rem;
+    padding: 8px;
   }
-  
-  .description-text {
-    font-weight: 500;
-    color: #333;
-  }
-  
+
   .text-truncated {
-    display: inline-block;
-    max-width: 150px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 100px;
   }
-  
-  ::ng-deep .mat-tooltip {
-    background-color: #333;
-    color: #ffffff;
-    font-size: 0.875rem;
-    padding: 8px 12px;
-  }
-  
+
   .edit-btn {
-    background-color: #4caf50;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
+    padding: 4px 8px;
+    font-size: 0.8rem;
   }
-  
-  .edit-btn i {
-    margin-right: 4px;
+
+  .custom-table {
+    overflow-x: auto;
   }
-  
-  .edit-btn:hover {
-    background-color: #388e3c;
+}
+
+/* Small screens */
+@media (max-width: 576px) {
+  h3 {
+    font-size: 1rem;
   }
-  
+
+  .ngx-datatable.material .datatable-header-cell,
+  .ngx-datatable.material .datatable-body-cell {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .text-truncated {
+    max-width: 80px;
+  }
+
+  .edit-btn {
+    padding: 3px 6px;
+    font-size: 0.75rem;
+  }
+
+  .custom-table {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+

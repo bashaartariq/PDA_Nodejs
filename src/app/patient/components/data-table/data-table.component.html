@@ -1,19 +1,9 @@
 <div class="table-container">
     <div class="search-bar">
-        <input type="text" placeholder="Search Cases..." [(ngModel)]="searchTerm" (ngModelChange)="filterCases()"
-            class="search-input" />
+        <input type="text" placeholder="Search Cases..." [(ngModel)]="searchTermforCases" class="search-input" />
     </div>
-    <ngx-datatable 
-        class="material custom-table" 
-        [rows]="filteredCases" 
-        [columnMode]="'force'" 
-        [headerHeight]="50"
-        [footerHeight]="50" 
-        [rowHeight]="'auto'" 
-        [limit]="pageSize"  
-        [offset]="page" 
-        (page)="onPage($event)"
-        [scrollbarH]="true" 
+    <ngx-datatable class="material custom-table" [rows]="filteredCases" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="'auto'" [limit]="pageSize" [offset]="page" [scrollbarH]="true"
         [style.width.px]="1150">
         <ngx-datatable-column name="Case ID" prop="id" [width]="150"></ngx-datatable-column>
         <ngx-datatable-column name="Category" prop="category" [width]="200"></ngx-datatable-column>
@@ -22,7 +12,8 @@
         <ngx-datatable-column name="DOA" prop="DOA" [width]="150"></ngx-datatable-column>
         <ngx-datatable-column name="Insurance Name" prop="insurance_name" [width]="200"></ngx-datatable-column>
         <ngx-datatable-column name="Firm Name" prop="firm_name" [width]="200"></ngx-datatable-column>
-        <ngx-datatable-column name="Practice Location" prop="practice_location_name" [width]="200"></ngx-datatable-column>
+        <ngx-datatable-column name="Practice Location" prop="practice_location_name"
+            [width]="200"></ngx-datatable-column>
         <ngx-datatable-column name="Actions" [width]="200">
             <ng-template ngx-datatable-cell-template let-row="row">
                 <div class="action-buttons">
@@ -43,31 +34,25 @@
         <button class="pagination-btn" (click)="previousPage()" [disabled]="page === 0">
             <span>&#9664;</span> Previous
         </button>
-        <button *ngFor="let p of pages" (click)="setPage(p)" [class.active]="p === page" class="page-number">
-            {{ p + 1 }}
-        </button>
         <button class="pagination-btn" (click)="nextPage()" [disabled]="page >= (filteredCases.length / pageSize) - 1">
             Next <span>&#9654;</span>
         </button>
     </div>
 </div>
+
+
 <div class="table-container">
     <div class="search-bar">
-        <input type="text" placeholder="Search Appointments..." class="search-input" />
+        <input type="text" placeholder="Search Appointments..." class="search-input"
+            [(ngModel)]="searchTermforAppointment" />
     </div>
 
     <div *ngIf="selectedCaseAppointments && selectedCaseAppointments.length">
         <h3>Appointments for Case ID: {{ selectedCaseId }}</h3>
 
-        <ngx-datatable 
-            class="material custom-table" 
-            [rows]="selectedCaseAppointments" 
-            [columnMode]="'force'"
-            [headerHeight]="50" 
-            [footerHeight]="50" 
-            [rowHeight]="'auto'"
-            [scrollbarH]="true" 
-            [style.width.px]="1150">
+        <ngx-datatable class="material custom-table" [rows]="selectedCaseAppointments" [columnMode]="'force'"
+            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [style.width.px]="1150"
+            [limit]="pageSizeA" [offset]="pageA">
 
             <ngx-datatable-column name="Appointment ID" prop="id" [width]="150"></ngx-datatable-column>
             <ngx-datatable-column name="Description" prop="Description" [width]="300">
@@ -95,13 +80,11 @@
         </ngx-datatable>
     </div>
     <div class="pagination-controls">
-        <button class="pagination-btn" (click)="previousPage()" [disabled]="page === 0">
+        <button class="pagination-btn" (click)="previousPageAppointment()" [disabled]="pageA === 0">
             <span>&#9664;</span> Previous
         </button>
-        <button *ngFor="let p of pages" (click)="setPage(p)" [class.active]="p === page" class="page-number">
-            {{ p + 1 }}
-        </button>
-        <button class="pagination-btn" (click)="nextPage()" [disabled]="page >= (selectedCaseAppointments.length / pageSize) - 1">
+        <button class="pagination-btn" (click)="nextPageAppointment()"
+            [disabled]="page >= (selectedCaseAppointments.length / pageSizeA) - 1">
             Next <span>&#9654;</span>
         </button>
     </div>

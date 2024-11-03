@@ -1,17 +1,16 @@
 <div class="dashboard container">
-    <mat-card class="card">
-      <mat-card-header>
-        <div mat-card-avatar class="icon-container">
-          <mat-icon>event_note</mat-icon>
-        </div>
-        <mat-card-title>Total Appointments</mat-card-title>
-        <mat-card-subtitle>As of Today</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <h2 class="appointment-count">{{ totalAppointments }}</h2>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="container">
-    <app-data-tables></app-data-tables>
-  </div>
+  <mat-card class="card mt-4 mb-4 p-4">
+    <mat-card-header>
+      <div mat-card-avatar class="icon-container">
+        <mat-icon>event_note</mat-icon>
+      </div>
+      <mat-card-title>Total Appointments</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <h2 class="appointment-count">{{ totalAppointments }}</h2>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="container">
+  <app-data-tables></app-data-tables>
+</div>

@@ -8,17 +8,9 @@
                     <div class="card-body">
                         <p class="card-text">Role: {{role[0].toUpperCase()+ role.slice(1)}}</p>
                         <p class="card-text">Email: {{email}}</p>
-                        <a class="btn btn-secondary" id="btn1" [routerLink]="['/patient/add']">Edit Profile</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">Add Case</div>
-                    <div class="card-body">
-                        <p class="card-text">Patient Case</p>
-                        <p class="card-text">Create patient's cases</p>
-                        <a class="btn btn-secondary" id="btn1" [routerLink]="['/patient/add']">Add Case</a>
+                        <p>Date of Birth: {{DOB_data}}</p>
+                        <a class="btn btn-secondary" id="btn1" [routerLink]="['/patient/add']">Add Cases or Edit
+                            Profile</a>
                     </div>
                 </div>
             </div>

@@ -11,19 +11,19 @@ export class PatientListComponent implements OnInit {
   name: string = "";
   email: string = "";
   role: string = "";
+  DOB_data: string = "";
 
   constructor(private dialog: DialogService, private Service: AuthService) { }
-
   ngOnInit(): void {
     this.inititalizeUserInfo();
   }
-
   inititalizeUserInfo(): void {
     this.name = this.Service.decodeToken()?.firstName || "";
     this.email = this.Service.decodeToken()?.email || "";
     this.role = this.Service.decodeToken()?.role || "";
+    this.DOB_data = this.Service.decodeToken()?.dob;
+    console.log("DATA", this.Service.decodeToken());
   }
-
   EditProfile(): void {
     this.dialog.openDialog(EditProfileComponent);
   }
