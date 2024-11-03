@@ -35,6 +35,8 @@ const {
   getAllPatient,
   deletePatient,
   allDoctor,
+  getAppointmentDoctor,
+  GeneratePDF,
 } = require("../Controller/Admin");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
@@ -147,7 +149,7 @@ Router.get(
 Router.get(
   "/getAppointmentCase/:appointmentId",
   authenticate,
-  allowRoles(["doctor"]),
+  allowRoles(["doctor", "admin"]),
   getApppointmentCase
 );
 Router.get("/Roles", getRoles);
@@ -166,5 +168,13 @@ Router.delete(
   allowRoles("admin"),
   deletePatient
 );
+
 Router.get("/AllDoctors", authenticate, allowRoles("admin"), allDoctor);
+Router.get(
+  "/DoctorAppointments/:id",
+  authenticate,
+  allowRoles("admin"),
+  getAppointmentDoctor
+);
+Router.post("/PDF", authenticate, allowRoles("admin"), GeneratePDF);
 module.exports = Router;

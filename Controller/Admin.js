@@ -50,9 +50,33 @@ const allDoctor = async (req, res) => {
     return res.status(500).send("No Doctor Found");
   }
 };
+const getAppointmentDoctor = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/DoctorAppointments/${id}`
+    );
+    return res.status(200).send(response.data);
+  } catch (err) {
+    return res.status(500).send("No Doctor Found");
+  }
+};
+
+const GeneratePDF = async (req, res) => {
+  const data = req.body;
+  try {
+    const response = await axios.post(`http://localhost:8000/api/PDF`, data);
+    return res.status(200).send(response.data);
+  } catch (err) {
+    return res.status(500).send("No PDF Found");
+  }
+};
+
 module.exports = {
   getDoctorPatientCount,
   getAllPatient,
   deletePatient,
   allDoctor,
+  getAppointmentDoctor,
+  GeneratePDF,
 };

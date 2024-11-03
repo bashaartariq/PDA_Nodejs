@@ -69,26 +69,23 @@ const signup = async (req, res) => {
     password,
     dob,
   } = req.body;
-
   console.log(dob);
   try {
     const existingUser = await user.findOne({ where: { email } });
     const dobDate = new Date(dob).toISOString().split("T")[0];
-
     console.log(dobDate);
     const PatientUnique = await user.findOne({
       where: {
         firstName,
         middleName,
         lastName,
-        role: "patient",
         dob: {
           [Op.eq]: Sequelize.fn("DATE", dobDate),
         },
       },
     });
     console.log("This is the Unique Patient", PatientUnique);
-    if (PatientUnique) {
+    if (PatientUnique && PatientUnique.role === "patient") {
       return res.status(400).json({
         message: "patient cannot have same Name and Date of Birth",
       });
@@ -98,7 +95,6 @@ const signup = async (req, res) => {
         message: "Email is already taken",
       });
     }
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await user.create({
