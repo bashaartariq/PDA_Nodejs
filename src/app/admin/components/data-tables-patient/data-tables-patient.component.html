@@ -1,5 +1,5 @@
 <div class="table-responsive mt-4">
-  <h2>Total Patients are {{patientCount}}</h2>
+  <h2>Patient's Data</h2>
   <button (click)="deleteSelected()" class="btn btn-danger mb-2" [disabled]="selected.length === 0">
     Delete Patient
   </button>
@@ -155,12 +155,5 @@
           </ngx-datatable-column>
       </ngx-datatable>
   </div>
+  <br>
 </div>
-
-Here i need to show the all the patients and their ids
-++
-All the Doctors and their names
-++
-and also add a delete button to it
-++
-also add the checkbox to delete all the selected patients

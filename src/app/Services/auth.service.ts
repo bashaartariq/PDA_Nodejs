@@ -151,4 +151,8 @@ export class AuthService {
   {
     return this.http.get(`${this.NodeApiUrl}/getCasesForAdmin/${id}`);
   }
+  deleteDoctor(id:number)
+  {
+    return this.http.delete(`${this.NodeApiUrl}/Doctor/${id}`);
+  }
 }

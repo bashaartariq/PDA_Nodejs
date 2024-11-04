@@ -128,4 +128,13 @@ export class DataTablesDoctorComponent implements OnInit {
       this.page--;
     }
   }
+  DeleteDoctor(row:any)
+  {
+    console.log(row.id);
+    this.service.deleteDoctor(row.id).subscribe((response:any)=>{
+      alert(response.message);
+    },(err)=>{
+      alert(err.error.message);
+    })
+  }
 }
