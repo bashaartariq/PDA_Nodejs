@@ -89,6 +89,19 @@ const getCasesofPatient = async (req, res) => {
     return res.status(500).send("Error while retrieving the data");
   }
 };
+
+const deleteDoctor = async(req,res)=>{
+  const id = req.params.id;
+  console.log(id);
+  try {
+    const response = await axiosInstance.delete(`/doctor/${id}`);
+    return res.status(200).send(response.data);
+  } catch (error) {
+    return res.status(500).send("Error while retrieving the data");
+  }
+}
+
+
 module.exports = {
   getDoctorPatientCount,
   getAllPatient,
@@ -97,4 +110,5 @@ module.exports = {
   getAppointmentDoctor,
   GeneratePDF,
   getCasesofPatient,
+  deleteDoctor
 };

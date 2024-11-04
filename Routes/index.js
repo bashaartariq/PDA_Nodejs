@@ -37,7 +37,8 @@ const {
   allDoctor,
   getAppointmentDoctor,
   GeneratePDF,
-  getCasesofPatient
+  getCasesofPatient,
+  deleteDoctor
 } = require("../Controller/Admin");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
@@ -182,4 +183,5 @@ Router.get(
   getAppointmentDoctor
 );
 Router.post("/PDF", authenticate, allowRoles("admin"), GeneratePDF);
+Router.delete('/Doctor/:id',authenticate,allowRoles("admin"),deleteDoctor);
 module.exports = Router;

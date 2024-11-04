@@ -1,10 +1,8 @@
 require('dotenv').config();
 const axios = require("axios");
 
-// Set up Axios Interceptor to add the Authorization header to every request
 axios.interceptors.request.use(
   (config) => {
-    // Add the API key from environment variables to the request header
     config.headers["Authorization"] = `Bearer ${process.env.API_KEY}`;
     return config;
   },
