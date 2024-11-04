@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { response } = require("express");
 const getDoctorPatientCount = async (req, res) => {
   try {
     const response = await axios.get(
@@ -72,6 +73,23 @@ const GeneratePDF = async (req, res) => {
   }
 };
 
+const getCasesofPatient = async(req,res)=>{
+  try{
+    const id = req.params.patientId;
+    console.log(id);
+    const response = await axios.get(`http://localhost:8000/api/Case/${id}`);
+    return res.status(200).send(response.data);
+  }
+  catch(err)
+  {
+    return res.status(500).send("Error while retriving the data");
+  }
+}
+
+
+
+
+
 module.exports = {
   getDoctorPatientCount,
   getAllPatient,
@@ -79,4 +97,5 @@ module.exports = {
   allDoctor,
   getAppointmentDoctor,
   GeneratePDF,
+  getCasesofPatient
 };

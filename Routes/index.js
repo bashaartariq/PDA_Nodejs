@@ -37,6 +37,7 @@ const {
   allDoctor,
   getAppointmentDoctor,
   GeneratePDF,
+  getCasesofPatient
 } = require("../Controller/Admin");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
@@ -169,6 +170,10 @@ Router.delete(
   deletePatient
 );
 
+
+
+
+Router.get('/getCasesForAdmin/:patientId',authenticate,allowRoles('admin'),getCasesofPatient);
 Router.get("/AllDoctors", authenticate, allowRoles("admin"), allDoctor);
 Router.get(
   "/DoctorAppointments/:id",
