@@ -147,4 +147,8 @@ export class AuthService {
   getPDF(data: any): Observable<any> {
     return this.http.post(`${this.NodeApiUrl}/PDF`, data);
   }
+  getCasesforAdmin(id:number):Observable<any>
+  {
+    return this.http.get(`${this.NodeApiUrl}/getCasesForAdmin/${id}`);
+  }
 }

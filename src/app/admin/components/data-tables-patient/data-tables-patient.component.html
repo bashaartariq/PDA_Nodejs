@@ -6,11 +6,155 @@
   <button (click)="unselectAll()" class="btn btn-secondary mb-2 ml-2 mx-2" [disabled]="selected.length === 0">
     Unselect All
   </button>
+  <ngx-datatable 
+    [rows]="patients" 
+    class="bootstrap" 
+    [headerHeight]="50" 
+    [footerHeight]="50"
+    [rowHeight]="'auto'" 
+    [columnMode]="'force'" 
+    [reorderable]="true" 
+    [count]="patients.length" 
+    [limit]="10"
+    [scrollbarH]="true" 
+    [selected]="selected" 
+    [selectionType]="selectionType" 
+    (select)="_onSelect($event)">
 
-  <ngx-datatable [rows]="patients" [columns]="columns" class="bootstrap" [headerHeight]="50" [footerHeight]="50"
-    [rowHeight]="'auto'" [columnMode]="'force'" [reorderable]="true" [count]="patients.length" [limit]="10"
-    [scrollbarH]="true" [selected]="selected" [selectionType]="selectionType" (select)="_onSelect($event)">
+    <!-- Checkbox Column -->
+    <ngx-datatable-column [width]="50" [headerCheckboxable]="true" [checkboxable]="true">
+    </ngx-datatable-column>
+
+    <!-- Patient ID Column -->
+    <ngx-datatable-column name="Patient ID" prop="patient_id" [width]="80">
+    </ngx-datatable-column>
+
+    <!-- First Name Column -->
+    <ngx-datatable-column name="First Name" prop="user.firstName" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- Middle Name Column -->
+    <ngx-datatable-column name="Middle Name" prop="user.middleName" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- Last Name Column -->
+    <ngx-datatable-column name="Last Name" prop="user.lastName" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- Gender Column -->
+    <ngx-datatable-column name="Gender" prop="user.gender" [width]="70">
+    </ngx-datatable-column>
+
+    <!-- Email Column -->
+    <ngx-datatable-column name="Email" prop="user.email" [width]="250">
+    </ngx-datatable-column>
+
+    <!-- Date of Birth Column -->
+    <ngx-datatable-column name="Date of Birth" prop="user.dob" [width]="150">
+    </ngx-datatable-column>
+
+    <!-- Home Phone Column -->
+    <ngx-datatable-column name="Home Phone" prop="home_phone" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- Cell Phone Column -->
+    <ngx-datatable-column name="Cell Phone" prop="cell_phone" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- SSN Column -->
+    <ngx-datatable-column name="SSN" prop="ssn" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- Address Column -->
+    <ngx-datatable-column name="Address" prop="address" [width]="200">
+    </ngx-datatable-column>
+
+    <!-- City Column -->
+    <ngx-datatable-column name="City" prop="city" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- State Column -->
+    <ngx-datatable-column name="State" prop="state" [width]="100">
+    </ngx-datatable-column>
+
+    <!-- ZIP Code Column -->
+    <ngx-datatable-column name="ZIP Code" prop="zip" [width]="80">
+    </ngx-datatable-column>
+
+    <!-- Actions Column -->
+    <ngx-datatable-column name="Actions" [width]="120">
+      <ng-template ngx-datatable-cell-template let-row="row">
+        <button class="view-btn btn btn-primary" style="width: min-content;" (click)="viewCases(row)">
+          View
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+
   </ngx-datatable>
+</div>
+<div class="table-container">
+  <ngx-datatable class="material custom-table" [rows]="Cases" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="'auto'"  [scrollbarH]="true"
+      [style.width.px]="1150">
+      <ngx-datatable-column name="Case ID" prop="id" [width]="150"></ngx-datatable-column>
+      <ngx-datatable-column name="Category" prop="category" [width]="200"></ngx-datatable-column>
+      <ngx-datatable-column name="Purpose of Visit" prop="purpose_of_visit" [width]="250"></ngx-datatable-column>
+      <ngx-datatable-column name="Case Type" prop="case_type" [width]="150"></ngx-datatable-column>
+      <ngx-datatable-column name="DOA" prop="DOA" [width]="150"></ngx-datatable-column>
+      <ngx-datatable-column name="Insurance Name" prop="insurance_name" [width]="200"></ngx-datatable-column>
+      <ngx-datatable-column name="Firm Name" prop="firm_name" [width]="200"></ngx-datatable-column>
+      <ngx-datatable-column name="Practice Location" prop="practice_location_name"
+          [width]="200"></ngx-datatable-column>
+      <ngx-datatable-column name="Actions" [width]="200">
+          <ng-template ngx-datatable-cell-template let-row="row">
+              <div class="action-buttons">
+                  <button class="action-btn view-btn" (click)="view(row.id)">
+                      <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="action-btn edit-btn" (click)="editCase(row)">
+                      <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="action-btn add-btn" (click)="addAppointment(row.id)">
+                      <i class="fas fa-add"></i>
+                  </button>
+              </div>
+          </ng-template>
+      </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<div class="table-container">
+  <div *ngIf="selectedCaseAppointments && selectedCaseAppointments.length">
+      <h3>Appointments for Case ID: {{ selectedCaseId }}</h3>
+
+      <ngx-datatable class="material custom-table" [rows]="selectedCaseAppointments" [columnMode]="'force'"
+          [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [scrollbarH]="true" [style.width.px]="1150">
+
+          <ngx-datatable-column name="Appointment ID" prop="id" [width]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Description" prop="Description" [width]="300">
+              <ng-template ngx-datatable-cell-template let-row="row">
+                  <span class="description-text" [matTooltip]="row.Description" matTooltipPosition="above"
+                      matTooltipShowDelay="300" [attr.title]="row.Description"
+                      [ngClass]="{'text-truncated': row.Description.length > 15}">
+                      {{ row.Description.length > 15 ? (row.Description | slice:0:15) + '...' : row.Description }}
+                  </span>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Date" prop="date" [width]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Time" prop="appointment_time" [width]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Doctor Name" prop="doctor_name" [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="Duration" prop="Duration" [width]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Appointment Type" prop="appointment_type" [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="Location" prop="practice_location_name" [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="Actions" [width]="150">
+              <ng-template ngx-datatable-cell-template let-row="row">
+                  <button class="edit-btn" (click)="editAppointment(row)">
+                      <i class="fas fa-edit"></i> Edit
+                  </button>
+              </ng-template>
+          </ngx-datatable-column>
+      </ngx-datatable>
+  </div>
 </div>
 
 Here i need to show the all the patients and their ids
