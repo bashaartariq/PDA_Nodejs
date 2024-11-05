@@ -102,6 +102,11 @@ const deleteDoctor = async(req,res)=>{
 }
 
 
+
+
+
+
+
 module.exports = {
   getDoctorPatientCount,
   getAllPatient,
