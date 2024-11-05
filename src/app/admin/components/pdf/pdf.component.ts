@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 export class PDFComponent implements OnInit {
   DoctorId: any;
   dateRangeForm!: FormGroup;
+  isPdfDisabled: boolean = true;
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private fb: FormBuilder, private authService: AuthService) {
     this.DoctorId = data.DoctorId;
   }
@@ -37,6 +38,7 @@ export class PDFComponent implements OnInit {
     }
     return null;
   }
+  
   onSubmit(): void {
     if (this.dateRangeForm.valid) {
       const data = {
@@ -45,12 +47,26 @@ export class PDFComponent implements OnInit {
         DoctorId: this.DoctorId
       };
       console.log(data);
-      this.authService.getPDF(data).subscribe((response) => { console.log(response) }, (err) => { console.log(err); });
+      this.authService.generatePDF(data).subscribe((response) => { console.log(response)
+        this.isPdfDisabled = false;
+       }, (err) => { console.log(err); });
     } else {
       console.error('Form is invalid');
     }
   }
+  
   private formatDate(date: string): string {
     return new Date(date).toISOString().split('T')[0];
   }
+  
+  downloadPdf()
+  {
+    if (this.DoctorId) {
+      const url = `http://localhost:8000/api/generate-pdf/${this.DoctorId}`;
+      window.open(url, '_blank');
+    } else {
+      alert('Please provide a Doctor ID to download the PDF.');
+    }
+  }
+
 }

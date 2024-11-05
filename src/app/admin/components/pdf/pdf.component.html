@@ -1,10 +1,23 @@
-<form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()">
-    <input formControlName="startDate" type="date" placeholder="Start Date">
-    <input formControlName="endDate" type="date" placeholder="End Date">
+<form [formGroup]="dateRangeForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+    <h4 class="mb-4 text-center">Select Date Range</h4>
 
-    <div *ngIf="dateRangeForm.hasError('invalidDateRange') && dateRangeForm.dirty">
+    <div class="mb-3">
+        <label for="startDate" class="form-label">Start Date</label>
+        <input formControlName="startDate" type="date" class="form-control" id="startDate" placeholder="Start Date" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="endDate" class="form-label">End Date</label>
+        <input formControlName="endDate" type="date" class="form-control" id="endDate" placeholder="End Date" required>
+    </div>
+
+    <div *ngIf="dateRangeForm.hasError('invalidDateRange') && dateRangeForm.dirty" class="mb-3">
         <small class="text-danger">The start date must be earlier than the end date.</small>
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn btn-primary w-100">Submit</button>
+    <br>
+    
 </form>
+
+<a (click)="downloadPdf()" [class.disabled]="isPdfDisabled" [attr.aria-disabled]="isPdfDisabled" tabindex="0" [ngStyle]="{'pointer-events': isPdfDisabled ? 'none' : 'auto', 'color': isPdfDisabled ? '#ccc' : '#007bff'}">Download PDF</a>

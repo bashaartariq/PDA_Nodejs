@@ -18,7 +18,7 @@ export class AuthService {
   signin$: Observable<boolean> = this.signinSubject.asObservable();
 
   constructor(private http: HttpClient) { }
-
+  
   decodeToken(): any | null {
     console.log("Calling from Decoder");
     const token = localStorage.getItem('token');
@@ -137,14 +137,14 @@ export class AuthService {
   getAllDoctors(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/AllDoctors`);
   }
-
   Doctor(): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/AllDoctors`);
   }
   DoctorAppoitnmentbyAdmin(id: number): Observable<any> {
     return this.http.get(`${this.NodeApiUrl}/DoctorAppointments/${id}`);
   }
-  getPDF(data: any): Observable<any> {
+  generatePDF(data: any): Observable<any> {
+    console.log(data);
     return this.http.post(`${this.NodeApiUrl}/PDF`, data);
   }
   getCasesforAdmin(id:number):Observable<any>

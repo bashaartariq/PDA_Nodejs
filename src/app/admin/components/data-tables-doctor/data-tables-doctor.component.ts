@@ -54,7 +54,7 @@ export class DataTablesDoctorComponent implements OnInit {
     );
   }
   DateRangeDoctor(row: any) {
-    const dialogRef = this.dialog.open(PDFComponent, {
+  this.dialog.open(PDFComponent, {
       panelClass: 'custom-dialog-container',
       height: 'auto',
       maxHeight: '80vh',
@@ -62,6 +62,7 @@ export class DataTablesDoctorComponent implements OnInit {
       data: { DoctorId: row.id }
     });
   }
+
   initializeAppointmentForm(): void {
     this.appointmentForm = this.fb.group({
       date: ['', Validators.required],

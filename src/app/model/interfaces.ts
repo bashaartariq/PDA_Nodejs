@@ -6,6 +6,7 @@ export interface user {
     email: string;
     role: string;
 }
+
 export interface SignupUser {
     confirmPassword: string;
     dob: string; 
@@ -17,6 +18,7 @@ export interface SignupUser {
     password: string;
     role: "patient" | "doctor";
 }  
+
 export interface Case {
     DOA: string;
     PID: number;
@@ -31,6 +33,7 @@ export interface Case {
     purpose_of_visit: string;
     updated_at: string;
 }
+
 export interface speciality {
     id: number;
     name: string;
@@ -38,6 +41,7 @@ export interface speciality {
     updated_at: string;
     deleted_at: string | null;
 }
+
 export interface PracticeLocation {
     id: number;
     name: string;
@@ -45,12 +49,14 @@ export interface PracticeLocation {
     updated_at: string;
     deleted_at: string | null;
 }
+
 export interface AppointmentType {
     id: number;
     name: string;
     created_at: string;
     updated_at: string;
 }
+
 export interface PracticeLocation {
     id: number;
     name: string;
@@ -58,6 +64,7 @@ export interface PracticeLocation {
     updated_at: string;
     deleted_at: string | null;
 }
+
 export interface UserD {
     id: number;
     firstName: string;
@@ -82,3 +89,4 @@ export interface Doctor {
     user_id: number;
     user: UserD;
 }
+

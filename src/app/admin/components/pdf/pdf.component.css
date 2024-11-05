@@ -1,0 +1,26 @@
+form {
+    background-color: #f9f9f9;
+    border: 1px solid #ced4da;
+}
+
+h4 {
+    color: #495057;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+input[type="date"] {
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
