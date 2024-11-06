@@ -101,8 +101,42 @@ const deleteDoctor = async(req,res)=>{
   }
 }
 
+const deleteCases = async(req,res)=>{
+  const caseArr = req.params.id;
+  console.log(caseArr);
+  try {
+    const response = await axiosInstance.delete(`/Case/${caseArr}`);
+    console.log("Data Retrieved:", response.data);
+    return res.status(200).send(response.data);
+  } catch (error) {
+    return res.status(500).send("No Case Found");
+  }
+}
 
+const deleteAppointment = async(req,res)=>{
+  const AppointmentArr = req.params.id;
+  console.log(AppointmentArr);
+  try {
+    const response = await axiosInstance.delete(`/Appointment/${AppointmentArr}`);
+    console.log("Data Retrieved:", response.data);
+    return res.status(200).send(response.data);
+  } catch (error) {
+    return res.status(500).send("No Case Found");
+  }
+}
 
+const searchCases = async(req,res)=>{
+  const type = req.params.type;
+  const term = req.params.term;
+  const patientId = req.params.patientId;
+  try {
+    const response = await axiosInstance.get(`/SearchCases/${type}/${term}/${patientId}`);
+    console.log("Data Retrieved:", response.data);
+    return res.status(200).send(response.data);
+  } catch (error) {
+    return res.status(500).send("No Case Found");
+  }
+}
 
 
 
@@ -115,5 +149,6 @@ module.exports = {
   getAppointmentDoctor,
   GeneratePDF,
   getCasesofPatient,
-  deleteDoctor
+  deleteDoctor,deleteCases,
+  deleteAppointment,searchCases
 };
