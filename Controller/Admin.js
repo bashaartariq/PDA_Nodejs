@@ -138,6 +138,21 @@ const searchCases = async(req,res)=>{
   }
 }
 
+const searchAppointment = async(req,res)=>{
+  const type = req.params.type;
+  const term = req.params.term;
+  const patinetId = req.params.patientId;
+  try{
+    const response = await axiosInstance.get(`/SearchAppointment/${type}/${term}/${patinetId}`);
+    console.log("Data received : ",response.data);
+    return res.status(200).send(response.data);
+  }
+  catch(err)
+  {
+    return res.status(500).send("No Appointment Found");
+  }
+}
+
 
 
 
@@ -150,5 +165,6 @@ module.exports = {
   GeneratePDF,
   getCasesofPatient,
   deleteDoctor,deleteCases,
-  deleteAppointment,searchCases
+  deleteAppointment,searchCases,
+  searchAppointment
 };

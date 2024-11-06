@@ -38,7 +38,7 @@ const {
   getAppointmentDoctor,
   GeneratePDF,
   getCasesofPatient,
-  deleteDoctor,deleteCases,deleteAppointment,searchCases
+  deleteDoctor,deleteCases,deleteAppointment,searchCases,searchAppointment
 } = require("../Controller/Admin");
 Router.post("/signin", signin);
 Router.post("/signup", signup);
@@ -179,5 +179,5 @@ Router.delete('/Doctor/:id',authenticate,allowRoles("admin"),deleteDoctor);
 Router.delete('/Case/:id',authenticate,allowRoles("admin"),deleteCases);
 Router.delete('/Appointment/:id',authenticate,allowRoles("admin"),deleteAppointment);
 Router.get('/searchCase/:type/:term/:patientId',authenticate,allowRoles(["admin","patient"]),searchCases);
-
+Router.get('/searchAppointment/:type/:term/:patientId',authenticate,allowRoles(['admin','patient']),searchAppointment);
 module.exports = Router;
