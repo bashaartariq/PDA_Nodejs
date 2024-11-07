@@ -1,10 +1,8 @@
 require('dotenv').config();
 const axios = require("axios");
-
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/api",
 });
-
 axiosInstance.interceptors.request.use(
   (config) => {
     config.headers['Authorization'] = `Bearer ${process.env.API_KEY}`;
@@ -14,7 +12,6 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 const getDoctorPatientCount = async (req, res) => {
   try {
     const response = await axiosInstance.get("/doctorAndPatientCount");
@@ -28,7 +25,6 @@ const getDoctorPatientCount = async (req, res) => {
     res.status(500).send(error.response ? error.response.data : "Internal Server Error");
   }
 };
-
 const getAllPatient = async (req, res) => {
   try {
     const response = await axiosInstance.get("/PatientAllInfo");
@@ -38,7 +34,6 @@ const getAllPatient = async (req, res) => {
     return res.status(500).send("No Patient Found");
   }
 };
-
 const deletePatient = async (req, res) => {
   const ids = req.params.PatientIdsArr;
   try {
@@ -49,7 +44,6 @@ const deletePatient = async (req, res) => {
     return res.status(500).send("No Patient Found");
   }
 };
-
 const allDoctor = async (req, res) => {
   try {
     const response = await axiosInstance.get("/allDoctors");
@@ -59,7 +53,6 @@ const allDoctor = async (req, res) => {
     return res.status(500).send("No Doctor Found");
   }
 };
-
 const getAppointmentDoctor = async (req, res) => {
   const id = req.params.id;
   try {
@@ -69,7 +62,6 @@ const getAppointmentDoctor = async (req, res) => {
     return res.status(500).send("No Doctor Found");
   }
 };
-
 const GeneratePDF = async (req, res) => {
   const data = req.body;
   try {
@@ -79,7 +71,6 @@ const GeneratePDF = async (req, res) => {
     return res.status(500).send("No PDF Found");
   }
 };
-
 const getCasesofPatient = async (req, res) => {
   const id = req.params.patientId;
   try {
@@ -89,7 +80,6 @@ const getCasesofPatient = async (req, res) => {
     return res.status(500).send("Error while retrieving the data");
   }
 };
-
 const deleteDoctor = async(req,res)=>{
   const id = req.params.id;
   console.log(id);
@@ -100,7 +90,6 @@ const deleteDoctor = async(req,res)=>{
     return res.status(500).send("Error while retrieving the data");
   }
 }
-
 const deleteCases = async(req,res)=>{
   const caseArr = req.params.id;
   console.log(caseArr);
@@ -112,7 +101,6 @@ const deleteCases = async(req,res)=>{
     return res.status(500).send("No Case Found");
   }
 }
-
 const deleteAppointment = async(req,res)=>{
   const AppointmentArr = req.params.id;
   console.log(AppointmentArr);
@@ -124,7 +112,6 @@ const deleteAppointment = async(req,res)=>{
     return res.status(500).send("No Case Found");
   }
 }
-
 const searchCases = async(req,res)=>{
   const type = req.params.type;
   const term = req.params.term;
@@ -137,7 +124,6 @@ const searchCases = async(req,res)=>{
     return res.status(500).send("No Case Found");
   }
 }
-
 const searchAppointment = async(req,res)=>{
   const type = req.params.type;
   const term = req.params.term;
