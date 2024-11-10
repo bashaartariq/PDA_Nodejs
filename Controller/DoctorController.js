@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const axios = require("axios");
 
 // Set up Axios Interceptor to add the Authorization header to every request
@@ -90,10 +90,31 @@ const getApppointmentCase = async (req, res) => {
       .send(error.response?.data || error.message);
   }
 };
+const searchDoctorAppointment = async (req, res) => {
+  const type = req.params.type;
+  const term = req.params.term;
+  const userID = req.params.userId;
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/SearchDoctorAppointment/${type}/${term}/${userID}`
+    );
+    console.log("Data Retrieved:", response.data);
+    return res.status(200).send(response.data);
+  } catch (error) {
+    console.error(
+      "Error fetching data:",
+      error.response ? error.response.data : error.message
+    );
+    res
+      .status(error.response?.status || 500)
+      .send(error.response?.data || error.message);
+  }
+};
 
 module.exports = {
   addDoctor,
   getDoctorForPracticeLocationAndSpeciality,
   getAppointmentsForDoctor,
   getApppointmentCase,
+  searchDoctorAppointment,
 };

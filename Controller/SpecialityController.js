@@ -1,10 +1,7 @@
 require("dotenv").config();
 const axios = require("axios");
-
-// Set up Axios Interceptor to add the Authorization header to every request
 axios.interceptors.request.use(
   (config) => {
-    // Add the API key from environment variables to the request header
     config.headers["Authorization"] = `Bearer ${process.env.API_KEY}`;
     return config;
   },
@@ -13,10 +10,12 @@ axios.interceptors.request.use(
   }
 );
 
-const practicelocation = async (req, res) => {
+const createSpeciality = async (req, res) => {
+  const data = req.body;
   try {
-    const response = await axios.get(
-      `http://localhost:8000/api/getpracticelocation`
+    const response = await axios.post(
+      "http://localhost:8000/api/speciality",
+      data
     );
     console.log("Data Retrieved:", response.data);
     return res.status(200).send(response.data);
@@ -25,38 +24,21 @@ const practicelocation = async (req, res) => {
       "Error fetching data:",
       error.response ? error.response.data : error.message
     );
-    res.status(500).send(error.response?.data || error.message);
+    res.status(500).send(error.response?.data || "An error occurred");
   }
 };
 
-const createPracticeLocation = async (req, res) => {
-  const data = req.body;
-  try {
-    const response = await axios.post(
-      `http://localhost:8000/api/practiceLocation`,
-      data
-    );
-    console.log("Data Retrieved:", response.data);
-    return res.status(200).send(response.data);
-  } catch (err) {
-    console.error(
-      "Error fetching data:",
-      error.response ? error.response.data : error.message
-    );
-    res.status(500).send(error.response?.data || "An error occurred");
-  }
-};
-const updatePracticeLocation = async (req, res) => {
-  const data = req.body;
+const updateSpeciality = async (req, res) => {
   const id = req.params.id;
+  const data = req.body;
   try {
     const response = await axios.put(
-      `http://localhost:8000/api/practiceLocation/${id}`,
+      `http://localhost:8000/api/speciality/${id}`,
       data
     );
     console.log("Data Retrieved:", response.data);
     return res.status(200).send(response.data);
-  } catch (err) {
+  } catch (error) {
     console.error(
       "Error fetching data:",
       error.response ? error.response.data : error.message
@@ -64,21 +46,25 @@ const updatePracticeLocation = async (req, res) => {
     res.status(500).send(error.response?.data || "An error occurred");
   }
 };
-const deletePracticeLocation = async (req, res) => {
+
+const deleteSpeciality = async (req, res) => {
   const id = req.params.id;
   try {
     const response = await axios.delete(
-      `http://localhost:8000/api/practiceLocation/${id}`
+      `http://localhost:8000/api/speciality/${id}`
     );
     console.log("Data Retrieved:", response.data);
     return res.status(200).send(response.data);
-  } catch (err) {
-    res.status(500).send(err);
+  } catch (error) {
+    console.error(
+      "Error fetching data:",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).send(error.response?.data || "An error occurred");
   }
 };
 module.exports = {
-  practicelocation,
-  createPracticeLocation,
-  updatePracticeLocation,
-  deletePracticeLocation,
+  createSpeciality,
+  updateSpeciality,
+  deleteSpeciality,
 };

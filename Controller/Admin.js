@@ -1,11 +1,11 @@
-require('dotenv').config();
+require("dotenv").config();
 const axios = require("axios");
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8000/api",
 });
 axiosInstance.interceptors.request.use(
   (config) => {
-    config.headers['Authorization'] = `Bearer ${process.env.API_KEY}`;
+    config.headers["Authorization"] = `Bearer ${process.env.API_KEY}`;
     return config;
   },
   (error) => {
@@ -22,7 +22,9 @@ const getDoctorPatientCount = async (req, res) => {
       "Error fetching data:",
       error.response ? error.response.data : error.message
     );
-    res.status(500).send(error.response ? error.response.data : "Internal Server Error");
+    res
+      .status(500)
+      .send(error.response ? error.response.data : "Internal Server Error");
   }
 };
 const getAllPatient = async (req, res) => {
@@ -80,7 +82,7 @@ const getCasesofPatient = async (req, res) => {
     return res.status(500).send("Error while retrieving the data");
   }
 };
-const deleteDoctor = async(req,res)=>{
+const deleteDoctor = async (req, res) => {
   const id = req.params.id;
   console.log(id);
   try {
@@ -89,8 +91,8 @@ const deleteDoctor = async(req,res)=>{
   } catch (error) {
     return res.status(500).send("Error while retrieving the data");
   }
-}
-const deleteCases = async(req,res)=>{
+};
+const deleteCases = async (req, res) => {
   const caseArr = req.params.id;
   console.log(caseArr);
   try {
@@ -100,47 +102,87 @@ const deleteCases = async(req,res)=>{
   } catch (error) {
     return res.status(500).send("No Case Found");
   }
-}
-const deleteAppointment = async(req,res)=>{
+};
+const deleteAppointment = async (req, res) => {
   const AppointmentArr = req.params.id;
   console.log(AppointmentArr);
   try {
-    const response = await axiosInstance.delete(`/Appointment/${AppointmentArr}`);
+    const response = await axiosInstance.delete(
+      `/Appointment/${AppointmentArr}`
+    );
     console.log("Data Retrieved:", response.data);
     return res.status(200).send(response.data);
   } catch (error) {
     return res.status(500).send("No Case Found");
   }
-}
-const searchCases = async(req,res)=>{
+};
+const searchCases = async (req, res) => {
   const type = req.params.type;
   const term = req.params.term;
   const patientId = req.params.patientId;
   try {
-    const response = await axiosInstance.get(`/SearchCases/${type}/${term}/${patientId}`);
+    const response = await axiosInstance.get(
+      `/SearchCases/${type}/${term}/${patientId}`
+    );
     console.log("Data Retrieved:", response.data);
     return res.status(200).send(response.data);
   } catch (error) {
     return res.status(500).send("No Case Found");
   }
-}
-const searchAppointment = async(req,res)=>{
+};
+const searchAppointment = async (req, res) => {
   const type = req.params.type;
   const term = req.params.term;
-  const patinetId = req.params.patientId;
-  try{
-    const response = await axiosInstance.get(`/SearchAppointment/${type}/${term}/${patinetId}`);
-    console.log("Data received : ",response.data);
+  const caseId = req.params.caseId;
+  try {
+    const response = await axiosInstance.get(
+      `/SearchAppointment/${type}/${term}/${caseId}`
+    );
+    console.log("Data received : ", response.data);
     return res.status(200).send(response.data);
-  }
-  catch(err)
-  {
+  } catch (err) {
     return res.status(500).send("No Appointment Found");
   }
-}
+};
 
+const searchPatients = async (req, res) => {
+  const type = req.params.type;
+  const term = req.params.term;
+  try {
+    const response = await axiosInstance.get(`/SearchPatients/${type}/${term}`);
+    console.log("Data received : ", response.data);
+    return res.status(200).send(response.data);
+  } catch (err) {
+    return res.status(500).send("No Appointment Found");
+  }
+};
 
+const searchDoctors = async (req, res) => {
+  const term = req.params.type;
+  const type = req.params.term;
+  try {
+    const response = await axiosInstance.get(`/SearchDoctor/${type}/${term}`);
+    console.log("Data received : ", response.data);
+    return res.status(200).send(response.data);
+  } catch (err) {
+    return res.status(500).send("No Appointment Found");
+  }
+};
 
+const searchAppointmentDoctor = async (req, res) => {
+  const term = req.params.type;
+  const type = req.params.term;
+  const doctorId = req.params.doctorId;
+  try {
+    const response = await axiosInstance.get(
+      `/SearchAppointmentsForDoctor/${type}/${term}/${doctorId}`
+    );
+    console.log("Data received : ", response.data);
+    return res.status(200).send(response.data);
+  } catch (err) {
+    return res.status(500).send("No Appointment Found for Doctor");
+  }
+};
 
 module.exports = {
   getDoctorPatientCount,
@@ -150,7 +192,12 @@ module.exports = {
   getAppointmentDoctor,
   GeneratePDF,
   getCasesofPatient,
-  deleteDoctor,deleteCases,
-  deleteAppointment,searchCases,
-  searchAppointment
+  deleteDoctor,
+  deleteCases,
+  deleteAppointment,
+  searchCases,
+  searchAppointment,
+  searchPatients,
+  searchDoctors,
+  searchAppointmentDoctor,
 };
